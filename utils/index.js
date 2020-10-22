@@ -17,15 +17,12 @@ module.exports = {
         mongoose.connect(`mongodb://localhost:27017/${database}`, dbOptions);
         mongoose.Promise = global.Promise;
         mongoose.set('useFindAndModify', false);
-
         mongoose.connection.on('connected', () => {
             console.log('Mongoose connection successfully opened!');
         });
-
         mongoose.connection.on('disconnected', () => {
             console.log('Mongoose connection disconnected');
         });
-
         mongoose.connection.on('err', err => {
             console.log(`Mongoose connection error: \n ${err.stack}`);
         });
