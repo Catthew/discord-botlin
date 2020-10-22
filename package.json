@@ -1,0 +1,28 @@
+{
+    "name": "botlin",
+    "version": "1.1.0",
+    "description": "A Discord bot that tracks our DnD games.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Catthew/botlin.git"
+    },
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "mocha test/**/*.js"
+    },
+    "author": "Catthew",
+    "license": "MIT",
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "eslint": "^7.10.0",
+        "eslint-plugin-chai-friendly": "^0.6.0",
+        "mocha": "^8.1.3"
+    },
+    "dependencies": {
+        "discord.js": "^12.3.1",
+        "dotenv-flow": "^3.2.0",
+        "mongoose": "^5.10.8",
+        "node-fetch": "^2.6.1"
+    }
+}
