@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const {
     tests
-} = require('../../commands/stats');
+} = require('../../../commands/stats');
 
 describe('stats.topArrayToString() Test', () => {
     it('should equal Foo: Bar\n', () => {

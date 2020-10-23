@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const {
     tests
-} = require('../../commands/info');
+} = require('../../../commands/info');
 
 describe('info.getCharacter() Test', () => {
     it('Should return the correct MessageEmbed Object for Boblin', () => {

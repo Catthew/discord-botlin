@@ -9,7 +9,7 @@
     "main": "app.js",
     "scripts": {
         "start": "node app.js",
-        "test": "mocha test/**/*.js"
+        "test": "mocha test/**/**/*.js"
     },
     "author": "Catthew",
     "license": "MIT",

@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const {
     tests
-} = require('../../commands/info');
+} = require('../../../commands/info');
 
 describe('info.getBuilding() Test', () => {
     it('Should return the correct MessageEmbed Object for the Stonehill Tavern', () => {
