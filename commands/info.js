@@ -38,7 +38,7 @@ exports.help = {
 
 /**
  * Converts an array to a formatted String for the embed.
- * @param {Array} arr 
+ * @param {Array} arr The array to be converted to a String
  */
 function arrayToString(arr) {
     if (!arr.length) {
