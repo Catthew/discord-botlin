@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const characterSchema = mongoose.Schema({
+const characterSchema = new mongoose.Schema({
     _id: mongoose.Schema.ObjectId,
     alias: Array,
     bio: String,

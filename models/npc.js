@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const npcSchema = mongoose.Schema({
+const npcSchema = new mongoose.Schema({
     _id: mongoose.Schema.ObjectId,
     bio: String,
     fullname: String,

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const buildingSchema = mongoose.Schema({
+const buildingSchema = new mongoose.Schema({
     _id: mongoose.Schema.ObjectId,
     location: String,
     name: String,
