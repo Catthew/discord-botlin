@@ -8,11 +8,14 @@ const characterSchema = new mongoose.Schema({
     damageDealt: Number,
     damageTaken: Number,
     fullname: String,
+    healing: Number,
     kills: Number,
+    ko: Number,
     name: String,
     nat1: Number,
     nat20: Number,
     race: String,
+    redCoin: Number,
     type: String
 });
 
