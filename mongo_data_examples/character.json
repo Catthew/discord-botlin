@@ -10,6 +10,9 @@
     "nat1": 0,
     "nat20": 0,
     "race": "",
-    "type": "Character"
+    "type": "Character",
+    "ko": 0,
+    "redCoin": 0,
+    "healing": 0
 }
 
