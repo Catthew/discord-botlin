@@ -63,93 +63,21 @@ module.exports = client => {
     };
 
     client.getTop = async stat => {
-        let find;
-        let field;
-        let sort;
-        switch (stat) {
-            case 'kills':
-                field = {
-                    kills: {
-                        $exists: true
-                    }
-                };
-                find = {
-                    kills: 1,
-                    name: 1,
-                    _id: 0
-                };
-                sort = {
-                    kills: -1,
-                    name: 1
-                };
-                break;
-            case 'damageDealt':
-                field = {
-                    damageDealt: {
-                        $exists: true
-                    }
-                };
-                find = {
-                    damageDealt: 1,
-                    name: 1,
-                    _id: 0
-                };
-                sort = {
-                    damageDealt: -1,
-                    name: 1
-                };
-                break;
-            case 'damageTaken':
-                field = {
-                    damageTaken: {
-                        $exists: true
-                    }
-                };
-                find = {
-                    damageTaken: 1,
-                    name: 1,
-                    _id: 0
-                };
-                sort = {
-                    damageTaken: -1,
-                    name: 1
-                };
-                break;
-            case 'nat1':
-                field = {
-                    nat1: {
-                        $exists: true
-                    }
-                };
-                find = {
-                    name: 1,
-                    nat1: 1,
-                    _id: 0
-                };
-                sort = {
-                    nat1: -1,
-                    name: 1
-                };
-                break;
-            case 'nat20':
-                field = {
-                    nat20: {
-                        $exists: true
-                    }
-                };
-                find = {
-                    name: 1,
-                    nat20: 1,
-                    _id: 0
-                };
-                sort = {
-                    nat20: -1,
-                    name: 1
-                };
-                break;
-            default:
-                return null;
-        }
+        //Sets up the Find Dictionary in the correct order
+        let find = {};
+        find[stat] = 1;
+        find['name'] = 1;
+        find['_id'] = 0;
+        //Sets up the Field Dictionary
+        let field = {};
+        field[stat] = {
+            $exists: true
+        };
+        //Sets up the Sort Dictionary in the correct order
+        let sort = {};
+        sort[stat] = -1;
+        sort['name'] = 1;
+
         const data = await Character.find(field, find).sort(sort).limit(3);
         if (data) return data;
         else return null;

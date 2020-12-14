@@ -3,20 +3,27 @@ const {
 } = require('discord.js');
 
 exports.run = async (args, client, message) => {
-    const topDamageDealt = await client.getTop('damageDealt');
-    const topDamageTaken = await client.getTop('damageTaken');
-    const topKills = await client.getTop('kills');
-    const topNat1 = await client.getTop('nat1');
-    const topNat20 = await client.getTop('nat20');
+    const statsDict = {
+        'kills': ['kills', '🗡️', 'Kills'],
+        'damageDealt': ['damageDealt', '⚔️', 'Damage Dealt'],
+        'damageTaken': ['damageTaken', '🩹', 'Damage Taken'],
+        'nat20': ['nat20', '🤩', 'Nat 20'],
+        'nat1': ['nat1', '💩', 'Nat 1'],
+        'redCoin': ['redCoin', '🔴', 'Red Coins'],
+        'ko': ['ko', '😴', 'KO'],
+        'healing': ['healing', '🏨', 'Healing']
+    };
     let embed = new MessageEmbed()
-        .addField('🗡️Top Kills🗡️', `${arrayToString(topKills, 'kills')}`)
-        .addField('⚔️Top Damage Dealt⚔️', `${arrayToString(topDamageDealt, 'damageDealt')}`)
-        .addField('🩹Top Damage Taken🩹', `${arrayToString(topDamageTaken, 'damageTaken')}`)
-        .addField('🤩Top Nat 20🤩', `${arrayToString(topNat20, 'nat20')}`)
-        .addField('💩Top Nat 1💩', `${arrayToString(topNat1, 'nat1')}`)
         .setColor('#7289da')
         .setTimestamp()
         .setTitle('Stats');
+    for (var key in statsDict) {
+        let stat = statsDict[key][0];
+        let emoji = statsDict[key][1];
+        let statFormated = statsDict[key][2];
+        let top = await client.getTop(stat);
+        embed.addField(`${emoji}Top ${statFormated}${emoji}`, `${arrayToString(top, stat)}`);
+    }
     message.channel.send(embed).catch(console.error);
 };
 
