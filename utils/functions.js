@@ -2,7 +2,8 @@ const {
     Building,
     Character,
     Location,
-    Npc
+    Npc,
+    Schedule
 } = require('../models');
 
 module.exports = client => {
@@ -54,6 +55,14 @@ module.exports = client => {
         else return null;
     };
 
+    client.getSchedule = async d => {
+        const data = await Schedule.find({
+            turn: true
+        });
+        if (data) return data;
+        else return null;
+    };
+
     client.getStats = async user_name => {
         const data = await Character.findOne({
             name: user_name
@@ -77,7 +86,6 @@ module.exports = client => {
         let sort = {};
         sort[stat] = -1;
         sort['name'] = 1;
-
         const data = await Character.find(field, find).sort(sort).limit(3);
         if (data) return data;
         else return null;
