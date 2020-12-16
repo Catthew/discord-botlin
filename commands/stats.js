@@ -22,7 +22,7 @@ exports.run = async (args, client, message) => {
         let emoji = statsDict[key][1];
         let statFormated = statsDict[key][2];
         let top = await client.getTop(stat);
-        embed.addField(`${emoji}Top ${statFormated}${emoji}`, `${arrayToString(top, stat)}`);
+        embed.addField(`${emoji} Top ${statFormated} ${emoji}`, `${arrayToString(top, stat)}`);
     }
     message.channel.send(embed).catch(console.error);
 };

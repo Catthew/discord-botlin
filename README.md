@@ -13,6 +13,9 @@
 **request** - Requests a new feature to @Stoth.
 > Ex. gobo! request music feature
 
+**schedule** - Returns the snack schedule
+> Ex. gobo! schedule
+
 **stats** - Returns the Top Users of certain stats.
 > Ex. gobo! stats
 
@@ -26,4 +29,4 @@
 
 **upgraded vocabulary** - Botlin having more responses
 
-10/22/2020
+12/15/2020
