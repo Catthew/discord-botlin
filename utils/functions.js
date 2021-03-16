@@ -1,16 +1,26 @@
 const {
     Building,
+    Cancelled,
     Character,
     Location,
     Npc,
     Schedule
 } = require('../models');
+const {
+    cancelled
+} = require('../config.js');
 
 module.exports = client => {
     client.getBuilding = async name => {
         const data = await Building.findOne({
             name: name
         });
+        if (data) return data;
+        else return null;
+    };
+
+    client.getCancelled = async x => {
+        const data = await Cancelled.findOne({_id:cancelled}, {cancelled:1, _id:0}).limit(1);
         if (data) return data;
         else return null;
     };
@@ -55,7 +65,7 @@ module.exports = client => {
         else return null;
     };
 
-    client.getSchedule = async d => {
+    client.getSchedule = async x => {
         const data = await Schedule.find({
             turn: true
         });

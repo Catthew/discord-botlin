@@ -1,6 +1,9 @@
 # Custom Commands for Botlin
 ### Enabled Commands
 
+**cancelled** - Returns if we are meeting this week.
+> Ex. gobo! cancelled
+
 **doggo** - Returns random dog picture.
 > Ex. gobo! doggo
 
