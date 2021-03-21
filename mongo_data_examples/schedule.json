@@ -1,5 +1,8 @@
 {
-    "name": "",
-    "turn": false,
-    "type": ""
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Wesley",
+    "type": "Ice",
+    "turn": true
 }

@@ -1,6 +1,9 @@
 {
-    "location": "",
-    "name": "",
-    "owner": "",
-    "type": ""
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Barthin's Provisions",
+    "type": " Trading Post",
+    "location": "Phandalin",
+    "owner": "Elmer Barthin"
 }

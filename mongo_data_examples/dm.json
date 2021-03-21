@@ -1,6 +1,20 @@
 {
-    "name": "God",
-    "nat1": 0,
-    "nat20": 0,
-    "type": "DM"
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Stoth",
+    "fullname": "Stoth Bedz",
+    "race": "Human",
+    "class": "Fighter",
+    "bio": "From Thundertree",
+    "type": "Character",
+    "kills": 7,
+    "damageDealt": 200,
+    "damageTaken": 200,
+    "nat20": 5,
+    "nat1": 1,
+    "alias": ["Stothy", "SB"],
+    "healing": 32,
+    "ko": 5,
+    "redCoin": 12
 }

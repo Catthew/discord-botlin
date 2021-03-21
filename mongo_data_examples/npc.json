@@ -1,8 +1,11 @@
 {
-    "bio": "",
-    "fullname": "",
-    "location": "",
-    "name": "",
-    "race": "",
-    "status": ""
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Boblin",
+    "race": "Goblin",
+    "status": "Alive",
+    "fullname": "Boblin",
+    "location": "With Party",
+    "bio": "The best goblin ever"
 }
