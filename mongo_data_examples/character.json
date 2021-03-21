@@ -1,18 +1,28 @@
-{
-    "alias": [""],
-    "bio": "",
-    "class": "",
-    "damageDealt": 0,
-    "damageTaken": 0,
-    "fullname": "",
-    "kills": 0,
-    "name": "",
-    "nat1": 0,
-    "nat20": 0,
-    "race": "",
+[{
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Stoth",
+    "fullname": "Stoth Bedz",
+    "race": "Human",
+    "class": "Fighter",
+    "bio": "From Thundertree",
     "type": "Character",
-    "ko": 0,
-    "redCoin": 0,
-    "healing": 0
-}
-
+    "kills": 7,
+    "damageDealt": 200,
+    "damageTaken": 200,
+    "nat20": 5,
+    "nat1": 1,
+    "alias": ["Stothy", "SB"],
+    "healing": 32,
+    "ko": 5,
+    "redCoin": 12
+}, {
+    "_id": {
+        "$oid": ""
+    },
+    "name": "God",
+    "nat1": 15,
+    "nat20": 21,
+    "type": "DM"
+}]

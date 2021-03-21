@@ -1,6 +1,7 @@
 {
-    "name": "",
-    "location": "",
-    "owner": "",
-    "type": ""
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Phandalin",
+    "status": "Saved"
 }

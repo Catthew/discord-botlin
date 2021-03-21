@@ -1,5 +1,18 @@
-{
-    "name": "",
-    "turn": false,
-    "type": ""
-}
+[{
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Wesley",
+    "type": "Ice",
+    "turn": true
+}, {
+    "_id": {
+        "$oid": ""
+    },
+    "isCancelled": true,
+    "location": "DM's Place",
+    "date": {
+        "$date": "2021-03-20T22:00:00.000Z"
+
+    }
+}]

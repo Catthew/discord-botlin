@@ -33,8 +33,9 @@ exports.help = {
 
 /**
  * Formats the data array into a formatted string.
- * @param {Array} arr   The array that contains the data to be turned into a String.
+ * @param {Array.<String>} arr The array that contains the data to be turned into a String.
  * @param {String} type The name of the key needed to get the right data.
+ * @returns {String} A formatted string with the data from the array.
  */
 function arrayToString(arr, type) {
     let str = '';

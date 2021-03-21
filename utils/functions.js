@@ -1,6 +1,5 @@
 const {
     Building,
-    Cancelled,
     Character,
     Location,
     Npc,
@@ -20,7 +19,7 @@ module.exports = client => {
     };
 
     client.getCancelled = async x => {
-        const data = await Cancelled.findOne({_id:cancelled}, {cancelled:1, _id:0}).limit(1);
+        const data = await Schedule.findOne({_id:cancelled}).limit(1);
         if (data) return data;
         else return null;
     };

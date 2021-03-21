@@ -38,7 +38,8 @@ exports.help = {
 
 /**
  * Converts an array to a formatted String for the embed.
- * @param {Array} arr The array to be converted to a String
+ * @param {Array.<String>} arr The array to be converted to a String
+ * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
 function arrayToString(arr) {
     if (!arr.length) {
@@ -53,6 +54,7 @@ function arrayToString(arr) {
 /**
  * Capitalizes each word in a String.
  * @param {String} str The string that is going to be formatted.
+ * @returns {String} The string with all the words capitalized.
  */
 function capitalize(str) {
     return str
@@ -64,7 +66,8 @@ function capitalize(str) {
 
 /**
  * Creates the embed for a Building.
- * @param {Object} info The collection of data from the database.
+ * @param {Building} info The collection of data from the database.
+ * @returns {String} The MessageEmbed for buildings.
  */
 function getBuilding(info) {
     return new MessageEmbed()
@@ -78,7 +81,8 @@ function getBuilding(info) {
 
 /**
  * Creates the embed for a character.
- * @param {Object} info The collection of data from the database.
+ * @param {Character} info Character data from the database.
+ * @returns {String} The MessageEmbed for characters.
  */
 function getCharacter(info) {
     let stats = `Kills: ${info.kills}\nDamage Dealt: ${info.damageDealt}\nDamage Taken: ${info.damageTaken}\nNat 20: ${info.nat20}\nNat 1: ${info.nat1}`;
@@ -93,8 +97,9 @@ function getCharacter(info) {
 
 /**
  * Creates the embed for a location.
- * @param {Object} info     The collection of data from the database.
- * @param {Object} location The array of places with the speific location.
+ * @param {Location} info The Location data from the database.
+ * @param {Array.<Array.<Map<String, String>>>} location The array of places with the speific location.
+ * @returns {String} The MessageEmbed for locations.
  */
 function getLocation(info, location) {
     let people = [];
@@ -116,6 +121,7 @@ function getLocation(info, location) {
 /**
  * Creates the embed for a NPC.
  * @param {Object} info The collection of data from the database.
+ * @returns {String} The MessageEmbed for NPCs.
  */
 function getNPC(info) {
     return new MessageEmbed()
@@ -131,6 +137,7 @@ function getNPC(info) {
  * Tries to retrieve the search term from the database.
  * @param {Object} client The client object
  * @param {String} term The term the user is searching for.
+ * @returns {?String} null if not found, or an array of the found object and a string denoting the kind of object.
  */
 async function searchForInfo(client, term) {
     let building = await client.getBuilding(term);
