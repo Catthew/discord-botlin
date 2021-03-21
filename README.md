@@ -1,9 +1,6 @@
 # Custom Commands for Botlin
 ### Enabled Commands
 
-**cancelled** - Returns if we are meeting this week.
-> Ex. gobo! cancelled
-
 **doggo** - Returns random dog picture.
 > Ex. gobo! doggo
 
@@ -16,7 +13,7 @@
 **request** - Requests a new feature to @Stoth.
 > Ex. gobo! request music feature
 
-**schedule** - Returns the snack schedule
+**schedule** - Returns the status of this weeks DnD session and the snack schedule.
 > Ex. gobo! schedule
 
 **stats** - Returns the Top Users of certain stats.
@@ -32,4 +29,4 @@
 
 **upgraded vocabulary** - Botlin having more responses
 
-12/15/2020
+3/20/2021
