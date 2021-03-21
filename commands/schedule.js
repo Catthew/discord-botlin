@@ -27,8 +27,9 @@ exports.help = {
 
 /**
  * Formats the data array into a formatted string.
- * @param {Array} arr   The array that contains the data to be turned into a String.
+ * @param {Array.<String>} schedule The array that contains the data to be turned into a String.
  * @param {String} type The name of the key needed to get the right data.
+ * @returns {String}
  */
 function getScheduleName(schedule, type) {
     let str = '';
