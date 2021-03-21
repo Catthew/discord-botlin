@@ -9,7 +9,7 @@ exports.run = async (args, client, message) => {
     let location = cancelled.location;
     let embed = new MessageEmbed()
         .setTimestamp()
-        .setTitle('Weekly Dnd Game');
+        .setTitle('Nat Up or Shut Up!');
     if (isCancelled) {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
