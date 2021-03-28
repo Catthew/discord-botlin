@@ -9,6 +9,7 @@ module.exports = {
     owner: process.env.OWNER,
     prefix: process.env.PREFIX,
     schedule_channel: process.env.SCHEDULE_CHANNEL,
+    schedule_port: process.env.SCHEDULE_PORT,
     token: process.env.TOKEN,
     weather: process.env.WEATHER
 };
