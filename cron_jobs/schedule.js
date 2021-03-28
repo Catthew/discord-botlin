@@ -7,8 +7,6 @@ const {
 } = require('../config.js');
 
 module.exports = client => {
-    console.log('Starting Schedule cron_job');
-
     const app = express();
     
     //Thursdays at 6:00 PM
@@ -21,4 +19,5 @@ module.exports = client => {
     });
 
     app.listen(schedule_port);
+    console.log(`Started Schedule Cron Job on port ${schedule_port}`);
 };
