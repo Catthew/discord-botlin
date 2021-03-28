@@ -8,7 +8,7 @@ module.exports = {
     id: process.env.ID,
     owner: process.env.OWNER,
     prefix: process.env.PREFIX,
-    storytime: process.env.STORYTIME,
+    schedule_channel: process.env.SCHEDULE_CHANNEL,
     token: process.env.TOKEN,
     weather: process.env.WEATHER
 };

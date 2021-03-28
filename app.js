@@ -10,6 +10,7 @@ require('./utils/functions')(client);
 client.config = require('./config');
 client.commands = new Collection();
 client.mongoose = require('./utils');
+client.schedule = require('./cron_jobs/schedule')(client);
 
 fs.readdir('./commands/', async (err, files) => {
   if (err) return console.error;
