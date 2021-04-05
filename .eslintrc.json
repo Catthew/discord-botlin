@@ -1,12 +1,11 @@
 {
     "extends": [
-        "eslint:recommended",
-        "plugin:chai-friendly/recommended"
+        "eslint:recommended"
     ],
     "env": {
-        "node": true,
         "es6": true,
-        "mocha": true
+        "mocha": true,
+        "node": true
     },
     "parserOptions": {
         "ecmaVersion": 2017,
