@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const {
-    database
-} = require('../config.js');
 
 module.exports = {
     init: () => {
@@ -14,7 +11,7 @@ module.exports = {
             useUnifiedTopology: true
         };
 
-        mongoose.connect(`mongodb://localhost:27017/${database}`, dbOptions);
+        mongoose.connect(`mongodb://localhost:27017/${process.env.DATABASE}`, dbOptions);
         mongoose.Promise = global.Promise;
         mongoose.set('useFindAndModify', false);
         mongoose.connection.on('connected', () => {

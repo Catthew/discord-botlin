@@ -4,7 +4,7 @@ const {
 const fetch = require('node-fetch');
 
 exports.run = async (args, client, message) => {
-    let currentWeather = await fetch(`http://api.weatherstack.com/current?access_key=${client.config.weather}&query=New York`)
+    let currentWeather = await fetch(`http://api.weatherstack.com/current?access_key=${process.env.WEATHER}&query=New York`)
         .then(res => res.json());
     const degree = String.fromCharCode(176);
     const location = currentWeather.location.name;

@@ -5,9 +5,6 @@ const {
     Npc,
     Schedule
 } = require('../models');
-const {
-    cancelled
-} = require('../config.js');
 
 module.exports = client => {
     client.getBuilding = async name => {
@@ -19,7 +16,7 @@ module.exports = client => {
     };
 
     client.getCancelled = async x => {
-        const data = await Schedule.findOne({_id:cancelled}).limit(1);
+        const data = await Schedule.findOne({_id:process.env.CANCELLED}).limit(1);
         if (data) return data;
         else return null;
     };

@@ -5,9 +5,9 @@ const {
 const client = new Client();
 const fs = require('fs');
 
+require('dotenv-flow').config();
 require('./utils/functions')(client);
 
-client.config = require('./config');
 client.commands = new Collection();
 client.mongoose = require('./utils');
 client.schedule = require('./cron_jobs/schedule')(client);
@@ -33,4 +33,4 @@ fs.readdir('./events/', async (err, files) => {
 });
 
 client.mongoose.init();
-client.login(client.config.token);
+client.login(process.env.TOKEN);
