@@ -13,6 +13,9 @@ exports.run = async (args, client, message) => {
         'ko': ['ko', '😴', 'KO'],
         'healing': ['healing', '🏨', 'Healing']
     };
+
+    const total = await client.getStatsTotals();
+
     let embed = new MessageEmbed()
         .setColor('#7289da')
         .setTimestamp()
@@ -22,7 +25,7 @@ exports.run = async (args, client, message) => {
         let emoji = statsDict[key][1];
         let statFormated = statsDict[key][2];
         let top = await client.getTop(stat);
-        embed.addField(`${emoji} Top ${statFormated} ${emoji}`, `${arrayToString(top, stat)}`);
+        embed.addField(`${emoji} ${statFormated}: ${total[0][key]} ${emoji}`, `${arrayToString(top, stat)}`);
     }
     message.channel.send(embed).catch(console.error);
 };

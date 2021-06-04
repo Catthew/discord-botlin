@@ -15,8 +15,10 @@ module.exports = client => {
         else return null;
     };
 
-    client.getCancelled = async x => {
-        const data = await Schedule.findOne({_id:process.env.CANCELLED}).limit(1);
+    client.getCancelled = async () => {
+        const data = await Schedule.findOne({
+            _id: process.env.CANCELLED
+        }).limit(1);
         if (data) return data;
         else return null;
     };
@@ -61,7 +63,7 @@ module.exports = client => {
         else return null;
     };
 
-    client.getSchedule = async x => {
+    client.getSchedule = async () => {
         const data = await Schedule.find({
             turn: true
         });
@@ -73,6 +75,40 @@ module.exports = client => {
         const data = await Character.findOne({
             name: user_name
         });
+        if (data) return data;
+        else return null;
+    };
+
+    client.getStatsTotals = async () => {
+        const data = await Character.aggregate([{
+            $group: {
+                _id: null,
+                damageDealt: {
+                    $sum: '$damageDealt'
+                },
+                damageTaken: {
+                    $sum: '$damageTaken'
+                },
+                kills: {
+                    $sum: '$kills'
+                },
+                nat1: {
+                    $sum: '$nat1'
+                },
+                nat20: {
+                    $sum: '$nat20'
+                },
+                ko: {
+                    $sum: '$ko'
+                },
+                redCoin: {
+                    $sum: '$redCoin'
+                },
+                healing: {
+                    $sum: '$healing'
+                }
+            }
+        }]);
         if (data) return data;
         else return null;
     };
