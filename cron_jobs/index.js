@@ -6,7 +6,7 @@ module.exports = client => {
 
     let prefix = process.env.PREFIX;
     let channel = process.env.CHANNEL;
-    let port = process.env.SCHEDULE_PORT;
+    let port = process.env.PORT;
 
     //Thursdays at 6:00 PM
     cron.schedule('0 18 * * 4', () => {
