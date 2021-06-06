@@ -8,12 +8,12 @@ const stat_mapping = {
     4: 'damageTaken',
     5: 'nat1',
     6: 'nat20',
-    7: 'coins',
+    7: 'redCoin',
     8: 'healing',
     9: 'ko'
 };
 
-exports.run = async spreadsheet => {
+module.exports = async (spreadsheet, client) => {
     const workbook = new Excel.Workbook();
     workbook.xlsx.readFile(spreadsheet)
         .then(() => {
@@ -38,12 +38,17 @@ exports.run = async spreadsheet => {
                 }
             });
         })
-        .finally(() => {
-            console.log(stats);
-            return true;
+        .finally(async () => {
+            for(let stat in stats){
+                let kills = stats[stat]['kills'];
+                let damageDealt = stats[stat]['damageDealt'];
+                let damageTaken = stats[stat]['damageTaken'];
+                let nat1 = stats[stat]['nat1'];
+                let nat20 = stats[stat]['nat20'];
+                let redCoin = stats[stat]['redCoin'];
+                let healing = stats[stat]['healing'];
+                let ko = stats[stat]['ko'];
+                await client.setStats(stat, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko);
+            }
         });
-};
-
-exports.help = {
-    name: 'excel_stats'
 };
