@@ -1,6 +1,8 @@
 module.exports = (client, message) => {
     if (message.author.bot) {
-        if(!(new String(message.content).trim() === `${process.env.PREFIX} schedule`)){
+        let current_message = new String(message.content).trim();
+        const allowed_commands = (`${process.env.PREFIX} schedule`, `${process.env.PREFIX} stats`);
+        if(!allowed_commands.includes(current_message)){
             return;
         }
     }
