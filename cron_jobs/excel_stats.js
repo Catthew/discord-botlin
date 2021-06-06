@@ -24,7 +24,6 @@ module.exports = async (spreadsheet, client) => {
                         if (row.getCell(j).value == null) {
                             continue;
                         }
-
                         let character = row.getCell(1);
                         if (stats[character] === undefined) {
                             stats[character] = {};
@@ -39,7 +38,7 @@ module.exports = async (spreadsheet, client) => {
             });
         })
         .finally(async () => {
-            for(let stat in stats){
+            for (let stat in stats) {
                 let kills = stats[stat]['kills'];
                 let damageDealt = stats[stat]['damageDealt'];
                 let damageTaken = stats[stat]['damageTaken'];
@@ -50,5 +49,8 @@ module.exports = async (spreadsheet, client) => {
                 let ko = stats[stat]['ko'];
                 await client.setStats(stat, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko);
             }
+            let prefix = process.env.PREFIX;
+            let channel = process.env.CHANNEL;
+            client.channels.cache.get(channel).send(`${prefix} stats`).catch(console.error);
         });
 };
