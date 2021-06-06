@@ -79,6 +79,23 @@ module.exports = client => {
         else return null;
     };
 
+    client.setStats = async (user_name, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko) => {
+        const data = await Character.updateOne({
+            name: user_name
+        }, {
+            kills: kills,
+            damageDealt: damageDealt,
+            damageTaken: damageTaken,
+            nat1: nat1,
+            nat20: nat20,
+            redCoin: redCoin,
+            healing: healing,
+            ko: ko
+        });
+        if (data) return data;
+        else return null;
+    };
+
     client.getStatsTotals = async () => {
         const data = await Character.aggregate([{
             $group: {
