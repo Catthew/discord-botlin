@@ -14,7 +14,7 @@ exports.run = async (args, client, message) => {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
         embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `Get yourself to the ${location}`).setColor('#00b300');
-        let schedule = await client.getSchedule("");
+        let schedule = await client.getSchedule();
         const scheduleDict = {
             'Drinks': ['🥛'],
             'Ice': ['🧊'],
