@@ -2,36 +2,6 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-exports.run = async (args, client, message) => {
-    const response = capitalize(args.join(' '));
-    let info = await searchForInfo(client, response);
-    if (info == null) {
-        message.channel.send('I don\'t know that!').catch(console.error);
-        return;
-    }
-    let infoEmbed;
-    let location;
-    switch (info[1]) {
-        case "Building":
-            infoEmbed = getBuilding(info[0]);
-            break;
-        case "Character":
-            infoEmbed = getCharacter(info[0]);
-            break;
-        case "Location":
-            location = await client.getLocationDetails(response);
-            infoEmbed = getLocation(info[0], location);
-            break;
-        case "NPC":
-            infoEmbed = getNPC(info[0]);
-            break;
-        default:
-            infoEmbed = 'Don\' rush me!';
-            break;
-    }
-    message.channel.send(infoEmbed).catch(console.error);
-};
-
 /**
  * Converts an array to a formatted String for the embed.
  * @param {Array.<String>} arr The array to be converted to a String
@@ -73,7 +43,6 @@ function getBuilding(info) {
         .setDescription(info.type)
         .setTitle(info.name);
 }
-
 
 /**
  * Creates the embed for a character.
@@ -151,6 +120,42 @@ exports.help = {
     name: 'info'
 };
 
+/**
+ * Sends information about the thing that was asked.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
+exports.run = async (args, client, message) => {
+    const response = capitalize(args.join(' '));
+    let info = await searchForInfo(client, response);
+    if (info == null) {
+        message.channel.send('I don\'t know that!').catch(console.error);
+        return;
+    }
+    let infoEmbed;
+    let location;
+    switch (info[1]) {
+        case "Building":
+            infoEmbed = getBuilding(info[0]);
+            break;
+        case "Character":
+            infoEmbed = getCharacter(info[0]);
+            break;
+        case "Location":
+            location = await client.getLocationDetails(response);
+            infoEmbed = getLocation(info[0], location);
+            break;
+        case "NPC":
+            infoEmbed = getNPC(info[0]);
+            break;
+        default:
+            infoEmbed = 'Don\' rush me!';
+            break;
+    }
+    message.channel.send(infoEmbed).catch(console.error);
+};
+
 exports.tests = {
     capitalize,
     arrayToString,
@@ -160,4 +165,3 @@ exports.tests = {
     getNPC,
     searchForInfo
 };
-

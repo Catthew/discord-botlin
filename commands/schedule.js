@@ -2,32 +2,6 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-exports.run = async (args, client, message) => {
-    let cancelled = await client.getCancelled("");
-    let date = cancelled.date;
-    let isCancelled = cancelled.isCancelled;
-    let location = cancelled.location;
-    let embed = new MessageEmbed()
-        .setTimestamp()
-        .setTitle('Nat Up or Shut Up!');
-    if (isCancelled) {
-        embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
-    } else {
-        embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `Get yourself to the ${location}`).setColor('#00b300');
-        let schedule = await client.getSchedule();
-        const scheduleDict = {
-            'Drinks': ['🥛'],
-            'Ice': ['🧊'],
-            'Snacks': ['🍿']
-        };
-        for (var key in scheduleDict) {
-            let type = scheduleDict[key][0];
-            embed.addField(`${type} ${key} ${type}`, `${getScheduleName(schedule, key)}`);
-        }
-    }
-    message.channel.send(embed).catch(console.error);
-};
-
 /**
  * Gets the Month and day.
  * @param {Date} date The DateTime object of the next DnD session.
@@ -73,6 +47,38 @@ function getTime(date) {
 
 exports.help = {
     name: 'schedule'
+};
+
+/**
+ * Sends the current DND schedule for the week.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
+exports.run = async (args, client, message) => {
+    let cancelled = await client.getCancelled("");
+    let date = cancelled.date;
+    let isCancelled = cancelled.isCancelled;
+    let location = cancelled.location;
+    let embed = new MessageEmbed()
+        .setTimestamp()
+        .setTitle('Nat Up or Shut Up!');
+    if (isCancelled) {
+        embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
+    } else {
+        embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `Get yourself to the ${location}`).setColor('#00b300');
+        let schedule = await client.getSchedule();
+        const scheduleDict = {
+            'Drinks': ['🥛'],
+            'Ice': ['🧊'],
+            'Snacks': ['🍿']
+        };
+        for (var key in scheduleDict) {
+            let type = scheduleDict[key][0];
+            embed.addField(`${type} ${key} ${type}`, `${getScheduleName(schedule, key)}`);
+        }
+    }
+    message.channel.send(embed).catch(console.error);
 };
 
 exports.tests = {
