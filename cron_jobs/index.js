@@ -23,8 +23,7 @@ module.exports = client => {
     //Sunday at 00:00 AM
     cron.schedule('0 0 * * 7', () => {
         console.log('Updating the stats');
-        let spreadsheet = process.env.SPREADSHEET;
-        var e_stats = require('./excel_stats')(spreadsheet, client);
+        require('./excel_stats')(process.env.SPREADSHEET, client);
         console.log('Complete');
     });
 
