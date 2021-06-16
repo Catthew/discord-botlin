@@ -30,10 +30,6 @@ exports.run = async (args, client, message) => {
     message.channel.send(embed).catch(console.error);
 };
 
-exports.help = {
-    name: 'stats'
-};
-
 /**
  * Formats the data array into a formatted string.
  * @param {Array.<String>} arr The array that contains the data to be turned into a String.
@@ -49,6 +45,11 @@ function arrayToString(arr, type, total) {
     });
     return str;
 }
+
+
+exports.help = {
+    name: 'stats'
+};
 
 exports.tests = {
     arrayToString

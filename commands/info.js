@@ -32,10 +32,6 @@ exports.run = async (args, client, message) => {
     message.channel.send(infoEmbed).catch(console.error);
 };
 
-exports.help = {
-    name: 'info'
-};
-
 /**
  * Converts an array to a formatted String for the embed.
  * @param {Array.<String>} arr The array to be converted to a String
@@ -135,7 +131,7 @@ function getNPC(info) {
 
 /**
  * Tries to retrieve the search term from the database.
- * @param {Object} client The client object
+ * @param {Discord.Client} client The client instance of the bot.
  * @param {String} term The term the user is searching for.
  * @returns {?String} null if not found, or an array of the found object and a string denoting the kind of object.
  */
@@ -151,6 +147,10 @@ async function searchForInfo(client, term) {
     return null;
 }
 
+exports.help = {
+    name: 'info'
+};
+
 exports.tests = {
     capitalize,
     arrayToString,
@@ -160,3 +160,4 @@ exports.tests = {
     getNPC,
     searchForInfo
 };
+

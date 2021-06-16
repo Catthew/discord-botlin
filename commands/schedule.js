@@ -28,10 +28,6 @@ exports.run = async (args, client, message) => {
     message.channel.send(embed).catch(console.error);
 };
 
-exports.help = {
-    name: 'schedule'
-};
-
 /**
  * Gets the Month and day.
  * @param {Date} date The DateTime object of the next DnD session.
@@ -74,6 +70,11 @@ function getTime(date) {
         timeZone: 'America/New_York'
     });
 }
+
+exports.help = {
+    name: 'schedule'
+};
+
 exports.tests = {
     getDate,
     getScheduleName,
