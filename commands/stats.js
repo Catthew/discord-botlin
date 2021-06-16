@@ -25,7 +25,7 @@ exports.run = async (args, client, message) => {
         let emoji = statsDict[key][1];
         let statFormated = statsDict[key][2];
         let top = await client.getTop(stat);
-        embed.addField(`${emoji} ${statFormated}: ${total[0][key]} ${emoji}`, `${arrayToString(top, stat)}`);
+        embed.addField(`${emoji} ${statFormated}: ${total[0][key]} ${emoji}`, `${arrayToString(top, stat, total[0][key])}`);
     }
     message.channel.send(embed).catch(console.error);
 };
@@ -40,10 +40,12 @@ exports.help = {
  * @param {String} type The name of the key needed to get the right data.
  * @returns {String} A formatted string with the data from the array.
  */
-function arrayToString(arr, type) {
+function arrayToString(arr, type, total) {
     let str = '';
     arr.forEach(element => {
-        str += element.name + ': ' + element[type] + '\n';
+        let avg = (element[type] / total) * 100;
+        str += `${element.name}: ${element[type]}`;
+        str += type == 'damageDealt' ? ` (${parseInt(avg)}%)\n` : '\n';
     });
     return str;
 }
