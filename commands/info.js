@@ -2,12 +2,62 @@ const {
     MessageEmbed
 } = require('discord.js');
 
+exports.help = {
+    name: 'info'
+};
+
+/**
+ * Sends information about the thing that was asked.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
+exports.run = async (args, client, message) => {
+    const response = capitalize(args.join(' '));
+    let info = await searchForInfo(client, response);
+    if (info == null) {
+        message.channel.send('I don\'t know that!').catch(console.error);
+        return;
+    }
+    let infoEmbed;
+    let location;
+    switch (info[1]) {
+        case "Building":
+            infoEmbed = getBuilding(info[0]);
+            break;
+        case "Character":
+            infoEmbed = getCharacter(info[0]);
+            break;
+        case "Location":
+            location = await client.getLocationDetails(response);
+            infoEmbed = getLocation(info[0], location);
+            break;
+        case "NPC":
+            infoEmbed = getNPC(info[0]);
+            break;
+        default:
+            infoEmbed = 'Don\' rush me!';
+            break;
+    }
+    message.channel.send(infoEmbed).catch(console.error);
+};
+
+exports.tests = {
+    capitalize,
+    arrayToString,
+    getBuilding,
+    getCharacter,
+    getLocation,
+    getNPC,
+    searchForInfo
+};
+
 /**
  * Converts an array to a formatted String for the embed.
  * @param {Array.<String>} arr The array to be converted to a String
  * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
-function arrayToString(arr) {
+ function arrayToString(arr) {
     if (!arr.length) {
         return 'None';
     } else if (arr.length < 2) {
@@ -115,53 +165,3 @@ async function searchForInfo(client, term) {
     if (npc != null) return [npc, 'NPC'];
     return null;
 }
-
-exports.help = {
-    name: 'info'
-};
-
-/**
- * Sends information about the thing that was asked.
- * @param {Array.<String>} args The message the user sent split into any array of words.
- * @param {Discord.Client} client The client instance of the bot.
- * @param {Discord.Message} message The message object that triggered this method.
- */
-exports.run = async (args, client, message) => {
-    const response = capitalize(args.join(' '));
-    let info = await searchForInfo(client, response);
-    if (info == null) {
-        message.channel.send('I don\'t know that!').catch(console.error);
-        return;
-    }
-    let infoEmbed;
-    let location;
-    switch (info[1]) {
-        case "Building":
-            infoEmbed = getBuilding(info[0]);
-            break;
-        case "Character":
-            infoEmbed = getCharacter(info[0]);
-            break;
-        case "Location":
-            location = await client.getLocationDetails(response);
-            infoEmbed = getLocation(info[0], location);
-            break;
-        case "NPC":
-            infoEmbed = getNPC(info[0]);
-            break;
-        default:
-            infoEmbed = 'Don\' rush me!';
-            break;
-    }
-    message.channel.send(infoEmbed).catch(console.error);
-};
-
-exports.tests = {
-    capitalize,
-    arrayToString,
-    getBuilding,
-    getCharacter,
-    getLocation,
-    getNPC,
-    searchForInfo
-};

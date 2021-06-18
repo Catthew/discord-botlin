@@ -2,49 +2,6 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-/**
- * Gets the Month and day.
- * @param {Date} date The DateTime object of the next DnD session.
- * @returns {String} The month name and the day.
- */
-function getDate(date) {
-    let month = date.toLocaleString('default', {
-        month: 'long'
-    });
-    let day = date.getDate();
-    return month + ' ' + day;
-}
-
-/**
- * Formats the data array into a formatted string.
- * @param {Array.<String>} schedule The array that contains the data to be turned into a String.
- * @param {String} type The name of the key needed to get the right data.
- * @returns {String}
- */
-function getScheduleName(schedule, type) {
-    let str = '';
-    schedule.forEach(element => {
-        if (element.type == type) {
-            str = element.name;
-        }
-    });
-    return str;
-}
-
-/**
- * Gets the Time.
- * @param {Date} date The DateTime object of the next DnD session.
- * @returns {String} The time of the session.
- */
-function getTime(date) {
-    return date.toLocaleString('default', {
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-        timeZone: 'America/New_York'
-    });
-}
-
 exports.help = {
     name: 'schedule'
 };
@@ -86,3 +43,46 @@ exports.tests = {
     getScheduleName,
     getTime
 };
+
+/**
+ * Gets the Month and day.
+ * @param {Date} date The DateTime object of the next DnD session.
+ * @returns {String} The month name and the day.
+ */
+ function getDate(date) {
+    let month = date.toLocaleString('default', {
+        month: 'long'
+    });
+    let day = date.getDate();
+    return month + ' ' + day;
+}
+
+/**
+ * Formats the data array into a formatted string.
+ * @param {Array.<String>} schedule The array that contains the data to be turned into a String.
+ * @param {String} type The name of the key needed to get the right data.
+ * @returns {String}
+ */
+function getScheduleName(schedule, type) {
+    let str = '';
+    schedule.forEach(element => {
+        if (element.type == type) {
+            str = element.name;
+        }
+    });
+    return str;
+}
+
+/**
+ * Gets the Time.
+ * @param {Date} date The DateTime object of the next DnD session.
+ * @returns {String} The time of the session.
+ */
+ function getTime(date) {
+    return date.toLocaleString('default', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+        timeZone: 'America/New_York'
+    });
+}
