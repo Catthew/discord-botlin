@@ -9,13 +9,13 @@ module.exports = client => {
     let port = process.env.PORT;
 
     //Thursdays at 6:00 PM
-    cron.schedule('0 18 * * 4', () => {
+    cron.schedule('0 22 * * 4', () => {
         console.log('Sending 1st schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
     });
     //Saturdays at 12:00 PM
-    cron.schedule('0 12 * * 6', () => {
+    cron.schedule('0 16 * * 6', () => {
         console.log('Sending 2nd schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
