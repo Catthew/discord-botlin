@@ -1,9 +1,12 @@
 module.exports = (client, message) => {
     const prefix = process.env.PREFIX;
     if (message.author.bot) {
+        const commands = require('./bot_commands');
         let current_message = new String(message.content).trim();
-        const allowed_commands = (`${prefix} schedule`, `${prefix} stats`);
-        if(!allowed_commands.includes(current_message)){
+        let current_command = current_message.replace(`${prefix} `, '');
+        
+        console.log(commands);
+        if(!commands.allowed_commands.includes(current_command)){
             return;
         }
     }

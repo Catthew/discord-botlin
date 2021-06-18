@@ -3,6 +3,16 @@ const {
 } = require('discord.js');
 const fetch = require('node-fetch');
 
+exports.help = {
+    name: 'meow'
+};
+
+/**
+ * Sends the current weather in NYC
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 exports.run = async (args, client, message) => {
     let currentWeather = await fetch(`http://api.weatherstack.com/current?access_key=${process.env.WEATHER}&query=New York`)
         .then(res => res.json());
@@ -17,8 +27,4 @@ exports.run = async (args, client, message) => {
         .setThumbnail(weatherIcon)
         .setTitle(`Weather in ${location}`);
     message.channel.send(embed).catch(console.error);
-};
-
-exports.help = {
-    name: 'meow'
 };

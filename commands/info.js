@@ -2,6 +2,16 @@ const {
     MessageEmbed
 } = require('discord.js');
 
+exports.help = {
+    name: 'info'
+};
+
+/**
+ * Sends information about the thing that was asked.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 exports.run = async (args, client, message) => {
     const response = capitalize(args.join(' '));
     let info = await searchForInfo(client, response);
@@ -32,8 +42,14 @@ exports.run = async (args, client, message) => {
     message.channel.send(infoEmbed).catch(console.error);
 };
 
-exports.help = {
-    name: 'info'
+exports.tests = {
+    capitalize,
+    arrayToString,
+    getBuilding,
+    getCharacter,
+    getLocation,
+    getNPC,
+    searchForInfo
 };
 
 /**
@@ -41,7 +57,7 @@ exports.help = {
  * @param {Array.<String>} arr The array to be converted to a String
  * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
-function arrayToString(arr) {
+ function arrayToString(arr) {
     if (!arr.length) {
         return 'None';
     } else if (arr.length < 2) {
@@ -77,7 +93,6 @@ function getBuilding(info) {
         .setDescription(info.type)
         .setTitle(info.name);
 }
-
 
 /**
  * Creates the embed for a character.
@@ -135,7 +150,7 @@ function getNPC(info) {
 
 /**
  * Tries to retrieve the search term from the database.
- * @param {Object} client The client object
+ * @param {Discord.Client} client The client instance of the bot.
  * @param {String} term The term the user is searching for.
  * @returns {?String} null if not found, or an array of the found object and a string denoting the kind of object.
  */
@@ -150,13 +165,3 @@ async function searchForInfo(client, term) {
     if (npc != null) return [npc, 'NPC'];
     return null;
 }
-
-exports.tests = {
-    capitalize,
-    arrayToString,
-    getBuilding,
-    getCharacter,
-    getLocation,
-    getNPC,
-    searchForInfo
-};

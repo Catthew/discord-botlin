@@ -2,6 +2,16 @@ const {
     MessageEmbed
 } = require('discord.js');
 
+exports.help = {
+    name: 'stats'
+};
+
+/**
+ * Sends the current DND stats.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 exports.run = async (args, client, message) => {
     const statsDict = {
         'kills': ['kills', '🗡️', 'Kills'],
@@ -30,8 +40,8 @@ exports.run = async (args, client, message) => {
     message.channel.send(embed).catch(console.error);
 };
 
-exports.help = {
-    name: 'stats'
+exports.tests = {
+    arrayToString
 };
 
 /**
@@ -40,7 +50,7 @@ exports.help = {
  * @param {String} type The name of the key needed to get the right data.
  * @returns {String} A formatted string with the data from the array.
  */
-function arrayToString(arr, type, total) {
+ function arrayToString(arr, type, total) {
     let str = '';
     arr.forEach(element => {
         let avg = (element[type] / total) * 100;
@@ -49,7 +59,3 @@ function arrayToString(arr, type, total) {
     });
     return str;
 }
-
-exports.tests = {
-    arrayToString
-};

@@ -22,15 +22,8 @@ fs.readdir('./commands/', async (err, files) => {
   });
 });
 
-fs.readdir('./events/', async (err, files) => {
-  if (err) return console.error;
-  files.forEach(file => {
-    if (!file.endsWith('.js')) return;
-    let evt = require(`./events/${file}`);
-    let evtName = file.split('.')[0];
-    client.on(evtName, evt.bind(null, client));
-  });
-});
+client.on('message', require('./events/message').bind(null, client));
+client.on('ready', require('./events/ready').bind(null, client));
 
 client.mongoose.init();
 client.login(process.env.TOKEN);

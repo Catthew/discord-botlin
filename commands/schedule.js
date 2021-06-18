@@ -2,6 +2,16 @@ const {
     MessageEmbed
 } = require('discord.js');
 
+exports.help = {
+    name: 'schedule'
+};
+
+/**
+ * Sends the current DND schedule for the week.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 exports.run = async (args, client, message) => {
     let cancelled = await client.getCancelled("");
     let date = cancelled.date;
@@ -28,8 +38,10 @@ exports.run = async (args, client, message) => {
     message.channel.send(embed).catch(console.error);
 };
 
-exports.help = {
-    name: 'schedule'
+exports.tests = {
+    getDate,
+    getScheduleName,
+    getTime
 };
 
 /**
@@ -37,7 +49,7 @@ exports.help = {
  * @param {Date} date The DateTime object of the next DnD session.
  * @returns {String} The month name and the day.
  */
-function getDate(date) {
+ function getDate(date) {
     let month = date.toLocaleString('default', {
         month: 'long'
     });
@@ -66,7 +78,7 @@ function getScheduleName(schedule, type) {
  * @param {Date} date The DateTime object of the next DnD session.
  * @returns {String} The time of the session.
  */
-function getTime(date) {
+ function getTime(date) {
     return date.toLocaleString('default', {
         hour: 'numeric',
         minute: 'numeric',
@@ -74,8 +86,3 @@ function getTime(date) {
         timeZone: 'America/New_York'
     });
 }
-exports.tests = {
-    getDate,
-    getScheduleName,
-    getTime
-};
