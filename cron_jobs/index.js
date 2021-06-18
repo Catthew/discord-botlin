@@ -8,13 +8,13 @@ module.exports = client => {
     let channel = process.env.CHANNEL;
     let port = process.env.PORT;
 
-    //Thursdays at 6:00 PM
+    //Thursdays at 6:00 PM (+4 hours due to server)
     cron.schedule('0 22 * * 4', () => {
         console.log('Sending 1st schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
     });
-    //Saturdays at 12:00 PM
+    //Saturdays at 12:00 PM (+4 hours due to server)
     cron.schedule('0 16 * * 6', () => {
         console.log('Sending 2nd schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
