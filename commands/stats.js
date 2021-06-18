@@ -2,22 +2,6 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-/**
- * Formats the data array into a formatted string.
- * @param {Array.<String>} arr The array that contains the data to be turned into a String.
- * @param {String} type The name of the key needed to get the right data.
- * @returns {String} A formatted string with the data from the array.
- */
-function arrayToString(arr, type, total) {
-    let str = '';
-    arr.forEach(element => {
-        let avg = (element[type] / total) * 100;
-        str += `${element.name}: ${element[type]}`;
-        str += type == 'damageDealt' ? ` (${parseInt(avg)}%)\n` : '\n';
-    });
-    return str;
-}
-
 exports.help = {
     name: 'stats'
 };
@@ -59,3 +43,19 @@ exports.run = async (args, client, message) => {
 exports.tests = {
     arrayToString
 };
+
+/**
+ * Formats the data array into a formatted string.
+ * @param {Array.<String>} arr The array that contains the data to be turned into a String.
+ * @param {String} type The name of the key needed to get the right data.
+ * @returns {String} A formatted string with the data from the array.
+ */
+ function arrayToString(arr, type, total) {
+    let str = '';
+    arr.forEach(element => {
+        let avg = (element[type] / total) * 100;
+        str += `${element.name}: ${element[type]}`;
+        str += type == 'damageDealt' ? ` (${parseInt(avg)}%)\n` : '\n';
+    });
+    return str;
+}
