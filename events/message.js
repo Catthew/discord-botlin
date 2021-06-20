@@ -5,7 +5,6 @@ module.exports = (client, message) => {
         let current_message = new String(message.content).trim();
         let current_command = current_message.replace(`${prefix} `, '');
         
-        console.log(commands);
         if(!commands.allowed_commands.includes(current_command)){
             return;
         }

@@ -20,8 +20,8 @@ module.exports = client => {
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
     });
-    //Sunday at 00:00 AM
-    cron.schedule('0 0 * * 7', () => {
+    //Sunday at 00:00 AM (+4 hours due to server)
+    cron.schedule('0 4 * * 7', () => {
         console.log('Updating the stats');
         require('./excel_stats')(process.env.SPREADSHEET, client);
         console.log('Complete');
