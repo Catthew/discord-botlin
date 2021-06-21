@@ -24,6 +24,7 @@
         "dotenv-flow": "^3.2.0",
         "exceljs": "^4.2.1",
         "express": "^4.17.1",
+        "mongo-sanitize": "^1.1.0",
         "mongoose": "^5.12.1",
         "node-cron": "^3.0.0",
         "node-fetch": "^2.6.1"
