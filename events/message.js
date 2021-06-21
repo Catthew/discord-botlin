@@ -1,7 +1,7 @@
 module.exports = (client, message) => {
     const prefix = process.env.PREFIX;
     if (message.author.bot) {
-        const commands = require('./bot_commands');
+        const commands = require('../utils/bot_commands');
         let current_message = new String(message.content).trim();
         let current_command = current_message.replace(`${prefix} `, '');
         
