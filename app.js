@@ -6,10 +6,10 @@ const client = new Client();
 const fs = require('fs');
 
 require('dotenv-flow').config();
-require('./utils/functions')(client);
+require('./mongo/functions')(client);
 
 client.commands = new Collection();
-client.mongoose = require('./utils');
+client.mongoose = require('./mongo');
 client.schedule = require('./cron_jobs')(client);
 
 fs.readdir('./commands/', async (err, files) => {
@@ -22,8 +22,15 @@ fs.readdir('./commands/', async (err, files) => {
   });
 });
 
-client.on('message', require('./events/message').bind(null, client));
-client.on('ready', require('./events/ready').bind(null, client));
+fs.readdir('./events/', async (err, files) => {
+  if (err) return console.error;
+  files.forEach(file => {
+    if (!file.endsWith('.js')) return;
+    let evt = require(`./events/${file}`);
+    let evtName = file.split('.')[0];
+    client.on(evtName, evt.bind(null, client));
+  });
+});
 
 client.mongoose.init();
 client.login(process.env.TOKEN);
