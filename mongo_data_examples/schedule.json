@@ -5,7 +5,15 @@
     "name": "Wesley",
     "type": "Ice",
     "turn": true
-}, {
+},{
+    "_id": {
+        "$oid": ""
+    },
+    "name": "Matt and Jiyoung",
+    "type": "Drinks",
+    "turn": true,
+    "turnCount": 1
+},{
     "_id": {
         "$oid": ""
     },
