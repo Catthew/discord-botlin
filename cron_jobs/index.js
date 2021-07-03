@@ -32,7 +32,7 @@ module.exports = client => {
     */
     cron.schedule('0 3 * * 7', () => {
         console.log('Updating the drink schedule');
-        require('./schedule_update')(client);
+        require('./drink_update')(client);
         console.log('Complete');
     });
     /*
