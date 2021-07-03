@@ -7,6 +7,7 @@ const scheduleSchema = new mongoose.Schema({
     location: String,
     name: String,
     turn: Boolean,
+    turnCount: Number,
     type: String,
 });
 
