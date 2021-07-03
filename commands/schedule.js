@@ -27,8 +27,7 @@ exports.run = async (args, client, message) => {
         let schedule = await client.getSchedule();
         const scheduleDict = {
             'Drinks': ['🥛'],
-            'Ice': ['🧊'],
-            'Snacks': ['🍿']
+            'Ice': ['🧊']
         };
         for (var key in scheduleDict) {
             let type = scheduleDict[key][0];
