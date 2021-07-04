@@ -53,11 +53,10 @@ exports.tests = {
  * @returns {String} A formatted string with the data from the array.
  */
  function arrayToString(arr, type, total) {
-    let str;
+    let str = '';
     arr.forEach(element => {
         const avg = (element[type] / total) * 100;
-        str += `${element.name}: ${element[type]}`;
-        str += type == 'damageDealt' ? ` (${parseInt(avg)}%)\n` : '\n';
+        str += `${element.name}: ${element[type]} (${parseInt(avg)}%)\n`;
     });
     return str;
 }
