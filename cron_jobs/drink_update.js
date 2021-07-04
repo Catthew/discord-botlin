@@ -10,12 +10,7 @@ module.exports = async (client) => {
         return;
     } 
 
-    let newTurnCount;
-    if(turnCount == 4){
-        newTurnCount = 1;
-    } else {
-        newTurnCount = turnCount + 1;
-    }
+    let newTurnCount = turnCount == 4 ? 1 : turnCount + 1;
     const newTurn = await client.setTurn(newTurnCount, true);
     
     if(oldTurn['nModified'] == 0){
