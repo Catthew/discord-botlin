@@ -4,12 +4,12 @@ const {
 } = require('../../../commands/stats');
 
 describe('stats.topArrayToString() Test', () => {
-    it('should equal Foo: Bar\n', () => {
+    it('should equal Test: 80 (80%)\n', () => {
         const testArray = [{
-            name: 'Foo',
-            value: 'Bar'
+            name: 'Test',
+            value: '80'
         }];
-        const result = tests.arrayToString(testArray, 'value');
-        expect(result).to.equal('Foo: Bar\n');
+        const result = tests.arrayToString(testArray, 'value', 100);
+        expect(result).to.equal('Test: 80 (80%)\n');
     });
 });
