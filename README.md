@@ -7,6 +7,9 @@
 **info** - Provides Info for a character/place/NPC we have come accross.
 > Ex. gobo! info Stoth
 
+**location** - Returns the parties current location.
+> Ex. gobo! location
+
 **meow** - Returns random cat picture.
 > Ex. gobo! meow
 
@@ -29,4 +32,4 @@
 
 **upgraded vocabulary** - Botlin having more responses
 
-6/21/2021
+7/3/2021
