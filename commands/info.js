@@ -49,7 +49,8 @@ exports.tests = {
     getCharacter,
     getLocation,
     getNPC,
-    searchForInfo
+    searchForInfo,
+    splitMutlipleSentences
 };
 
 /**
