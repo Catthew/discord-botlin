@@ -19,7 +19,7 @@ exports.run = async (args, client, message) => {
         return;
     }
 
-    let embed = new MessageEmbed()
+    const embed = new MessageEmbed()
         .setColor('#7289da')
         .setDescription(currentLocation['name'])
         .setTimestamp()
