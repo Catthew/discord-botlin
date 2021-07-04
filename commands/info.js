@@ -14,7 +14,7 @@ exports.help = {
  */
 exports.run = async (args, client, message) => {
     const response = capitalize(args.join(' '));
-    let info = await searchForInfo(client, response);
+    const info = await searchForInfo(client, response);
     if (info == null) {
         message.channel.send('I don\'t know that!').catch(console.error);
         return;
@@ -59,13 +59,9 @@ exports.tests = {
  * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
  function arrayToString(arr) {
-    if (!arr.length) {
-        return 'None';
-    } else if (arr.length < 2) {
-        return arr;
-    } else {
-        return arr.toString().split(',').join('\n');
-    }
+    if (!arr.length) return 'None';
+    else if (arr.length < 2)  return arr;
+    else return arr.toString().split(',').join('\n');
 }
 
 /**
