@@ -125,11 +125,12 @@ function getLocation(info, location) {
     location[1].forEach(l => {
         people.push(l.fullname);
     });
+    const desc = splitMutlipleSentences(info.bio);
     return new MessageEmbed()
         .addField('Notable Citizens', `${arrayToString(people)}`)
         .addField('Notable Stores', `${arrayToString(stores)}`)
         .setColor('#7289da')
-        .setDescription(info.status)
+        .setDescription(desc)
         .setTitle(info.name);
 }
 
@@ -139,12 +140,13 @@ function getLocation(info, location) {
  * @returns {String} The MessageEmbed for NPCs.
  */
 function getNPC(info) {
+    const desc = splitMutlipleSentences(info.bio);
     return new MessageEmbed()
         .addField('Location', `${info.location}`)
         .addField('Race', `${info.race}`)
         .addField('Status', `${info.status}`)
         .setColor('#7289da')
-        .setDescription(info.bio)
+        .setDescription(desc)
         .setTitle(info.fullname);
 }
 
@@ -164,4 +166,8 @@ async function searchForInfo(client, term) {
     let npc = await client.getNpc(term);
     if (npc != null) return [npc, 'NPC'];
     return null;
+}
+
+function splitMutlipleSentences(info){
+    return info.replace('.', '.\n');
 }
