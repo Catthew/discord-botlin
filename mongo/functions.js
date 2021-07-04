@@ -125,6 +125,14 @@ module.exports = client => {
 
     // =========== Locations ===========
 
+    client.getCurrentLocation = async () => {
+        const data = await Location.findOne({
+            currentLocation: true
+        });
+        if (data) return data;
+        else return null;
+    };
+
     client.getLocation = async name => {
         let sName = sanitize(name);
         const data = await Location.findOne({
