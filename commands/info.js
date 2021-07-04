@@ -59,7 +59,6 @@ exports.tests = {
  * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
  function arrayToString(arr) {
-     console.log(arr.toString().replace(',', '\n'));
     if (!arr.length) {
         return 'None';
     } else if (arr.length < 2) {
