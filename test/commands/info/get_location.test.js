@@ -7,7 +7,8 @@ describe('info.getBuilding() Test', () => {
     it('Should return the correct MessageEmbed Object for Phandolin', () => {
         const testDict = {
             name: 'Phandalin',
-            status: 'Saved'
+            bio: 'Saved',
+            currentLocation: false
         };
         const testArray = [
             [{
