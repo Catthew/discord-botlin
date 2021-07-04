@@ -19,38 +19,33 @@ module.exports = async (spreadsheet, client) => {
         .then(() => {
             workbook.eachSheet((worksheet) => {
                 for (let i = 2; i < 10; i++) {
-                    let row = worksheet.getRow(i);
+                    const row = worksheet.getRow(i);
                     for (let j = 2; j < 10; j++) {
-                        if (row.getCell(j).value == null) {
-                            continue;
-                        }
-                        let character = row.getCell(1);
-                        if (stats[character] === undefined) {
-                            stats[character] = {};
-                        }
-                        if (stats[character][stat_mapping[j]] === undefined) {
-                            stats[character][stat_mapping[j]] = row.getCell(j).value;
-                        } else {
-                            stats[character][stat_mapping[j]] += row.getCell(j).value;
-                        }
+                        if (row.getCell(j).value == null) continue;
+                        const character = row.getCell(1);
+                        if (stats[character] === undefined) stats[character] = {};
+        
+                        if (stats[character][stat_mapping[j]] === undefined) stats[character][stat_mapping[j]] = row.getCell(j).value;
+                        else stats[character][stat_mapping[j]] += row.getCell(j).value;
+                        
                     }
                 }
             });
         })
         .finally(async () => {
             for (let stat in stats) {
-                let kills = stats[stat]['kills'];
-                let damageDealt = stats[stat]['damageDealt'];
-                let damageTaken = stats[stat]['damageTaken'];
-                let nat1 = stats[stat]['nat1'];
-                let nat20 = stats[stat]['nat20'];
-                let redCoin = stats[stat]['redCoin'];
-                let healing = stats[stat]['healing'];
-                let ko = stats[stat]['ko'];
+                const kills = stats[stat]['kills'];
+                const damageDealt = stats[stat]['damageDealt'];
+                const damageTaken = stats[stat]['damageTaken'];
+                const nat1 = stats[stat]['nat1'];
+                const nat20 = stats[stat]['nat20'];
+                const redCoin = stats[stat]['redCoin'];
+                const healing = stats[stat]['healing'];
+                const ko = stats[stat]['ko'];
                 await client.setStats(stat, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko);
             }
-            let prefix = process.env.PREFIX;
-            let channel = process.env.CHANNEL;
+            const prefix = process.env.PREFIX;
+            const channel = process.env.CHANNEL;
             client.channels.cache.get(channel).send(`${prefix} stats`).catch(console.error);
         });
 };
