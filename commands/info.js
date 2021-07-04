@@ -97,7 +97,7 @@ function getBuilding(info) {
  * @returns {String} The MessageEmbed for characters.
  */
 function getCharacter(info) {
-    let stats = `Kills: ${info.kills}\nDamage Dealt: ${info.damageDealt}\nDamage Taken: ${info.damageTaken}\nNat 20: ${info.nat20}\nNat 1: ${info.nat1}`;
+    const stats = `Kills: ${info.kills}\nDamage Dealt: ${info.damageDealt}\nDamage Taken: ${info.damageTaken}\nNat 20: ${info.nat20}\nNat 1: ${info.nat1}`;
     return new MessageEmbed()
         .addField('Class', `${info.class}`)
         .addField('Race', `${info.race}`)
