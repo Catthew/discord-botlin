@@ -13,10 +13,10 @@ exports.help = {
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = async (args, client, message) => {
-    let cancelled = await client.getCancelled("");
-    let date = cancelled.date;
-    let isCancelled = cancelled.isCancelled;
-    let location = cancelled.location;
+    const cancelled = await client.getCancelled("");
+    const date = cancelled.date;
+    const isCancelled = cancelled.isCancelled;
+    const location = cancelled.location;
     let embed = new MessageEmbed()
         .setTimestamp()
         .setTitle('Nat Up or Shut Up!');
@@ -24,14 +24,20 @@ exports.run = async (args, client, message) => {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
         embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `Get yourself to the ${location}`).setColor('#00b300');
-        let schedule = await client.getSchedule();
+        const schedule = await client.getSchedule();
         const scheduleDict = {
             'Drinks': ['🥛'],
             'Ice': ['🧊']
         };
         for (var key in scheduleDict) {
-            let type = scheduleDict[key][0];
-            embed.addField(`${type} ${key} ${type}`, `${getScheduleName(schedule, key)}`);
+            const type = scheduleDict[key][0];
+            const scheduleName = getScheduleName(schedule, key);
+            if (scheduleName !== undefined) {
+                embed.addField(`${type} ${key} ${type}`, `${scheduleName}`);
+            } else {
+                message.channel.send('I am a bit confused right now.').catch(console.error);
+                return;
+            }
         }
     }
     message.channel.send(embed).catch(console.error);
@@ -48,11 +54,11 @@ exports.tests = {
  * @param {Date} date The DateTime object of the next DnD session.
  * @returns {String} The month name and the day.
  */
- function getDate(date) {
-    let month = date.toLocaleString('default', {
+function getDate(date) {
+    const month = date.toLocaleString('default', {
         month: 'long'
     });
-    let day = date.getDate();
+    const day = date.getDate();
     return month + ' ' + day;
 }
 
@@ -63,7 +69,7 @@ exports.tests = {
  * @returns {String}
  */
 function getScheduleName(schedule, type) {
-    let str = '';
+    let str;
     schedule.forEach(element => {
         if (element.type == type) {
             str = element.name;
@@ -77,7 +83,7 @@ function getScheduleName(schedule, type) {
  * @param {Date} date The DateTime object of the next DnD session.
  * @returns {String} The time of the session.
  */
- function getTime(date) {
+function getTime(date) {
     return date.toLocaleString('default', {
         hour: 'numeric',
         minute: 'numeric',

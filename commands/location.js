@@ -14,6 +14,11 @@ exports.help = {
  */
 exports.run = async (args, client, message) => {
     const currentLocation = await client.getCurrentLocation();
+    if(currentLocation == null){
+        message.channel.send('I am a bit confused right now.').catch(console.error);
+        return;
+    }
+
     let embed = new MessageEmbed()
         .setColor('#7289da')
         .setDescription(currentLocation['name'])

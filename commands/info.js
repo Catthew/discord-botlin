@@ -14,7 +14,7 @@ exports.help = {
  */
 exports.run = async (args, client, message) => {
     const response = capitalize(args.join(' '));
-    let info = await searchForInfo(client, response);
+    const info = await searchForInfo(client, response);
     if (info == null) {
         message.channel.send('I don\'t know that!').catch(console.error);
         return;
@@ -59,14 +59,9 @@ exports.tests = {
  * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
  function arrayToString(arr) {
-     console.log(arr.toString().replace(',', '\n'));
-    if (!arr.length) {
-        return 'None';
-    } else if (arr.length < 2) {
-        return arr;
-    } else {
-        return arr.toString().split(',').join('\n');
-    }
+    if (!arr.length) return 'None';
+    else if (arr.length < 2)  return arr;
+    else return arr.toString().split(',').join('\n');
 }
 
 /**
@@ -102,7 +97,7 @@ function getBuilding(info) {
  * @returns {String} The MessageEmbed for characters.
  */
 function getCharacter(info) {
-    let stats = `Kills: ${info.kills}\nDamage Dealt: ${info.damageDealt}\nDamage Taken: ${info.damageTaken}\nNat 20: ${info.nat20}\nNat 1: ${info.nat1}`;
+    const stats = `Kills: ${info.kills}\nDamage Dealt: ${info.damageDealt}\nDamage Taken: ${info.damageTaken}\nNat 20: ${info.nat20}\nNat 1: ${info.nat1}`;
     return new MessageEmbed()
         .addField('Class', `${info.class}`)
         .addField('Race', `${info.race}`)
@@ -159,13 +154,13 @@ function getNPC(info) {
  * @returns {?String} null if not found, or an array of the found object and a string denoting the kind of object.
  */
 async function searchForInfo(client, term) {
-    let building = await client.getBuilding(term);
+    const building = await client.getBuilding(term);
     if (building != null) return [building, 'Building'];
-    let character = await client.getCharacter(term);
+    const character = await client.getCharacter(term);
     if (character != null) return [character, 'Character'];
-    let location = await client.getLocation(term);
+    const location = await client.getLocation(term);
     if (location != null) return [location, 'Location'];
-    let npc = await client.getNpc(term);
+    const npc = await client.getNpc(term);
     if (npc != null) return [npc, 'NPC'];
     return null;
 }
