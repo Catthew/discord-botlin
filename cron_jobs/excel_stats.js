@@ -24,10 +24,10 @@ module.exports = async (spreadsheet, client) => {
                         if (row.getCell(j).value == null) continue;
                         const character = row.getCell(1);
                         if (stats[character] === undefined) stats[character] = {};
-        
+
                         if (stats[character][stat_mapping[j]] === undefined) stats[character][stat_mapping[j]] = row.getCell(j).value;
                         else stats[character][stat_mapping[j]] += row.getCell(j).value;
-                        
+
                     }
                 }
             });
