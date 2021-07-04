@@ -18,6 +18,6 @@ exports.run = async (args, client, message) => {
         .setColor('#7289da')
         .setDescription(currentLocation['name'])
         .setTimestamp()
-        .setTitle('Party\'s Current Location'); 
+        .setTitle('The Current Location of Sionia and The Banshees: '); 
     message.channel.send(embed).catch(console.error);
 };
