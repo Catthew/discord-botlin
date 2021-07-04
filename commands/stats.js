@@ -31,11 +31,13 @@ exports.run = async (args, client, message) => {
         .setTimestamp()
         .setTitle('Stats');
     for (var key in statsDict) {
-        let stat = statsDict[key][0];
-        let emoji = statsDict[key][1];
-        let statFormated = statsDict[key][2];
-        let top = await client.getTop(stat);
-        embed.addField(`${emoji} ${statFormated}: ${total[0][key]} ${emoji}`, `${arrayToString(top, stat, total[0][key])}`);
+        const stat = statsDict[key][0];
+        const emoji = statsDict[key][1];
+        const statFormated = statsDict[key][2];
+        const top = await client.getTop(stat);
+        const formatted_top = arrayToString(top, stat, total[0][key]);
+        if (formatted_top !== undefined) embed.addField(`${emoji} ${statFormated}: ${total[0][key]} ${emoji}`, `${formatted_top}`);
+        else message.channel.send('I am a bit confused right now.').catch(console.error);
     }
     message.channel.send(embed).catch(console.error);
 };
@@ -51,9 +53,9 @@ exports.tests = {
  * @returns {String} A formatted string with the data from the array.
  */
  function arrayToString(arr, type, total) {
-    let str = '';
+    let str;
     arr.forEach(element => {
-        let avg = (element[type] / total) * 100;
+        const avg = (element[type] / total) * 100;
         str += `${element.name}: ${element[type]}`;
         str += type == 'damageDealt' ? ` (${parseInt(avg)}%)\n` : '\n';
     });
