@@ -14,9 +14,8 @@ exports.help = {
  */
 exports.run = async (args, client, message) => {
     const currentLocation = await client.getCurrentLocation();
-
-    //TODO Error handling
     if(currentLocation == null){
+        message.channel.send('I am a bit confused right now.').catch(console.error);
         return;
     }
 
