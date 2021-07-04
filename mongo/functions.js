@@ -12,7 +12,7 @@ module.exports = client => {
 
     // =========== Buildings ===========
 
-    client.getBuilding = async name => {
+    client.getBuilding = async (name) => {
         let sName = sanitize(name);
         const data = await Building.findOne({
             name: sName
@@ -23,7 +23,7 @@ module.exports = client => {
 
     // =========== Characters ===========
 
-    client.getCharacter = async name => {
+    client.getCharacter = async (name) => {
         let sName = sanitize(name);
         const data = await Character.findOne({
             name: sName
@@ -32,7 +32,7 @@ module.exports = client => {
         else return null;
     };
 
-    client.getStats = async name => {
+    client.getStats = async (name) => {
         let sName = sanitize(name);
         const data = await Character.findOne({
             name: sName
@@ -75,7 +75,7 @@ module.exports = client => {
         else return null;
     };
 
-    client.getTop = async stat => {
+    client.getTop = async (stat) => {
         let sStat = sanitize(stat);
         //Sets up the Find Dictionary in the correct order
         let find = {};
@@ -133,7 +133,7 @@ module.exports = client => {
         else return null;
     };
 
-    client.getLocation = async name => {
+    client.getLocation = async (name) => {
         let sName = sanitize(name);
         const data = await Location.findOne({
             name: sName
@@ -142,7 +142,7 @@ module.exports = client => {
         else return null;
     };
 
-    client.getLocationDetails = async location => {
+    client.getLocationDetails = async (location) => {
         let sLocation = location;
         const locationBuilding = await Building.find({
             location: sLocation
@@ -161,7 +161,7 @@ module.exports = client => {
 
     // =========== Npcs ===========
 
-    client.getNpc = async name => {
+    client.getNpc = async (name) => {
         let sName = sanitize(name);
         const data = await Npc.findOne({
             name: sName
