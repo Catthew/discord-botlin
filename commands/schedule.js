@@ -31,7 +31,13 @@ exports.run = async (args, client, message) => {
         };
         for (var key in scheduleDict) {
             const type = scheduleDict[key][0];
-            embed.addField(`${type} ${key} ${type}`, `${getScheduleName(schedule, key)}`);
+            const scheduleName = getScheduleName(schedule, key);
+            if (scheduleName !== undefined) {
+                embed.addField(`${type} ${key} ${type}`, `${scheduleName}`);
+            } else {
+                message.channel.send('I am a bit confused right now.').catch(console.error);
+                return;
+            }
         }
     }
     message.channel.send(embed).catch(console.error);
