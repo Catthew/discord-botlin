@@ -17,8 +17,7 @@ module.exports = client => {
         const data = await Building.findOne({
             name: sName
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     // =========== Characters ===========
@@ -28,8 +27,7 @@ module.exports = client => {
         const data = await Character.findOne({
             name: sName
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.getStats = async (name) => {
@@ -37,8 +35,7 @@ module.exports = client => {
         const data = await Character.findOne({
             name: sName
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.getStatsTotals = async () => {
@@ -71,8 +68,7 @@ module.exports = client => {
                 }
             }
         }]);
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.getTop = async (stat) => {
@@ -92,8 +88,7 @@ module.exports = client => {
         sort[sStat] = -1;
         sort['name'] = 1;
         const data = await Character.find(field, find).sort(sort).limit(3);
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.setStats = async (name, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko) => {
@@ -119,8 +114,7 @@ module.exports = client => {
             healing: sHealing,
             ko: sKo
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     // =========== Locations ===========
@@ -129,8 +123,7 @@ module.exports = client => {
         const data = await Location.findOne({
             currentLocation: true
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.getLocation = async (name) => {
@@ -138,8 +131,7 @@ module.exports = client => {
         const data = await Location.findOne({
             name: sName
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.getLocationDetails = async (location) => {
@@ -166,8 +158,7 @@ module.exports = client => {
         const data = await Npc.findOne({
             name: sName
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     // =========== Schedules ===========
@@ -177,16 +168,14 @@ module.exports = client => {
         const data = await Schedule.findOne({
             _id: sCancelled
         }).limit(1);
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.getSchedule = async () => {
         const data = await Schedule.find({
             turn: true
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.getScheduleDrinks = async () => {
@@ -194,8 +183,7 @@ module.exports = client => {
             turn: true,
             type: 'Drinks'
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 
     client.setTurn = async (turnCount, newTurn) => {
@@ -205,7 +193,6 @@ module.exports = client => {
         }, {
             turn: newTurn
         });
-        if (data) return data;
-        else return null;
+        return data ? data : null;
     };
 };
