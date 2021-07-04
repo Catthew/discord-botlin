@@ -154,13 +154,13 @@ function getNPC(info) {
  * @returns {?String} null if not found, or an array of the found object and a string denoting the kind of object.
  */
 async function searchForInfo(client, term) {
-    let building = await client.getBuilding(term);
+    const building = await client.getBuilding(term);
     if (building != null) return [building, 'Building'];
-    let character = await client.getCharacter(term);
+    const character = await client.getCharacter(term);
     if (character != null) return [character, 'Character'];
-    let location = await client.getLocation(term);
+    const location = await client.getLocation(term);
     if (location != null) return [location, 'Location'];
-    let npc = await client.getNpc(term);
+    const npc = await client.getNpc(term);
     if (npc != null) return [npc, 'NPC'];
     return null;
 }
