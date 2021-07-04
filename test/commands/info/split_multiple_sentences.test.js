@@ -6,6 +6,6 @@ const {
 describe('info.splitMutlipleSentences() Test', () => {
     it('Should return Foo.\nBar.\n when sent "Foo.Bar."', () => {
         const result = tests.splitMutlipleSentences('Foo.Bar.');
-        expect(result).to.equal('Foo.\nBar.');
+        expect(result).to.equal('Foo.\nBar.\n');
     });
 });

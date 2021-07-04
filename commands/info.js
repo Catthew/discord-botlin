@@ -59,12 +59,13 @@ exports.tests = {
  * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
  function arrayToString(arr) {
+     console.log(arr.toString().replace(',', '\n'));
     if (!arr.length) {
         return 'None';
     } else if (arr.length < 2) {
         return arr;
     } else {
-        return arr.toString().replace(',', '\n');
+        return arr.toString().split(',').join('\n');
     }
 }
 
@@ -170,5 +171,5 @@ async function searchForInfo(client, term) {
 }
 
 function splitMutlipleSentences(info){
-    return info.replace('.', '.\n');
+    return info.split('.').join('.\n');
 }
