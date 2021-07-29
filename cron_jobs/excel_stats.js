@@ -1,7 +1,5 @@
 const Excel = require('exceljs');
 
-let stats = {};
-
 const stat_mapping = {
     2: 'kills',
     3: 'damageDealt',
@@ -15,6 +13,7 @@ const stat_mapping = {
 
 module.exports = async (spreadsheet, client) => {
     const workbook = new Excel.Workbook();
+    let stats = {};
     workbook.xlsx.readFile(spreadsheet)
         .then(() => {
             workbook.eachSheet((worksheet) => {
