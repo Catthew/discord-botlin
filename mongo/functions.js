@@ -185,13 +185,33 @@ module.exports = client => {
         return data ? data : null;
     };
 
-    client.setTurn = async (turnCount, newTurn) => {
-        const sTurnCount = sanitize(turnCount);
-        const data = await Schedule.updateOne({
-            turnCount: sTurnCount
-        }, {
-            turn: newTurn
+    client.getScheduleSession= async () => {
+        const data = await Schedule.findOne({
+            type: 'Session'
         });
         return data ? data : null;
     };
+
+    client.setDrink = async (turnCount, isNewTurn) => {
+        const sTurnCount = sanitize(turnCount);
+        const sIsNewTurn = sanitize(isNewTurn);
+        const data = await Schedule.updateOne({
+            turnCount: sTurnCount
+        }, {
+            turn: sIsNewTurn
+        });
+        return data ? data : null;
+    };
+
+    client.setSession = async (newDate) => {
+        const sNewDate = sanitize(newDate);
+        const data = await Schedule.updateOne({
+            type: 'Session'
+        }, {
+            date: sNewDate,
+            isCancelled: false
+        });
+        return data ? data : null;
+    };
+    
 };
