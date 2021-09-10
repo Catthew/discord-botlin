@@ -10,31 +10,34 @@ module.exports = client => {
 
     /*
         Send the first schedule alert
-        Thursday at 6:00 PM (+4 hours due to server)
+        Wednesday at 6:00 PM (+4 hours due to server)
     */
-    cron.schedule('0 22 * * 4', () => {
+    cron.schedule('0 22 * * 3', () => {
         console.log('Sending 1st schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
     });
+
     /*
         Send the second schedule alert
-        Saturday at 12:00 PM (+4 hours due to server)
+        Friday at 12:00 PM (+4 hours due to server)
     */
-    cron.schedule('0 16 * * 6', () => {
+    cron.schedule('0 16 * * 5', () => {
         console.log('Sending 2nd schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
     });
+
     /*
-        Update the drink schedule
-        Saturday at 11:00 PM (+4 hours due to server)
-    */
-    cron.schedule('0 3 * * 7', () => {
-        console.log('Updating the drink schedule');
-        require('./drink_update')(client);
+           Update the DnD schedule
+           Friday at 11:00 PM (+4 hours due to server)
+       */
+    cron.schedule('0 3 * * 5', () => {
+        console.log('Updating the schedule');
+        require('./schedule_update')(client);
         console.log('Complete');
     });
+
     /*
         Send the stats
         Sunday at 00:00 AM (+4 hours due to server)
