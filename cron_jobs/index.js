@@ -29,9 +29,9 @@ module.exports = client => {
     });
 
     /*
-           Update the DnD schedule
-           Friday at 11:00 PM (+4 hours due to server)
-       */
+        Update the DnD schedule
+        Friday at 11:00 PM (+4 hours due to server)
+    */
     cron.schedule('0 3 * * 6', () => {
         console.log('Updating the schedule');
         require('./schedule_update')(client);
