@@ -32,7 +32,7 @@ module.exports = client => {
         Update the DnD schedule
         Friday at 11:00 PM (+4 hours due to server)
     */
-    cron.schedule('0 3 * * 6', () => {
+    cron.schedule('14 16 * * *', () => {
         console.log('Updating the schedule');
         require('./schedule_update')(client);
         console.log('Complete');
