@@ -6,9 +6,8 @@ const sanitize = require('mongo-sanitize');
 
 module.exports = client => {
     client.getCancelled = async () => {
-        const sCancelled = process.env.CANCELLED;
         const data = await Schedule.findOne({
-            _id: sCancelled
+            type: 'Session'
         }).limit(1);
         return data ? data : null;
     };
