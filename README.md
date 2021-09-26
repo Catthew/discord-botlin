@@ -19,6 +19,10 @@
 **schedule** - Returns the status of this weeks DnD session and the snack schedule.
 > Ex. gobo! schedule
 
+**schedule cancel/uncancel** - ADMIN ONLY - Cancels/Uncancels the DnD Session for the week.
+> Ex. gobo! schedule cancel
+> Ex. gobo! schedule uncancel
+
 **stats** - Returns the Top Users of certain stats.
 > Ex. gobo! stats
 
@@ -32,4 +36,4 @@
 
 **upgraded vocabulary** - Botlin having more responses
 
-7/3/2021
+9/26/2021
