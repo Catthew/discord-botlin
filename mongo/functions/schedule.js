@@ -45,6 +45,21 @@ module.exports = client => {
         return data ? data : null;
     };
 
+    /**
+     * Sets the new value of the field isCancelled.
+     * @param {Boolean} update The value to update isCancelled.
+     * @returns The response from MongoDB if not null, else null.
+     */
+    client.setCancelled = async (update) => {
+        const sUpdate = sanitize(update);
+        const data = await Schedule.updateOne({
+            type: 'Session'
+        }, {
+            isCancelled: sUpdate
+        });
+        return data ? data : null;
+    };
+
     client.setSession = async (newDate) => {
         const sNewDate = sanitize(newDate);
         const data = await Schedule.updateOne({
@@ -55,4 +70,6 @@ module.exports = client => {
         });
         return data ? data : null;
     };
+
+
 };

@@ -1,3 +1,4 @@
+const change = require('./schedule/schedule_change');
 const info = require('./schedule/schedule_info');
 
 exports.help = {
@@ -13,5 +14,7 @@ exports.help = {
 exports.run = async (args, client, message) => {
     if(args == ''){
         info.getScheduleInfo(client, message);
+    } else {
+        change.setNewSchedule(args, client, message);
     }
 };
