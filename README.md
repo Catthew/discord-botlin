@@ -20,8 +20,8 @@
 > Ex. gobo! schedule
 
 **schedule cancel/uncancel** - ADMIN ONLY - Cancels/Uncancels the DnD Session for the week.
-> Ex. gobo! schedule cancel
-> Ex. gobo! schedule uncancel
+> Ex. gobo! schedule cancel<br>
+Ex. gobo! schedule uncancel
 
 **stats** - Returns the Top Users of certain stats.
 > Ex. gobo! stats
