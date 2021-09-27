@@ -26,6 +26,11 @@ async function setNewSchedule(args, client, message) {
 
     const command = args[0];
 
+    if (cancelMapping[command] == undefined){
+        message.channel.send(responses.unknown_command).catch(console.error);
+        return;
+    } 
+
     if(cancelMapping[command] == isCancelled){
         message.channel.send(`${responses.already_cancelled} ${command}ed`).catch(console.error);
         return;
