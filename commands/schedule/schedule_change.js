@@ -12,7 +12,7 @@ exports.help = {
  */
 async function setNewSchedule(args, client, message) {
     const author = message.author.id;
-    if(author !== process.env.OWNER && author !== process.env.DM){
+    if(author !== process.env.BOTOWNER && author !== process.env.DM){
         message.channel.send(responses.access_denied).catch(console.error);
         return;
     }
