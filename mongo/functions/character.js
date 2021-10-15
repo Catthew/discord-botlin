@@ -1,6 +1,6 @@
 const {
     Character
-} = require('../../models');
+} = require('../models');
 
 const sanitize = require('mongo-sanitize');
 

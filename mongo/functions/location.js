@@ -2,7 +2,7 @@ const {
     Building,
     Location,
     Npc
-} = require('../../models');
+} = require('../models');
 
 const sanitize = require('mongo-sanitize');
 

@@ -1,6 +1,6 @@
 const {
     Building
-} = require('../../models');
+} = require('../models');
 
 const sanitize = require('mongo-sanitize');
 
