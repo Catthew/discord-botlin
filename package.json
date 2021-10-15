@@ -15,18 +15,19 @@
     "license": "MIT",
     "devDependencies": {
         "chai": "^4.3.4",
-        "eslint": "^7.13.0",
-        "eslint-plugin-chai-friendly": "^0.6.0",
-        "mocha": "^8.2.1"
+        "eslint": "^8.0.1",
+        "eslint-plugin-chai-friendly": "^0.7.2",
+        "mocha": "^9.1.3"
     },
     "dependencies": {
-        "discord.js": "^12.5.1",
+        "discord.js": "^13.2.0",
         "dotenv-flow": "^3.2.0",
-        "exceljs": "^4.2.1",
+        "exceljs": "^4.3.0",
         "express": "^4.17.1",
         "mongo-sanitize": "^1.1.0",
-        "mongoose": "^5.12.1",
+        "mongoose": "^6.0.11",
         "node-cron": "^3.0.0",
-        "node-fetch": "^2.6.1"
+        "node-fetch": "^3.0.0",
+        "uuid": "^8.3.2"
     }
 }
