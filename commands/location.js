@@ -23,6 +23,6 @@ exports.run = async (args, client, message) => {
         .setColor('#7289da')
         .setDescription(currentLocation['name'])
         .setTimestamp()
-        .setTitle('The Current Location of Sionia and The Banshees: '); 
+        .setTitle(`The Current Location of ${process.env.TEAMNAME}: `); 
     message.channel.send(embed).catch(console.error);
 };
