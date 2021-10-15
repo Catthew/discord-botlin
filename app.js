@@ -33,4 +33,4 @@ fs.readdir('./events/', async (err, files) => {
 });
 
 client.mongoose.init();
-client.login(process.env.TOKEN);
+client.login(process.env.ACCESSTOKEN);

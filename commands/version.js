@@ -13,7 +13,7 @@ exports.help = {
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = (args, client, message) => {
-    const dev = message.guild.members.cache.get(process.env.OWNER).user;
+    const dev = message.guild.members.cache.get(process.env.BOTOWNER).user;
     let embed = new MessageEmbed()
         .setAuthor(dev.tag, dev.avatarURL())
         .setColor('#7289da')

@@ -10,7 +10,7 @@ module.exports = {
             useNewUrlParser: true,
             useUnifiedTopology: true
         };
-        const connectionString = `mongodb+srv://${process.env.MONGODBUSER}:${process.env.MONGODBPASS}@${process.env.MONGODBSERVER}/${process.env.DATABASE}`;
+        const connectionString = `mongodb+srv://${process.env.MONGODBUSER}:${process.env.MONGODBPASS}@${process.env.MONGODBSERVER}/${process.env.MONGODBDATABASE}`;
         mongoose.connect(connectionString, dbOptions);
         mongoose.Promise = global.Promise;
         mongoose.set('useFindAndModify', false);

@@ -6,7 +6,7 @@ module.exports = client => {
 
     let prefix = process.env.PREFIX;
     let channel = process.env.CHANNEL;
-    let port = process.env.PORT;
+    let port = process.env.CRONPORT;
 
     /*
         Send the first schedule alert
