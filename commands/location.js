@@ -14,7 +14,7 @@ exports.help = {
  */
 exports.run = async (args, client, message) => {
     const currentLocation = await client.getCurrentLocation();
-    if(currentLocation == null){
+    if (currentLocation == null) {
         message.channel.send('I am a bit confused right now.').catch(console.error);
         return;
     }
@@ -23,6 +23,8 @@ exports.run = async (args, client, message) => {
         .setColor('#7289da')
         .setDescription(currentLocation['name'])
         .setTimestamp()
-        .setTitle('The Current Location of Sionia and The Banshees: '); 
-    message.channel.send(embed).catch(console.error);
+        .setTitle(`The Current Location of ${process.env.TEAMNAME}: `);
+    message.channel.send({
+        embeds: [embed]
+    }).catch(console.error);
 };

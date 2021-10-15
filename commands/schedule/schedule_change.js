@@ -32,16 +32,16 @@ async function setNewSchedule(args, client, message) {
     } 
 
     if(cancelMapping[command] == isCancelled){
-        message.channel.send(`${responses.already_cancelled} ${command}ed`).catch(console.error);
+        message.channel.send(`${responses.already_cancelled} ${command}ed.`).catch(console.error);
         return;
     }
     
     const updated = await client.setCancelled(cancelMapping[command]);
 
     if(updated !== null) {
-        message.channel.send(`${responses.schedule_updated} ${command}ed`).catch(console.error);
+        message.channel.send(`${responses.schedule_updated} ${command}ed.`).catch(console.error);
     } else {
-        message.channel.send(responses.schedule_not_updated).catch(console.error);
+        message.channel.send(`${responses.schedule_not_updated} ${command}ed.`).catch(console.error);
     }
 }
 

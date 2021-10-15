@@ -12,7 +12,7 @@ exports.help = {
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = async (args, client, message) => {
-    if(args == ''){
+    if (args == '') {
         info.getScheduleInfo(client, message);
     } else {
         change.setNewSchedule(args, client, message);

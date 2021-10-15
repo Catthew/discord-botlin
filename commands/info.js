@@ -39,7 +39,9 @@ exports.run = async (args, client, message) => {
             infoEmbed = 'Don\' rush me!';
             break;
     }
-    message.channel.send(infoEmbed).catch(console.error);
+    message.channel.send({
+        embeds: [infoEmbed]
+    }).catch(console.error);
 };
 
 exports.tests = {
@@ -58,9 +60,9 @@ exports.tests = {
  * @param {Array.<String>} arr The array to be converted to a String
  * @returns {String} None if the array is empty, the array if there is only 1 item, or a string of comma seperated values.
  */
- function arrayToString(arr) {
+function arrayToString(arr) {
     if (!arr.length) return 'None';
-    else if (arr.length < 2)  return arr;
+    else if (arr.length < 2) return arr;
     else return arr.toString().split(',').join('\n');
 }
 
@@ -165,6 +167,6 @@ async function searchForInfo(client, term) {
     return null;
 }
 
-function splitMutlipleSentences(info){
+function splitMutlipleSentences(info) {
     return info.split('.').join('.\n');
 }
