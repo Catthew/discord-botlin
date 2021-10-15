@@ -21,5 +21,7 @@ exports.run = (args, client, message) => {
         .setThumbnail(client.user.avatarURL())
         .setTimestamp()
         .setTitle('Botlin Version 1.2');
-    message.channel.send(embed).catch(console.error);
+    message.channel.send({
+        embeds: [embed]
+    }).catch(console.error);
 };

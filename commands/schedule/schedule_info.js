@@ -46,7 +46,9 @@ async function getScheduleInfo(client, message) {
             }
         }
     }
-    message.channel.send(embed).catch(console.error);
+    message.channel.send({
+        embeds: [embed]
+    }).catch(console.error);
 }
 
 module.exports = {

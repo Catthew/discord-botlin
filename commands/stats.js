@@ -39,7 +39,9 @@ exports.run = async (args, client, message) => {
         if (formatted_top !== undefined) embed.addField(`${emoji} ${statFormated}: ${total[0][key]} ${emoji}`, `${formatted_top}`);
         else message.channel.send('I am a bit confused right now.').catch(console.error);
     }
-    message.channel.send(embed).catch(console.error);
+    message.channel.send({
+        embeds: [embed]
+    }).catch(console.error);
 };
 
 exports.tests = {
@@ -52,7 +54,7 @@ exports.tests = {
  * @param {String} type The name of the key needed to get the right data.
  * @returns {String} A formatted string with the data from the array.
  */
- function arrayToString(arr, type, total) {
+function arrayToString(arr, type, total) {
     let str = '';
     arr.forEach(element => {
         const avg = (element[type] / total) * 100;

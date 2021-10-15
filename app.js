@@ -1,8 +1,11 @@
 const {
   Client,
-  Collection
+  Collection,
+  Intents
 } = require('discord.js');
-const client = new Client();
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+});
 const fs = require('fs');
 
 require('dotenv-flow').config();
