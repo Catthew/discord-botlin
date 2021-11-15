@@ -16,7 +16,7 @@ module.exports = async (client) => {
         }
     }
     const today = new Date();
-    const nextFriday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
+    const nextFriday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6);
     const setLocation = await client.setSession(nextFriday);
 
     if (setLocation['nModified'] == 0) {
