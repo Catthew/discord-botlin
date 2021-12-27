@@ -16,8 +16,8 @@ module.exports = async (client) => {
         }
     }
     const today = new Date();
-    const nextFriday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6);
-    const setLocation = await client.setSession(nextFriday);
+    const nextSaturday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
+    const setLocation = await client.setSession(nextSaturday);
 
     if (setLocation['nModified'] == 0) {
         console.log(`Error. Update to the Session date failed.`);
