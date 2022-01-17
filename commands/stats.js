@@ -2,10 +2,6 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-exports.help = {
-    name: 'stats'
-};
-
 /**
  * Sends the current DND stats.
  * @param {Array.<String>} args The message the user sent split into any array of words.
@@ -44,10 +40,6 @@ exports.run = async (args, client, message) => {
     }).catch(console.error);
 };
 
-exports.tests = {
-    arrayToString
-};
-
 /**
  * Formats the data array into a formatted string.
  * @param {Array.<String>} arr The array that contains the data to be turned into a String.
@@ -62,3 +54,7 @@ function arrayToString(arr, type, total) {
     });
     return str;
 }
+
+exports.tests = {
+    arrayToString
+};

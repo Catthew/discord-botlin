@@ -4,8 +4,16 @@ const {
 
 const sanitize = require('mongo-sanitize');
 
+/**
+ * The Character Mongo calls.
+ * @param {Discord.Client} client The client instance of the bot.
+ */
 module.exports = client => {
-
+    /**
+     * Gets the character with the name given.
+     * @param {String} name The name of the character.
+     * @returns {?String} The Character data if it exists, null if it doesn't.
+     */
     client.getCharacter = async (name) => {
         const sName = sanitize(name);
         const data = await Character.findOne({
@@ -13,15 +21,10 @@ module.exports = client => {
         });
         return data ? data : null;
     };
-
-    client.getStats = async (name) => {
-        const sName = sanitize(name);
-        const data = await Character.findOne({
-            name: sName
-        });
-        return data ? data : null;
-    };
-
+    /**
+     * Gets the total sum of each stat.
+     * @returns {?String} The aggregation data if it exists, null if it doesn't.
+     */
     client.getStatsTotals = async () => {
         const data = await Character.aggregate([{
             $group: {
@@ -54,7 +57,11 @@ module.exports = client => {
         }]);
         return data ? data : null;
     };
-
+    /**
+     * Gets the top three characters in a stat category.
+     * @param {String} stat The stat being searched for.
+     * @returns {?String} The Character data if it exists, null if it doesn't.
+     */
     client.getTop = async (stat) => {
         const sStat = sanitize(stat);
         //Sets up the Find Dictionary in the correct order
@@ -74,7 +81,19 @@ module.exports = client => {
         const data = await Character.find(field, find).sort(sort).limit(3);
         return data ? data : null;
     };
-
+    /**
+     * Updates the stats for a character.
+     * @param {String} name The name of the character.
+     * @param {String} kills The amount of kills a character has.
+     * @param {String} damageDealt The amount of damage a character has dealt.
+     * @param {String} damageTaken The amount of damage a character has taken.
+     * @param {String} nat1 The amount of nat 1s a character has rolled.
+     * @param {String} nat20 The amount of nat 20s a character has rolled.
+     * @param {String} redCoin The amount of red coins a character has.
+     * @param {String} healing The amount of damage a character has healed.
+     * @param {String} ko The amount of times a character has been knocked out.
+     * @returns {?String} The update response, null if it doesn't.
+     */
     client.setStats = async (name, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko) => {
         const sName = sanitize(name);
         const sKills = sanitize(kills);
@@ -99,5 +118,4 @@ module.exports = client => {
         });
         return data ? data : null;
     };
-
 };

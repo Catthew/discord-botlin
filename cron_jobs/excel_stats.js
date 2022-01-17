@@ -11,6 +11,11 @@ const stat_mapping = {
     9: 'ko'
 };
 
+/**
+ * Reads the spreadsheet and updates the characters stats.
+ * @param {String} spreadsheet The file location of the spreadsheet (xlsx).
+ * @param {Discord.Client} client The client instance of the bot.
+ */
 module.exports = async (spreadsheet, client) => {
     const workbook = new Excel.Workbook();
     let stats = {};
@@ -26,7 +31,6 @@ module.exports = async (spreadsheet, client) => {
 
                         if (stats[character][stat_mapping[j]] === undefined) stats[character][stat_mapping[j]] = row.getCell(j).value;
                         else stats[character][stat_mapping[j]] += row.getCell(j).value;
-
                     }
                 }
             });
