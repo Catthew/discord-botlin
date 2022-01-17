@@ -17,6 +17,8 @@
     "_id": {
         "$oid": ""
     },
+    "appleMaps": "",
+    "googleMaps": "",
     "isCancelled": true,
     "location": "DM's Place",
     "date": {
