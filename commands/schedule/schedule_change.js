@@ -1,4 +1,5 @@
 const responses = require('../../responses');
+const info = require('./schedule_info');
 
 /**
  * Sends the command to Cancel or Uncancel a DnD Session.
@@ -28,17 +29,19 @@ async function setNewSchedule(args, client, message) {
     } 
 
     if(cancelMapping[command] == isCancelled){
-        message.channel.send(`${responses.already_cancelled} ${command}ed.`).catch(console.error);
+        message.channel.send(`The session is already ${command}ed.`).catch(console.error);
         return;
     }
     
     const updated = await client.setCancelled(cancelMapping[command]);
 
-    if(updated !== null) {
-        message.channel.send(`${responses.schedule_updated} ${command}ed.`).catch(console.error);
-    } else {
-        message.channel.send(`${responses.schedule_not_updated} ${command}ed.`).catch(console.error);
+    if(updated == null) {
+        message.channel.send('Error: The schedule hasn\'t been updateded.').catch(console.error);
+        return;
     }
+
+    message.channel.send(`${responses.schedule_updated}`).catch(console.error);
+    info.getScheduleInfo(client, message);
 }
 
 module.exports = {

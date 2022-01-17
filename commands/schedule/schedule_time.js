@@ -1,5 +1,5 @@
 const responses = require('../../responses');
-
+const info = require('./schedule_info');
 /**
  * Sends the command to Cancel or Uncancel a DnD Session.
  * @param {Array.<String>} args The message the user sent split into any array of words.
@@ -24,9 +24,11 @@ async function setScheduleTime(args, client, message) {
 
     if (setSession['nModified'] == 0) {
         message.channel.send('Time was not updated.').catch(console.error);
-    } else {
-        message.channel.send('Time updated.').catch(console.error);
+        return;
     }
+    message.channel.send(`${responses.schedule_updated}`).catch(console.error);
+    info.getScheduleInfo(client, message);
+    
 }
 
 module.exports = {
