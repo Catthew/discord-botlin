@@ -21,8 +21,8 @@ async function setNewSchedule(args, client, message) {
         uncancel: false
     };
 
-    const cancelled = await client.getCancelled();
-    const isCancelled = cancelled.isCancelled;
+    const session = await client.getSession();
+    const isCancelled = session.isCancelled;
 
     const command = args[0];
 
