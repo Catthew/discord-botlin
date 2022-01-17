@@ -2,10 +2,6 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-exports.help = {
-    name: 'info'
-};
-
 /**
  * Sends information about the thing that was asked.
  * @param {Array.<String>} args The message the user sent split into any array of words.
@@ -42,17 +38,6 @@ exports.run = async (args, client, message) => {
     message.channel.send({
         embeds: [infoEmbed]
     }).catch(console.error);
-};
-
-exports.tests = {
-    capitalize,
-    arrayToString,
-    getBuilding,
-    getCharacter,
-    getLocation,
-    getNPC,
-    searchForInfo,
-    splitMutlipleSentences
 };
 
 /**
@@ -167,6 +152,22 @@ async function searchForInfo(client, term) {
     return null;
 }
 
+/**
+ * 
+ * @param {String} info The bio from the varies info tables.
+ * @returns {String} The bio with new lines afer periods.
+ */
 function splitMutlipleSentences(info) {
     return info.split('.').join('.\n');
 }
+
+exports.tests = {
+    capitalize,
+    arrayToString,
+    getBuilding,
+    getCharacter,
+    getLocation,
+    getNPC,
+    searchForInfo,
+    splitMutlipleSentences
+};

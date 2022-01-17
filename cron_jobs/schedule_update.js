@@ -1,5 +1,9 @@
+/**
+ * Updates the Schedule.
+ * @param {Discord.Client} client The client instance of the bot.
+ */
 module.exports = async (client) => {
-    const scheduleSession = await client.getScheduleSession();
+    const scheduleSession = await client.getSession();
     if (!scheduleSession['isCancelled']) {
         const scheduleDrinks = await client.getScheduleDrinks();
 
@@ -28,12 +32,12 @@ module.exports = async (client) => {
 /**
  * Updates the drink turn.
  * @param {Discord.Client} client The client instance of the bot.
- * @param {Boolean} isNewTurn If the new turn is being updated.
- * @param {Number} turnCount The turnCount being updated.
+ * @param {Boolean} isNewTurn If the new turn is active or not.
+ * @param {Number} turnCount The turn being updated.
  * @returns {Boolean} true if the drink turn was updated successfully, false if not.
  */
 async function setDrinkTurn(client, isNewTurn, turnCount) {
-    const setTurn = await client.setDrink(turnCount, isNewTurn);
+    const setTurn = await client.setDrink(isNewTurn, turnCount);
 
     if (setTurn['nModified'] == 0) {
         console.log(`Error. Update failed for turnCount: ${turnCount}.`);

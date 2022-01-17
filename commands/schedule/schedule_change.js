@@ -1,11 +1,7 @@
 const responses = require('../../responses');
 
-exports.help = {
-    name: 'cancel'
-};
-
 /**
- * Sends the command to Cancel or Uncancel a DnD Session
+ * Sends the command to Cancel or Uncancel a DnD Session.
  * @param {Array.<String>} args The message the user sent split into any array of words.
  * @param {Discord.Client} client The client instance of the bot.
  * @param {Discord.Message} message The message object that triggered this method.

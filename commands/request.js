@@ -1,7 +1,3 @@
-exports.help = {
-    name: 'request'
-};
-
 /**
  * Pings the bot owner that someone has requested a feature in Notlin.
  * @param {Array.<String>} args The message the user sent split into any array of words.

@@ -1,6 +1,10 @@
 const cron = require('node-cron');
 const express = require('express');
 
+/**
+ * Sets the Cron Jobs.
+ * @param {Discord.Client} client The client instance of the bot.
+ */
 module.exports = client => {
     const app = express();
 

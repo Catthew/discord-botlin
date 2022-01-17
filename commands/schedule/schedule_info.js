@@ -2,16 +2,6 @@ const {
     MessageEmbed
 } = require('discord.js');
 
-exports.help = {
-    name: 'schedule_info'
-};
-
-exports.tests = {
-    getDate,
-    getScheduleName,
-    getTime
-};
-
 /**
  * Sends the current DND schedule for the week.
  * @param {Array.<String>} args The message the user sent split into any array of words.
@@ -99,3 +89,9 @@ function getTime(date) {
         timeZone: 'America/New_York'
     });
 }
+
+exports.tests = {
+    getDate,
+    getScheduleName,
+    getTime
+};
