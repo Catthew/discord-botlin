@@ -5,12 +5,6 @@ const {
 const sanitize = require('mongo-sanitize');
 
 module.exports = client => {
-    client.getCancelled = async () => {
-        const data = await Schedule.findOne({
-            type: 'Session'
-        }).limit(1);
-        return data ? data : null;
-    };
 
     client.getSchedule = async () => {
         const data = await Schedule.find({
@@ -31,6 +25,13 @@ module.exports = client => {
         const data = await Schedule.findOne({
             type: 'Session'
         });
+        return data ? data : null;
+    };
+
+    client.getSession = async () => {
+        const data = await Schedule.findOne({
+            type: 'Session'
+        }).limit(1);
         return data ? data : null;
     };
 

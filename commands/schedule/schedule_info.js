@@ -19,17 +19,19 @@ exports.tests = {
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function getScheduleInfo(client, message) {
-    const cancelled = await client.getCancelled();
-    const date = cancelled.date;
-    const isCancelled = cancelled.isCancelled;
-    const location = cancelled.location;
+    const session = await client.getSession();
+    const date = session.date;
+    const isCancelled = session.isCancelled;
+    const location = session.location;
+    const apple = session.appleMaps;
+    const google = session.googleMaps;
     let embed = new MessageEmbed()
         .setTimestamp()
         .setTitle('Nat Up or Shut Up!');
     if (isCancelled) {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
-        embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `Get yourself to the ${location}`).setColor('#00b300');
+        embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} \n | [Google Maps](${google}) | [Apple Maps](${apple}) |`).setColor('#00b300');
         const schedule = await client.getSchedule();
         const scheduleDict = {
             'Drinks': ['🥛'],
