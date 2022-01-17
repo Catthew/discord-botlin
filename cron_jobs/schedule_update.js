@@ -25,7 +25,7 @@ module.exports = async (client) => {
 
     if (setSession['nModified'] == 0) {
         console.log(`Error. Update to the Session date failed.`);
-        return false;
+        return;
     }
 };
 
