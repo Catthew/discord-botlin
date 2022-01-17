@@ -17,7 +17,8 @@ async function setScheduleTime(args, client, message) {
     const sessionDateTime = session.date;
 
     const hoursMinutes = args[1].split(":");
-    sessionDateTime.setHours(serverOffset(hoursMinutes[0]));
+    const newHour = serverOffset(Number(hoursMinutes[0]));
+    sessionDateTime.setHours(newHour);
     sessionDateTime.setMinutes(hoursMinutes[1]);
     
     const setSession = await client.setSession(sessionDateTime);
@@ -35,7 +36,12 @@ module.exports = {
     setScheduleTime
 };
 
+/**
+ * Adds the time for the VPS
+ * @param {Number} hours The hours entered in.
+ * @returns The hours + 5.
+ */
 function serverOffset(hours){
-    let newHours = Number(hours) + 5;
-    return newHours ? hours <= 24 : newHours - 24;
+    let newHours = hours + 5;
+    return newHours > 24 ? newHours - 24 : newHours;
 }
