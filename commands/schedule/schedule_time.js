@@ -17,7 +17,7 @@ async function setScheduleTime(args, client, message) {
     const sessionDateTime = session.date;
 
     const hoursMinutes = args[1].split(":");
-    sessionDateTime.setHours(hoursMinutes[0]);
+    sessionDateTime.setHours(serverOffset(hoursMinutes[0]));
     sessionDateTime.setMinutes(hoursMinutes[1]);
     
     const setSession = await client.setSession(sessionDateTime);
@@ -34,3 +34,8 @@ async function setScheduleTime(args, client, message) {
 module.exports = {
     setScheduleTime
 };
+
+function serverOffset(hours){
+    let newHours = Number(hours) + 5;
+    return newHours ? hours <= 24 : newHours - 24;
+}
