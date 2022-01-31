@@ -1,9 +1,7 @@
 const expect = require('chai').expect;
-const {
-    tests
-} = require('../../../commands/schedule');
+const tests = require('../../../../commands/schedule/schedule_info');
 
-describe('schedule.getDate() Test', () => {
+describe('schedule_info.getDate() Test', () => {
     it('Should return December 8', () => {
         let d = new Date();
         d.setMonth(11);
