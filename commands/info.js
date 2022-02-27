@@ -153,7 +153,7 @@ async function searchForInfo(client, term) {
 }
 
 /**
- * 
+ * Adds a new line tag after a period.
  * @param {String} info The bio from the varies info tables.
  * @returns {String} The bio with new lines afer periods.
  */
@@ -162,8 +162,8 @@ function splitMutlipleSentences(info) {
 }
 
 exports.tests = {
-    capitalize,
     arrayToString,
+    capitalize,
     getBuilding,
     getCharacter,
     getLocation,

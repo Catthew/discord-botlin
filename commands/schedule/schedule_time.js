@@ -33,7 +33,9 @@ async function setScheduleTime(args, client, message) {
 }
 
 module.exports = {
-    setScheduleTime
+    setScheduleTime,
+    serverOffset
+    
 };
 
 /**

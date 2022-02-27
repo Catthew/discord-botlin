@@ -30,6 +30,7 @@ async function getScheduleInfo(client, message) {
         for (var key in scheduleDict) {
             const type = scheduleDict[key][0];
             const scheduleName = getScheduleName(schedule, key);
+            console.log(schedule);
             if (scheduleName !== undefined) {
                 embed.addField(`${type} ${key} ${type}`, `${scheduleName}`);
             } else {
@@ -44,7 +45,10 @@ async function getScheduleInfo(client, message) {
 }
 
 module.exports = {
-    getScheduleInfo
+    getScheduleInfo,
+    getDate,
+    getScheduleName,
+    getTime
 };
 
 /**
@@ -89,9 +93,3 @@ function getTime(date) {
         timeZone: 'America/New_York'
     });
 }
-
-exports.tests = {
-    getDate,
-    getScheduleName,
-    getTime
-};
