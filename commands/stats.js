@@ -1,8 +1,11 @@
+const common = require('../common_functions');
 const excelStats = require('../cron_jobs/excel_stats');
 const info = require('./stats/stats_info');
 const responses = require('../responses');
+const e = require('express');
+
 /**
- * Sends the current version of Botlin.
+ * Checks which stats command was called.
  * @param {Array.<String>} args The message the user sent split into any array of words.
  * @param {Discord.Client} client The client instance of the bot.
  * @param {Discord.Message} message The message object that triggered this method.
@@ -10,7 +13,9 @@ const responses = require('../responses');
 exports.run = async (args, client, message) => {
     switch(args[0]){
         case 'sync':
-            excelStats.syncStats(process.env.SPREADSHEET, client);
+            if (common.isAdmin(message)){
+                excelStats.syncStats(process.env.SPREADSHEET, client);
+            } 
             break;
         case undefined:
             info.getStatsInfo(client, message);
