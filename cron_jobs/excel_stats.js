@@ -16,7 +16,7 @@ const stat_mapping = {
  * @param {String} spreadsheet The file location of the spreadsheet (xlsx).
  * @param {Discord.Client} client The client instance of the bot.
  */
-module.exports = async (spreadsheet, client) => {
+async function syncStats(spreadsheet, client) {
     const workbook = new Excel.Workbook();
     let stats = {};
     workbook.xlsx.readFile(spreadsheet)
@@ -51,4 +51,8 @@ module.exports = async (spreadsheet, client) => {
             const channel = process.env.CHANNEL;
             client.channels.cache.get(channel).send(`${prefix} stats`).catch(console.error);
         });
+}
+
+module.exports = {
+    syncStats
 };
