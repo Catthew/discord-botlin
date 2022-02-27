@@ -8,11 +8,6 @@ const info = require('./schedule_info');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function setNewSchedule(args, client, message) {
-    const author = message.author.id;
-    if(author !== process.env.BOTOWNER && author !== process.env.DM){
-        message.channel.send(responses.access_denied).catch(console.error);
-        return;
-    }
     const cancelMapping = {
         cancel: true,
         uncancel: false
