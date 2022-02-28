@@ -1,7 +1,5 @@
 const expect = require('chai').expect;
-const {
-    tests
-} = require('../../../commands/stats');
+const tests = require('../../../commands/stats/stats_info');
 
 describe('stats.topArrayToString() Test', () => {
     it('should equal Test: 80 (80%)\n', () => {
