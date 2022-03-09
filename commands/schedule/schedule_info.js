@@ -22,6 +22,8 @@ async function getScheduleInfo(client, message) {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
         embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} \n | [Google Maps](${google}) | [Apple Maps](${apple}) |`).setColor('#00b300');
+
+        /* Turning off drink schedule for now
         const schedule = await client.getSchedule();
         const scheduleDict = {
             'Drinks': ['🥛'],
@@ -30,7 +32,7 @@ async function getScheduleInfo(client, message) {
         for (var key in scheduleDict) {
             const type = scheduleDict[key][0];
             const scheduleName = getScheduleName(schedule, key);
-            console.log(schedule);
+
             if (scheduleName !== undefined) {
                 embed.addField(`${type} ${key} ${type}`, `${scheduleName}`);
             } else {
@@ -38,6 +40,7 @@ async function getScheduleInfo(client, message) {
                 return;
             }
         }
+        */
     }
     message.channel.send({
         embeds: [embed]
