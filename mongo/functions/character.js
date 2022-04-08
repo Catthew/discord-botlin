@@ -25,7 +25,7 @@ module.exports = client => {
      * Gets the total sum of each stat.
      * @returns {?String} The aggregation data if it exists, null if it doesn't.
      */
-    client.getStatsTotals = async () => {
+    client.getStatsTotalsBotlin = async () => {
         const data = await Character.aggregate([{
             $group: {
                 _id: null,
@@ -49,6 +49,39 @@ module.exports = client => {
                 },
                 redCoin: {
                     $sum: '$redCoin'
+                },
+                healing: {
+                    $sum: '$healing'
+                }
+            }
+        }]);
+        return data ? data : null;
+    };
+    /**
+     * Gets the total sum of each stat.
+     * @returns {?String} The aggregation data if it exists, null if it doesn't.
+     */
+     client.getStatsTotalsGobtana = async () => {
+        const data = await Character.aggregate([{
+            $group: {
+                _id: null,
+                damageDealt: {
+                    $sum: '$damageDealt'
+                },
+                damageTaken: {
+                    $sum: '$damageTaken'
+                },
+                kills: {
+                    $sum: '$kills'
+                },
+                nat1: {
+                    $sum: '$nat1'
+                },
+                nat20: {
+                    $sum: '$nat20'
+                },
+                ko: {
+                    $sum: '$ko'
                 },
                 healing: {
                     $sum: '$healing'
@@ -94,7 +127,7 @@ module.exports = client => {
      * @param {String} ko The amount of times a character has been knocked out.
      * @returns {?String} The update response, null if it doesn't.
      */
-    client.setStats = async (name, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko) => {
+    client.setStatsBotlin = async (name, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko) => {
         const sName = sanitize(name);
         const sKills = sanitize(kills);
         const sDamageDealt = sanitize(damageDealt);
@@ -113,6 +146,40 @@ module.exports = client => {
             nat1: sNat1,
             nat20: sNat20,
             redCoin: sRedCoin,
+            healing: sHealing,
+            ko: sKo
+        });
+        return data ? data : null;
+    };
+     /**
+     * Updates the stats for a character.
+     * @param {String} name The name of the character.
+     * @param {String} kills The amount of kills a character has.
+     * @param {String} damageDealt The amount of damage a character has dealt.
+     * @param {String} damageTaken The amount of damage a character has taken.
+     * @param {String} nat1 The amount of nat 1s a character has rolled.
+     * @param {String} nat20 The amount of nat 20s a character has rolled.
+     * @param {String} healing The amount of damage a character has healed.
+     * @param {String} ko The amount of times a character has been knocked out.
+     * @returns {?String} The update response, null if it doesn't.
+     */
+      client.setStatsGobtana = async (name, kills, damageDealt, damageTaken, nat1, nat20, healing, ko) => {
+        const sName = sanitize(name);
+        const sKills = sanitize(kills);
+        const sDamageDealt = sanitize(damageDealt);
+        const sDamageTaken = sanitize(damageTaken);
+        const sNat1 = sanitize(nat1);
+        const sNat20 = sanitize(nat20);
+        const sHealing = sanitize(healing);
+        const sKo = sanitize(ko);
+        const data = await Character.updateOne({
+            name: sName
+        }, {
+            kills: sKills,
+            damageDealt: sDamageDealt,
+            damageTaken: sDamageTaken,
+            nat1: sNat1,
+            nat20: sNat20,
             healing: sHealing,
             ko: sKo
         });

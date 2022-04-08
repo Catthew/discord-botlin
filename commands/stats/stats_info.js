@@ -15,12 +15,23 @@ const {
         'damageTaken': ['damageTaken', '🩹', 'Damage Taken'],
         'nat20': ['nat20', '🤩', 'Nat 20'],
         'nat1': ['nat1', '💩', 'Nat 1'],
-        'redCoin': ['redCoin', '🔴', 'Red Coins'],
         'ko': ['ko', '😴', 'KO'],
         'healing': ['healing', '🏨', 'Healing']
     };
-
-    const total = await client.getStatsTotals();
+    let total;
+    switch (process.env.MONGODBUSER) {
+        case 'Clarg':
+        case 'Gobtana':
+            total = await client.getStatsTotalsGobtana();
+            break;
+        case 'Botlin':
+            statsDict['redCoin'] = ['redCoin', '🔴', 'Red Coins'];
+            total = await client.getStatsTotalsBotlin();
+            break;
+        default:
+            console.log('Error: Unknown user - excel_stats.js');
+            return;
+    }
 
     let embed = new MessageEmbed()
         .setColor('#7289da')

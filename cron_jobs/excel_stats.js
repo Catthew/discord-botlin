@@ -6,9 +6,9 @@ const stat_mapping = {
     4: 'damageTaken',
     5: 'nat1',
     6: 'nat20',
-    7: 'redCoin',
-    8: 'healing',
-    9: 'ko'
+    7: 'healing',
+    8: 'ko',
+    9: 'redCoin'
 };
 
 /**
@@ -42,10 +42,22 @@ async function syncStats(spreadsheet, client) {
                 const damageTaken = stats[stat]['damageTaken'];
                 const nat1 = stats[stat]['nat1'];
                 const nat20 = stats[stat]['nat20'];
-                const redCoin = stats[stat]['redCoin'];
                 const healing = stats[stat]['healing'];
                 const ko = stats[stat]['ko'];
-                await client.setStats(stat, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko);
+                switch (process.env.MONGODBUSER) {
+                    case 'Gobtana':
+                        await client.setStatsGobtana(stat, kills, damageDealt, damageTaken, nat1, nat20, healing, ko);
+                        break;
+                    case 'Clarg':
+                    case 'Botlin':
+                        var redCoin = stats[stat]['redCoin'];
+                        await client.setStatsBotlin(stat, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko);
+                        break;
+                    default:
+                        console.log('Error: Unknown user - excel_stats.js');
+                        return;
+                }
+                
             }
             const prefix = process.env.PREFIX;
             const channel = process.env.CHANNEL;
