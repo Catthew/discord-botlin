@@ -24,7 +24,8 @@ async function getScheduleInfo(client, message) {
         switch (process.env.MONGODBUSER) {
             case 'Clarg':
             case 'Gobtana':
-                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`).setColor('#00b300');
+                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, location).setColor('#00b300');
+                console.log();
                 break;
             case 'Botlin':
                 embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} \n | [Google Maps](${google}) | [Apple Maps](${apple}) |`).setColor('#00b300');
