@@ -21,7 +21,19 @@ async function getScheduleInfo(client, message) {
     if (isCancelled) {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
-        embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} \n | [Google Maps](${google}) | [Apple Maps](${apple}) |`).setColor('#00b300');
+        switch (process.env.MONGODBUSER) {
+            case 'Clarg':
+            case 'Gobtana':
+                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`).setColor('#00b300');
+                break;
+            case 'Botlin':
+                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} \n | [Google Maps](${google}) | [Apple Maps](${apple}) |`).setColor('#00b300');
+                break;
+            default:
+                console.log('Error: Unknown user - excel_stats.js');
+                return;
+        }
+        
 
         /* Turning off drink schedule for now
         const schedule = await client.getSchedule();
