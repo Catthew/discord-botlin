@@ -21,13 +21,13 @@ async function getScheduleInfo(client, message) {
     if (isCancelled) {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
-        switch (process.env.MONGODBUSER) {
-            case 'Clarg':
-            case 'Gobtana':
+        switch (process.env.PREFIX) {
+            case 'devclarg?':
+            case 'gobt!':
                 embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, location).setColor('#00b300');
                 console.log();
                 break;
-            case 'Botlin':
+            case 'gobo!':
                 embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} \n | [Google Maps](${google}) | [Apple Maps](${apple}) |`).setColor('#00b300');
                 break;
             default:

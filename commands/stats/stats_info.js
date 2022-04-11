@@ -19,12 +19,12 @@ const {
         'healing': ['healing', '🏨', 'Healing']
     };
     let total;
-    switch (process.env.MONGODBUSER) {
-        case 'Clarg':
-        case 'Gobtana':
+    switch (process.env.PREFIX) {
+        case 'devclarg?':
+        case 'gobt!':
             total = await client.getStatsTotalsGobtana();
             break;
-        case 'Botlin':
+        case 'gobo!':
             statsDict['redCoin'] = ['redCoin', '🔴', 'Red Coins'];
             total = await client.getStatsTotalsBotlin();
             break;
