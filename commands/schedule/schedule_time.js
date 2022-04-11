@@ -15,7 +15,7 @@ async function setScheduleTime(args, client, message) {
     sessionDateTime.setHours(newHour);
     sessionDateTime.setMinutes(hoursMinutes[1]);
     
-    const setSession = await client.setSession(sessionDateTime);
+    const setSession = await client.setSession(session._id, sessionDateTime);
 
     if (setSession['nModified'] == 0) {
         message.channel.send('Time was not updated.').catch(console.error);
@@ -23,21 +23,19 @@ async function setScheduleTime(args, client, message) {
     }
     message.channel.send(`${responses.schedule_updated}`).catch(console.error);
     info.getScheduleInfo(client, message);
-    
 }
 
 module.exports = {
     setScheduleTime,
     serverOffset
-    
 };
 
 /**
  * Adds the time for the VPS
  * @param {Number} hours The hours entered in.
- * @returns The hours + 5.
+ * @returns The hours + 4.
  */
 function serverOffset(hours){
-    let newHours = hours + 5;
+    let newHours = hours + 4;
     return newHours > 24 ? newHours - 24 : newHours;
 }
