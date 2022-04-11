@@ -21,6 +21,7 @@
     "googleMaps": "",
     "isCancelled": true,
     "location": "DM's Place",
+    "day": "Tuesday",
     "date": {
         "$date": "2021-03-20T22:00:00.000Z"
 

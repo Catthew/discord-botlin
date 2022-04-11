@@ -75,13 +75,16 @@ module.exports = client => {
      * @param {String} newDate The DateTime of the next session.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setSession = async (newDate) => {
+    client.setSession = async (id, newDate) => {
+        const sId = sanitize(id);
         const sNewDate = sanitize(newDate);
         const data = await Schedule.updateOne({
-            type: 'Session'
+            _id: sId
         }, {
-            date: sNewDate,
-            isCancelled: false
+            $set: {
+                date: sNewDate,
+                isCancelled: false
+            }
         });
         return data ? data : null;
     };

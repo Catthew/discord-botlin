@@ -4,6 +4,7 @@ const scheduleSchema = new mongoose.Schema({
     _id: mongoose.Schema.ObjectId,
     appleMaps: String,
     date: Date,
+    day: String,
     googleMaps: String,
     isCancelled: Boolean,
     location: String,
