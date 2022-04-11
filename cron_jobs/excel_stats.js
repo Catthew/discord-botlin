@@ -44,12 +44,12 @@ async function syncStats(spreadsheet, client) {
                 const nat20 = stats[stat]['nat20'];
                 const healing = stats[stat]['healing'];
                 const ko = stats[stat]['ko'];
-                switch (process.env.MONGODBUSER) {
-                    case 'Gobtana':
+                switch (process.env.PREFIX) {
+                    case 'gobt!':
                         await client.setStatsGobtana(stat, kills, damageDealt, damageTaken, nat1, nat20, healing, ko);
                         break;
-                    case 'Clarg':
-                    case 'Botlin':
+                    case 'devclarg?':
+                    case 'gobo!':
                         var redCoin = stats[stat]['redCoin'];
                         await client.setStatsBotlin(stat, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko);
                         break;

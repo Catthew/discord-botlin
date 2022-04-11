@@ -21,7 +21,8 @@
     "googleMaps": "",
     "isCancelled": true,
     "location": "DM's Place",
-    "day": "Tuesday",
+    "defaultDay": "Tuesday",
+    "defaultTime": "17:00",
     "date": {
         "$date": "2021-03-20T22:00:00.000Z"
 
