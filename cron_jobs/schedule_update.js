@@ -4,9 +4,9 @@
  */
 module.exports = async (client) => {
     const scheduleSession = await client.getSession();
+    /*
     if (!scheduleSession['isCancelled']) {
         const scheduleDrinks = await client.getScheduleDrinks();
-
         const turnCount = scheduleDrinks['turnCount'];
         const oldTurn = await setDrinkTurn(client, false, turnCount);
         if (!oldTurn) {
@@ -19,11 +19,12 @@ module.exports = async (client) => {
             return;
         }
     }
+    */
     const today = new Date();
-    const nextSaturday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7, 17, 0,0,0);
-    const setSession = await client.setSession(nextSaturday);
-
-    if (setSession['nModified'] == 0) {
+    const days = {'Friday': 6, 'Saturday': 7};
+    const nextSession = new Date(today.getFullYear(), today.getMonth(), today.getDate() + days[scheduleSession['day']], 17, 0,0,0);
+    const setSession = await client.setSession(scheduleSession['_id'], nextSession);
+    if (setSession['modifiedCount'] == 0) {
         console.log(`Error. Update to the Session date failed.`);
         return;
     }
