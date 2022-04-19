@@ -8,12 +8,15 @@ const info = require('./schedule_info');
  */
 async function setScheduleTime(args, client, message) {
     const session = await client.getSession();
-    const sessionDateTime = session.date;
-
+    let sessionDateTime = new Date(session.date.valueOf());
     const hoursMinutes = args[1].split(":");
     const newHour = serverOffset(Number(hoursMinutes[0]));
     sessionDateTime.setHours(newHour);
     sessionDateTime.setMinutes(hoursMinutes[1]);
+
+    if (sessionDateTime.getDate() != session.date.getDate()){
+        sessionDateTime.setDate(session.date.getDate());
+    }
     
     const setSession = await client.setSession(session._id, sessionDateTime);
 
@@ -21,6 +24,7 @@ async function setScheduleTime(args, client, message) {
         message.channel.send('Time was not updated.').catch(console.error);
         return;
     }
+
     message.channel.send(`${responses.schedule_updated}`).catch(console.error);
     info.getScheduleInfo(client, message);
 }
