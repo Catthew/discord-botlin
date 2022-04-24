@@ -48,7 +48,7 @@ module.exports = client => {
     */
     cron.schedule('0 4 * * 7', () => {
         console.log('Updating the stats');
-        require('./excel_stats').syncStats(process.env.SPREADSHEET, client);
+        require('./excel_stats').syncStats(process.env.SPREADSHEET, client, false);
         console.log('Complete');
     });
 
