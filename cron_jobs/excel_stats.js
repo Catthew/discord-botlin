@@ -15,8 +15,9 @@ const stat_mapping = {
  * Reads the spreadsheet and updates the characters stats.
  * @param {String} spreadsheet The file location of the spreadsheet (xlsx).
  * @param {Discord.Client} client The client instance of the bot.
+ * @param {Boolean} sync If the command was run by the stats sync command.
  */
-async function syncStats(spreadsheet, client) {
+async function syncStats(spreadsheet, client, sync) {
     const workbook = new Excel.Workbook();
     let stats = {};
     workbook.xlsx.readFile(spreadsheet)
@@ -60,8 +61,12 @@ async function syncStats(spreadsheet, client) {
                 
             }
             const prefix = process.env.PREFIX;
-            const channel = process.env.CHANNEL;
-            client.channels.cache.get(channel).send(`${prefix} stats`).catch(console.error);
+            if (sync){
+                client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
+            }
+            else{
+                client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
+            }
         });
 }
 

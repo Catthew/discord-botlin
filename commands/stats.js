@@ -14,7 +14,7 @@ exports.run = async (args, client, message) => {
     switch(args[0]){
         case 'sync':
             if (common.isAdmin(message)){
-                excelStats.syncStats(process.env.SPREADSHEET, client);
+                excelStats.syncStats(process.env.SPREADSHEET, client, true);
             } 
             break;
         case undefined:
