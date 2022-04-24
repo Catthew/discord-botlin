@@ -9,7 +9,7 @@ module.exports = client => {
     const app = express();
 
     let prefix = process.env.PREFIX;
-    let channel = process.env.CHANNEL;
+    let channel = process.env.CHANNELGENERAL;
     let port = process.env.CRONPORT;
 
     /*
