@@ -13,29 +13,23 @@ async function getScheduleInfo(client, message) {
     const date = session.date;
     const isCancelled = session.isCancelled;
     const location = session.location;
-    const apple = session.appleMaps;
-    const google = session.googleMaps;
+    const locationDetails = session.locationDetails;
     let embed = new MessageEmbed()
         .setTimestamp()
         .setTitle('Nat Up or Shut Up!');
     if (isCancelled) {
         embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
     } else {
-        switch (process.env.PREFIX) {
-            case 'devclarg?':
-            case 'gobt!':
-                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, location).setColor('#00b300');
-                console.log();
-                break;
-            case 'gobo!':
-                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} \n | [Google Maps](${google}) | [Apple Maps](${apple}) |`).setColor('#00b300');
-                break;
-            default:
-                console.log('Error: Unknown user - excel_stats.js');
-                return;
+        let details = '';
+        if (locationDetails.length > 0){
+            details = '\n |';
+            for(var i in locationDetails){
+                details += ' ' + locationDetails[i] + ' |';
+            }
         }
         
-
+        embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} ${details}`).setColor('#00b300');
+        
         /* Turning off drink schedule for now
         const schedule = await client.getSchedule();
         const scheduleDict = {

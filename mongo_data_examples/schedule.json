@@ -17,10 +17,12 @@
     "_id": {
         "$oid": ""
     },
-    "appleMaps": "",
-    "googleMaps": "",
     "isCancelled": true,
     "location": "DM's Place",
+    "locationDetails": [
+        "AppleMaps",
+        "GoogleMaps"
+    ],
     "defaultDay": "Tuesday",
     "defaultTime": "17:00",
     "date": {
