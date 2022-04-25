@@ -1,6 +1,7 @@
 const {
     MessageEmbed
 } = require('discord.js');
+const optional_stats = require('./optional_stats');
 
 /**
  * Sends the current DND stats.
@@ -8,7 +9,15 @@ const {
  * @param {Discord.Client} client The client instance of the bot.
  * @param {Discord.Message} message The message object that triggered this method.
  */
- async function getStatsInfo(client, message) {
+async function getStatsInfo(client, message) {
+    let embed = new MessageEmbed()
+        .setColor('#7289da')
+        .setTimestamp()
+        .setTitle('Stats');
+
+    /**
+     * Gets the default stat totals.
+     */
     const statsDict = {
         'kills': ['kills', '🗡️', 'Kills'],
         'damageDealt': ['damageDealt', '⚔️', 'Damage Dealt'],
@@ -18,34 +27,37 @@ const {
         'ko': ['ko', '😴', 'KO'],
         'healing': ['healing', '🏨', 'Healing']
     };
-    let total;
-    switch (process.env.PREFIX) {
-        case 'devclarg?':
-        case 'gobt!':
-            total = await client.getStatsTotalsGobtana();
-            break;
-        case 'gobo!':
-            statsDict['redCoin'] = ['redCoin', '🔴', 'Red Coins'];
-            total = await client.getStatsTotalsBotlin();
-            break;
-        default:
-            console.log('Error: Unknown user - excel_stats.js');
-            return;
+    const statsTotals = await client.getStatsTotals();
+    for (var sDKey in statsDict) {
+        const stat = statsDict[sDKey][0];
+        const emoji = statsDict[sDKey][1];
+        const statFormated = statsDict[sDKey][2];
+        const top = await client.getStatTopThree(stat);
+        const formatted_top = arrayToString(top, stat, statsTotals[0][sDKey], false);
+        embed.addField(`${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, `${formatted_top}`);
     }
 
-    let embed = new MessageEmbed()
-        .setColor('#7289da')
-        .setTimestamp()
-        .setTitle('Stats');
-    for (var key in statsDict) {
-        const stat = statsDict[key][0];
-        const emoji = statsDict[key][1];
-        const statFormated = statsDict[key][2];
-        const top = await client.getTop(stat);
-        const formatted_top = arrayToString(top, stat, total[0][key]);
-        if (formatted_top !== undefined) embed.addField(`${emoji} ${statFormated}: ${total[0][key]} ${emoji}`, `${formatted_top}`);
-        else message.channel.send('I am a bit confused right now.').catch(console.error);
+    /**
+     * Gets the optional stat totals, if there is any.
+     */
+    const optionalStatsDict = {};
+    const optionalStatsTotals = await client.getOptionalStatsTotals();
+    if (optionalStatsTotals.length > 0) {
+        for (var stat in optionalStatsTotals) {
+            const key = Object.keys(optionalStatsTotals[stat])[0];
+            optionalStatsDict[key] = optional_stats[key];
+        }
+
+        for(var oSDKey in optionalStatsDict){
+            const optionalStat = optionalStatsDict[oSDKey][0];
+            const emoji = optionalStatsDict[oSDKey][1];
+            const optionalStatFormated = optionalStatsDict[oSDKey][2];
+            const top = await client.getOptionalStatTopThree(optionalStat);
+            const formatted_top = arrayToString(top, optionalStat, optionalStatsTotals[0][oSDKey], true);
+            embed.addField(`${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, `${formatted_top}`);
+        }
     }
+
     message.channel.send({
         embeds: [embed]
     }).catch(console.error);
@@ -62,11 +74,15 @@ module.exports = {
  * @param {String} type The name of the key needed to get the right data.
  * @returns {String} A formatted string with the data from the array.
  */
-function arrayToString(arr, type, total) {
+function arrayToString(arr, type, total, optional) {
     let str = '';
     arr.forEach(element => {
+        const name = element.name;
+        if(optional){
+            element = element.optionalStats;
+        }
         const avg = (element[type] / total) * 100;
-        str += `${element.name}: ${element[type]} (${parseInt(avg)}%)\n`;
+        str += `${name}: ${element[type]} (${parseInt(avg)}%)\n`;
     });
     return str;
 }

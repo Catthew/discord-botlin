@@ -14,8 +14,8 @@ const characterSchema = new mongoose.Schema({
     name: String,
     nat1: Number,
     nat20: Number,
+    optionalStats: Object,
     race: String,
-    redCoin: Number,
     type: String
 });
 
