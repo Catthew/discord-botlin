@@ -1,4 +1,4 @@
-const responses = require('../responses');
+const responses = require('../constants/responses');
 
 module.exports = (client, message) => {
     const prefix = process.env.PREFIX;
