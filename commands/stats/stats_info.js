@@ -1,7 +1,7 @@
 const {
     MessageEmbed
 } = require('discord.js');
-const optional_stats = require('./optional_stats');
+const optional_stats = require('../../constants/optional_stats');
 
 /**
  * Sends the current DND stats.

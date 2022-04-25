@@ -1,4 +1,4 @@
-const responses = require('../../responses');
+const responses = require('../../constants/responses');
 const info = require('./schedule_info');
 
 /**
