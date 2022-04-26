@@ -72,15 +72,15 @@ module.exports = {
  * Formats the data array into a formatted string.
  * @param {Array.<String>} arr The array that contains the data to be turned into a String.
  * @param {String} type The name of the key needed to get the right data.
+ * @param {Number} total The total count of the stat.
+ * @param {Boolean} optional If the stat being used is an optional stat.
  * @returns {String} A formatted string with the data from the array.
  */
 function arrayToString(arr, type, total, optional) {
     let str = '';
     arr.forEach(element => {
         const name = element.name;
-        if(optional){
-            element = element.optionalStats;
-        }
+        if(optional) element = element.optionalStats;
         const avg = (element[type] / total) * 100;
         str += `${name}: ${element[type]} (${parseInt(avg)}%)\n`;
     });
