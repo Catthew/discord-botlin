@@ -1,6 +1,7 @@
 const {
     MessageEmbed
 } = require('discord.js');
+const responses = require('../../constants/responses');
 
 /**
  * Sends the current DND schedule for the week.
@@ -18,14 +19,12 @@ async function getScheduleInfo(client, message) {
         .setTimestamp()
         .setTitle('Nat Up or Shut Up!');
     if (isCancelled) {
-        embed.addField(`Cancelled for ${getDate(date)}`, 'You are safe for another week...').setColor('#ff0000');
+        embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
     } else {
         let details = '';
         if (locationDetails.length > 0){
             details = '\n |';
-            for(var i in locationDetails){
-                details += ' ' + locationDetails[i] + ' |';
-            }
+            for(var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
         }
         
         embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} ${details}`).setColor('#00b300');
@@ -83,9 +82,7 @@ function getDate(date) {
 function getScheduleName(schedule, type) {
     let str;
     schedule.forEach(element => {
-        if (element.type == type) {
-            str = element.name;
-        }
+        if (element.type == type) str = element.name;
     });
     return str;
 }
