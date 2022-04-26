@@ -18,7 +18,7 @@ async function setNewSchedule(args, client, message) {
 
     const command = args[0];
 
-    if (cancelMapping[command] == undefined){
+    if (cancelMapping[command] === undefined){
         message.channel.send(responses.unknown_command).catch(console.error);
         return;
     } 
@@ -30,12 +30,12 @@ async function setNewSchedule(args, client, message) {
     
     const updated = await client.setCancelled(cancelMapping[command]);
 
-    if(updated == null) {
-        message.channel.send('Error: The schedule hasn\'t been updateded.').catch(console.error);
+    if(updated === null) {
+        message.channel.send(responses.schedule_not_updated).catch(console.error);
         return;
     }
 
-    message.channel.send(`${responses.schedule_updated}`).catch(console.error);
+    message.channel.send(responses.schedule_updated).catch(console.error);
     info.getScheduleInfo(client, message);
 }
 
