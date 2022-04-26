@@ -22,8 +22,14 @@ async function syncStats(spreadsheet, client, sync) {
                         const character = row.getCell(1);
                         if (stats[character] === undefined) stats[character] = {};
 
-                        if (stats[character][header] === undefined) stats[character][header] = row.getCell(j).value;
-                        else stats[character][header] += row.getCell(j).value;
+                        const rowValue = row.getCell(j).value;
+                        if (typeof rowValue == 'object'){
+                            client.channels.cache.get(process.env.CHANNELDEV).send(responses.stats_not_updated).catch(console.error);
+                            throw new Error(`Row ${i} and Column ${j} contains a =. Please remove!`);
+                        }
+
+                        if (stats[character][header] === undefined) stats[character][header] = rowValue;
+                        else stats[character][header] += rowValue;
                     }
                 }
             });

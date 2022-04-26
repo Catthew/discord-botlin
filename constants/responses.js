@@ -6,5 +6,6 @@ module.exports = {
     schedule_canceled: 'You are safe for another week...',
     schedule_not_updated: 'Error: The schedule hasn\'t been updateded.',
     schedule_updated: 'The schedule has been updated.',
+    stats_not_updated: 'Error: The stats hasn\'t been updateded.',
     unknown_command: 'I do not know this command.'
 };
