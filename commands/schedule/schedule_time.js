@@ -14,9 +14,7 @@ async function setScheduleTime(args, client, message) {
     sessionDateTime.setHours(newHour);
     sessionDateTime.setMinutes(hoursMinutes[1]);
 
-    if (sessionDateTime.getDate() != session.date.getDate()){
-        sessionDateTime.setDate(session.date.getDate());
-    }
+    if (sessionDateTime.getDate() != session.date.getDate()) sessionDateTime.setDate(session.date.getDate());
     
     const setSession = await client.setSession(session._id, sessionDateTime);
 
