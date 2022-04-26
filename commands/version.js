@@ -16,7 +16,7 @@ exports.run = (args, client, message) => {
         .setDescription('A goblin forced into being a Discord bot.')
         .setThumbnail(client.user.avatarURL())
         .setTimestamp()
-        .setTitle('Botlin Version 1.2');
+        .setTitle('Botlin Version 1.3');
     message.channel.send({
         embeds: [embed]
     }).catch(console.error);

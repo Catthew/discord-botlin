@@ -13,9 +13,7 @@ const e = require('express');
 exports.run = async (args, client, message) => {
     switch(args[0]){
         case 'sync':
-            if (common.isAdmin(message)){
-                excelStats.syncStats(process.env.SPREADSHEET, client, true);
-            } 
+            if (common.isAdmin(message)) excelStats.syncStats(process.env.SPREADSHEET, client, true);
             break;
         case undefined:
             info.getStatsInfo(client, message);
