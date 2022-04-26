@@ -10,12 +10,12 @@ const characterSchema = new mongoose.Schema({
     fullname: String,
     healing: Number,
     kills: Number,
-    ko: Number,
+    knockedOut: Number,
     name: String,
-    nat1: Number,
-    nat20: Number,
+    nat1s: Number,
+    nat20s: Number,
+    optionalStats: Object,
     race: String,
-    redCoin: Number,
     type: String
 });
 

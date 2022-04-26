@@ -1,4 +1,4 @@
-const responses = require('./responses');
+const responses = require('./constants/responses');
 
 /**
  * Checks to see if an admin made the command

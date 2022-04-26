@@ -1,7 +1,7 @@
 const change = require('./schedule/schedule_change');
 const common = require('../common_functions');
 const info = require('./schedule/schedule_info');
-const responses = require('../responses');
+const responses = require('../constants/responses');
 const time = require('./schedule/schedule_time');
 
 

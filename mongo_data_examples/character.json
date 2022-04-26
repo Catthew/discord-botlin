@@ -11,12 +11,14 @@
     "kills": 7,
     "damageDealt": 200,
     "damageTaken": 200,
-    "nat20": 5,
-    "nat1": 1,
+    "nat20s": 5,
+    "nat1s": 1,
     "alias": ["Stothy", "SB"],
     "healing": 32,
-    "ko": 5,
-    "redCoin": 12
+    "knockedOut": 5,
+    "optionalStats": {
+        "redCoins": 12
+    }
 }, {
     "_id": {
         "$oid": ""
