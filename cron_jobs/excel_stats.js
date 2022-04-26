@@ -22,47 +22,46 @@ async function syncStats(spreadsheet, client, sync) {
                         const character = row.getCell(1);
                         if (stats[character] === undefined) stats[character] = {};
 
-                        if (stats[character][header] === undefined) stats[character][header] = row.getCell(j).value;
-                        else stats[character][header] += row.getCell(j).value;
+                        const rowValue = row.getCell(j).value;
+                        if (typeof rowValue == 'object'){
+                            client.channels.cache.get(process.env.CHANNELDEV).send(responses.stats_not_updated).catch(console.error);
+                            throw new Error(`Row ${i} and Column ${j} contains a =. Please remove!`);
+                        }
+
+                        if (stats[character][header] === undefined) stats[character][header] = rowValue;
+                        else stats[character][header] += rowValue;
                     }
                 }
             });
         })
-        .finally(async () => {      
-            
+        .finally(async () => {
+
             for (let name in stats) {
-                const damageDealt = stats[name]['damageDealt'];
-                const damageTaken = stats[name]['damageTaken'];
-                const healing = stats[name]['healing'];
-                const kills = stats[name]['kills'];
-                const knockedOut = stats[name]['knockedOut'];
-                const nat1s = stats[name]['nat1s'];
-                const nat20s = stats[name]['nat20s'];
+                const damageDealt = stats[name]['damageDealt'] === undefined ? 0 : stats[name]['damageDealt'];
+                const damageTaken = stats[name]['damageTaken'] === undefined ? 0 : stats[name]['damageTaken'];
+                const healing = stats[name]['healing'] === undefined ? 0 : stats[name]['healing'];
+                const kills = stats[name]['kills'] === undefined ? 0 : stats[name]['kills'];
+                const knockedOut = stats[name]['knockedOut'] === undefined ? 0 : stats[name]['knockedOut'];
+                const nat1s = stats[name]['nat1s'] === undefined ? 0 : stats[name]['nat1s'];
+                const nat20s = stats[name]['nat20s'] === undefined ? 0 : stats[name]['nat20s'];
 
                 let optionalStats = null;
                 const oSKeys = Object.keys(optional_stats);
-                for(let stat in oSKeys) {
+                for (let stat in oSKeys) {
                     const optionalStat = oSKeys[stat];
                     const excelOSName = '[OS] ' + optionalStat;
-                    if (excelOSName in stats[name]){
-                        if (optionalStats === null) {
-                            optionalStats = {};
-                        }
-                        optionalStats[optionalStat] = stats[name][excelOSName];
+                    if (excelOSName in stats[name]) {
+                        if (optionalStats === null) optionalStats = {};
+                        optionalStats[optionalStat] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
                     }
                 }
 
-                await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);                
+                await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);
             }
-            
+
             const prefix = process.env.PREFIX;
-            if (sync){
-                client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
-            }
-            else{
-                client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
-            }
-            
+            if (sync) client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
+            else client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
         });
 }
 

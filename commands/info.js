@@ -1,6 +1,7 @@
 const {
     MessageEmbed
 } = require('discord.js');
+const responses = require('../constants/responses');
 
 /**
  * Sends information about the thing that was asked.
@@ -12,7 +13,7 @@ exports.run = async (args, client, message) => {
     const response = capitalize(args.join(' '));
     const info = await searchForInfo(client, response);
     if (info == null) {
-        message.channel.send('I don\'t know that!').catch(console.error);
+        message.channel.send(responses.no_info).catch(console.error);
         return;
     }
     let infoEmbed;

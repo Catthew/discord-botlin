@@ -1,6 +1,7 @@
 const {
     MessageEmbed
 } = require('discord.js');
+const responses = require('../constants/responses');
 
 /**
  * Sends the current version of Botlin.
@@ -11,7 +12,7 @@ const {
 exports.run = async (args, client, message) => {
     const currentLocation = await client.getCurrentLocation();
     if (currentLocation == null) {
-        message.channel.send('I am a bit confused right now.').catch(console.error);
+        message.channel.send(responses.no_info).catch(console.error);
         return;
     }
 
