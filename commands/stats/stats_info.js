@@ -22,9 +22,9 @@ async function getStatsInfo(client, message) {
         'kills': ['kills', '🗡️', 'Kills'],
         'damageDealt': ['damageDealt', '⚔️', 'Damage Dealt'],
         'damageTaken': ['damageTaken', '🩹', 'Damage Taken'],
-        'nat20': ['nat20', '🤩', 'Nat 20'],
-        'nat1': ['nat1', '💩', 'Nat 1'],
-        'ko': ['ko', '😴', 'KO'],
+        'nat20s': ['nat20s', '🤩', 'Nat 20\'s'],
+        'nat1s': ['nat1s', '💩', 'Nat 1\'s'],
+        'knockedOut': ['knockedOut', '😴', 'Knocked Out'],
         'healing': ['healing', '🏨', 'Healing']
     };
     const statsTotals = await client.getStatsTotals();

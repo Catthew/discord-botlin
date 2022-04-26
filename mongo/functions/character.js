@@ -133,14 +133,14 @@ module.exports = client => {
                 kills: {
                     $sum: '$kills'
                 },
-                ko: {
-                    $sum: '$ko'
+                knockedOut: {
+                    $sum: '$knockedOut'
                 },
-                nat1: {
-                    $sum: '$nat1'
+                nat1s: {
+                    $sum: '$nat1s'
                 },
-                nat20: {
-                    $sum: '$nat20'
+                nat20s: {
+                    $sum: '$nat20s'
                 }
             }
         }]);
@@ -152,33 +152,33 @@ module.exports = client => {
      * @param {String} damageTaken The amount of damage a character has taken.
      * @param {String} healing The amount of damage a character has healed.
      * @param {String} kills The amount of kills a character has.
-     * @param {String} ko The amount of times a character has been knocked out.
+     * @param {String} knockedOut The amount of times a character has been knocked out.
      * @param {String} name The name of the character.
-     * @param {String} nat1 The amount of nat 1s a character has rolled.
-     * @param {String} nat20 The amount of nat 20s a character has rolled.
+     * @param {String} nat1s The amount of nat 1s a character has rolled.
+     * @param {String} nat20s The amount of nat 20s a character has rolled.
      * @param {Object} optionalStats Any stats that are optional.
      * @returns {?String} The update response, null if it doesn't.
      */
-    client.setStats = async (damageDealt, damageTaken, healing, kills, ko, name, nat1, nat20, optionalStats) => {
+    client.setStats = async (damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats) => {
         const sName = sanitize(name);
         const sKills = sanitize(kills);
         const sDamageDealt = sanitize(damageDealt);
         const sDamageTaken = sanitize(damageTaken);
-        const sNat1 = sanitize(nat1);
-        const sNat20 = sanitize(nat20);
+        const sNat1s = sanitize(nat1s);
+        const sNat20s = sanitize(nat20s);
         const sOptionalStats = sanitize(optionalStats);
         const sHealing = sanitize(healing);
-        const sKo = sanitize(ko);
+        const sKnockedOut = sanitize(knockedOut);
         const data = await Character.updateOne({
             name: sName
         }, {
             kills: sKills,
             damageDealt: sDamageDealt,
             damageTaken: sDamageTaken,
-            nat1: sNat1,
-            nat20: sNat20,
+            nat1s: sNat1s,
+            nat20s: sNat20s,
             healing: sHealing,
-            ko: sKo,
+            knockedOut: sKnockedOut,
             optionalStats: sOptionalStats
         });
         return data ? data : null;
