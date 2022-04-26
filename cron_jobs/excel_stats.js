@@ -1,15 +1,6 @@
 const Excel = require('exceljs');
-
-const stat_mapping = {
-    2: 'kills',
-    3: 'damageDealt',
-    4: 'damageTaken',
-    5: 'nat1',
-    6: 'nat20',
-    7: 'healing',
-    8: 'ko',
-    9: 'redCoin'
-};
+const optional_stats = require('../constants/optional_stats');
+const responses = require('../constants/responses');
 
 /**
  * Reads the spreadsheet and updates the characters stats.
@@ -26,40 +17,44 @@ async function syncStats(spreadsheet, client, sync) {
                 for (let i = 2; i < 10; i++) {
                     const row = worksheet.getRow(i);
                     for (let j = 2; j < 10; j++) {
+                        const header = worksheet.getRow(1).getCell(j);
                         if (row.getCell(j).value == null) continue;
                         const character = row.getCell(1);
                         if (stats[character] === undefined) stats[character] = {};
 
-                        if (stats[character][stat_mapping[j]] === undefined) stats[character][stat_mapping[j]] = row.getCell(j).value;
-                        else stats[character][stat_mapping[j]] += row.getCell(j).value;
+                        if (stats[character][header] === undefined) stats[character][header] = row.getCell(j).value;
+                        else stats[character][header] += row.getCell(j).value;
                     }
                 }
             });
         })
-        .finally(async () => {
-            for (let stat in stats) {
-                const kills = stats[stat]['kills'];
-                const damageDealt = stats[stat]['damageDealt'];
-                const damageTaken = stats[stat]['damageTaken'];
-                const nat1 = stats[stat]['nat1'];
-                const nat20 = stats[stat]['nat20'];
-                const healing = stats[stat]['healing'];
-                const ko = stats[stat]['ko'];
-                switch (process.env.PREFIX) {
-                    case 'gobt!':
-                        await client.setStatsGobtana(stat, kills, damageDealt, damageTaken, nat1, nat20, healing, ko);
-                        break;
-                    case 'devclarg?':
-                    case 'gobo!':
-                        var redCoin = stats[stat]['redCoin'];
-                        await client.setStatsBotlin(stat, kills, damageDealt, damageTaken, nat1, nat20, redCoin, healing, ko);
-                        break;
-                    default:
-                        console.log('Error: Unknown user - excel_stats.js');
-                        return;
+        .finally(async () => {      
+            
+            for (let name in stats) {
+                const damageDealt = stats[name]['damageDealt'];
+                const damageTaken = stats[name]['damageTaken'];
+                const healing = stats[name]['healing'];
+                const kills = stats[name]['kills'];
+                const knockedOut = stats[name]['knockedOut'];
+                const nat1s = stats[name]['nat1s'];
+                const nat20s = stats[name]['nat20s'];
+
+                let optionalStats = null;
+                const oSKeys = Object.keys(optional_stats);
+                for(let stat in oSKeys) {
+                    const optionalStat = oSKeys[stat];
+                    const excelOSName = '[OS] ' + optionalStat;
+                    if (excelOSName in stats[name]){
+                        if (optionalStats === null) {
+                            optionalStats = {};
+                        }
+                        optionalStats[optionalStat] = stats[name][excelOSName];
+                    }
                 }
-                
+
+                await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);                
             }
+            
             const prefix = process.env.PREFIX;
             if (sync){
                 client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
@@ -67,6 +62,7 @@ async function syncStats(spreadsheet, client, sync) {
             else{
                 client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
             }
+            
         });
 }
 
