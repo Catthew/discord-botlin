@@ -17,7 +17,13 @@
 > Ex. gobo! schedule cancel<br>
 Ex. gobo! schedule uncancel
 
+**schedule time 00:00** - ADMIN ONLY - Updates the time of the DND Session.
+> Ex. gobo! schedule time 10:00
+
 **stats** - Returns the Top Users of certain stats.
+> Ex. gobo! stats
+
+**stats sync** - ADMIN ONLY - Runs the stats count, if there is an error with the automatic update.
 > Ex. gobo! stats
 
 **version** - Gives to current version of Botlin.
@@ -27,4 +33,4 @@ Ex. gobo! schedule uncancel
 
 **upgraded vocabulary** - Botlin having more responses
 
-10/15/2021
+04/29/2022
