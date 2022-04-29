@@ -1,7 +1,7 @@
 # Custom Commands for Botlin
 ### Enabled Commands
 
-**info** - Provides Info for a character/place/NPC we have come accross.
+**info** - Provides Info for a character/location/building/NPC we have come accross.
 > Ex. gobo! info Stoth
 
 **location** - Returns the parties current location.
