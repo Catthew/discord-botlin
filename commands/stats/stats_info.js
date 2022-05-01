@@ -81,7 +81,8 @@ function arrayToString(arr, type, total, optional) {
     arr.forEach(element => {
         const name = element.name;
         if(optional) element = element.optionalStats;
-        const avg = (element[type] / total) * 100;
+        let avg = (element[type] / total) * 100;
+        if (isNaN(avg)) avg = 0;
         str += `${name}: ${element[type]} (${parseInt(avg)}%)\n`;
     });
     return str;
