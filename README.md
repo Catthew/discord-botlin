@@ -17,7 +17,7 @@
 > Ex. gobo! schedule update cancel<br>
 Ex. gobo! schedule update uncancel
 
-**schedule update --date __-__-____ --time __:__** - ADMIN ONLY - Updates the date and/or time of the DND Session.
+**schedule update --date --time** - ADMIN ONLY - Updates the date and/or time of the DND Session.
 > Ex. gobo! schedule --date 05/22/22 --time 10:00<br>
 Ex. gobo! schedule --date 05/22/22<br>
 Ex. gobo! schedule --time 10:00
