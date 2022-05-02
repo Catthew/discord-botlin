@@ -13,12 +13,14 @@
 **schedule** - Returns the status of this weeks DnD session and the snack schedule.
 > Ex. gobo! schedule
 
-**schedule cancel/uncancel** - ADMIN ONLY - Cancels/Uncancels the DnD Session for the week.
-> Ex. gobo! schedule cancel<br>
-Ex. gobo! schedule uncancel
+**schedule update cancel/uncancel** - ADMIN ONLY - Cancels/Uncancels the DnD Session for the week.
+> Ex. gobo! schedule update cancel<br>
+Ex. gobo! schedule update uncancel
 
-**schedule time 00:00** - ADMIN ONLY - Updates the time of the DND Session.
-> Ex. gobo! schedule time 10:00
+**schedule update --date __-__-____ --time __:__** - ADMIN ONLY - Updates the date and/or time of the DND Session.
+> Ex. gobo! schedule --date 05/22/22 --time 10:00<br>
+Ex. gobo! schedule --time 10:00<br>
+Ex. gobo! schedule --time 10:00
 
 **stats** - Returns the Top Users of certain stats.
 > Ex. gobo! stats
@@ -29,8 +31,4 @@ Ex. gobo! schedule uncancel
 **version** - Gives to current version of Botlin.
 > Ex. gobo! version
 
-### Upcoming Commands
-
-**upgraded vocabulary** - Botlin having more responses
-
-04/29/2022
+05/01/2022
