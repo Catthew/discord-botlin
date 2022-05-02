@@ -1,8 +1,8 @@
-const change = require('./schedule/schedule_change');
 const common = require('../common_functions');
+const datetimeChange = require('./schedule/update/schedule_datetime_change');
 const info = require('./schedule/schedule_info');
+const onOff = require('./schedule/update/schedule_on_off');
 const responses = require('../constants/responses');
-const time = require('./schedule/schedule_time');
 
 /**
  * Checks which schedule command was called.
@@ -11,18 +11,19 @@ const time = require('./schedule/schedule_time');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = async (args, client, message) => {
-    switch(args[0]){
-        case 'cancel':
-        case 'uncancel':
-            if (common.isAdmin(message)) change.setNewSchedule(args, client, message);
-            break;
-        case 'time':
-            if (common.isAdmin(message)) time.setScheduleTime(args, client, message);
-            break;
-        case undefined:
-            info.getScheduleInfo(client, message);
-            break;
-        default:
-            message.channel.send(responses.unknown_command).catch(console.error);
-    }
+    const command = args[0];
+    if (command == 'update') {
+        switch (args[1]) {
+            case 'cancel':
+            case 'uncancel':
+                if (common.isAdmin(message)) onOff.setNewSchedule(args, client, message);
+                break;
+            case 'session':
+                if (common.isAdmin(message)) datetimeChange.setScheduleDateTime(args, client, message);
+                break;
+            default:
+                message.channel.send(responses.unknown_command).catch(console.error);
+        }
+    } else if (command === undefined) info.getScheduleInfo(client, message);
+    else message.channel.send(responses.unknown_command).catch(console.error);
 };

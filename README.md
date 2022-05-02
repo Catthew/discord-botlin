@@ -1,7 +1,7 @@
 # Custom Commands for Botlin
 ### Enabled Commands
 
-**info** - Provides Info for a character/place/NPC we have come accross.
+**info** - Provides Info for a character/location/building/NPC we have come accross.
 > Ex. gobo! info Stoth
 
 **location** - Returns the parties current location.
@@ -13,18 +13,22 @@
 **schedule** - Returns the status of this weeks DnD session and the snack schedule.
 > Ex. gobo! schedule
 
-**schedule cancel/uncancel** - ADMIN ONLY - Cancels/Uncancels the DnD Session for the week.
-> Ex. gobo! schedule cancel<br>
-Ex. gobo! schedule uncancel
+**schedule update cancel/uncancel** - ADMIN ONLY - Cancels/Uncancels the DnD Session for the week.
+> Ex. gobo! schedule update cancel<br>
+Ex. gobo! schedule update uncancel
+
+**schedule update --date --time** - ADMIN ONLY - Updates the date and/or time of the DND Session.
+> Ex. gobo! schedule --date 05/22/22 --time 10:00<br>
+Ex. gobo! schedule --date 05/22/22<br>
+Ex. gobo! schedule --time 10:00
 
 **stats** - Returns the Top Users of certain stats.
+> Ex. gobo! stats
+
+**stats sync** - ADMIN ONLY - Runs the stats count, if there is an error with the automatic update.
 > Ex. gobo! stats
 
 **version** - Gives to current version of Botlin.
 > Ex. gobo! version
 
-### Upcoming Commands
-
-**upgraded vocabulary** - Botlin having more responses
-
-10/15/2021
+05/01/2022
