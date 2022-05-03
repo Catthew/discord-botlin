@@ -26,25 +26,25 @@ module.exports = client => {
      * @param {String} optionalStat The optional stat being searched for.
      * @returns {?String} The Character data if it exists, null if it doesn't.
      */
-         client.getOptionalStatTopThree = async (optionalStat) => {
-            const sOptionalStat = sanitize(optionalStat);
-            //Sets up the Find Dictionary in the correct order
-            let find = {};
-            find['optionalStats.' + sOptionalStat] = 1;
-            find['name'] = 1;
-            find['_id'] = 0;
-            //Sets up the Field Dictionary
-            let field = {};
-            field['optionalStats.' + sOptionalStat] = {
-                $exists: true
-            };
-            //Sets up the Sort Dictionary in the correct order
-            let sort = {};
-            sort['optionalStats.' + sOptionalStat] = -1;
-            sort['name'] = 1;
-            const data = await Character.find(field, find).sort(sort).limit(3);
-            return data ? data : null;
+    client.getOptionalStatTopThree = async (optionalStat) => {
+        const sOptionalStat = sanitize(optionalStat);
+        //Sets up the Find Dictionary in the correct order
+        let find = {};
+        find['optionalStats.' + sOptionalStat] = 1;
+        find['name'] = 1;
+        find['_id'] = 0;
+        //Sets up the Field Dictionary
+        let field = {};
+        field['optionalStats.' + sOptionalStat] = {
+            $exists: true
         };
+        //Sets up the Sort Dictionary in the correct order
+        let sort = {};
+        sort['optionalStats.' + sOptionalStat] = -1;
+        sort['name'] = 1;
+        const data = await Character.find(field, find).sort(sort).limit(3);
+        return data ? data : null;
+    };
     /**
      * Gets the total sum of each optional stat.
      * @returns {?Array} The aggregation data if it exists, null if it doesn't.
@@ -94,25 +94,25 @@ module.exports = client => {
      * @param {String} stat The stat being searched for.
      * @returns {?String} The Character data if it exists, null if it doesn't.
      */
-         client.getStatTopThree = async (stat) => {
-            const sStat = sanitize(stat);
-            //Sets up the Find Dictionary in the correct order
-            let find = {};
-            find[sStat] = 1;
-            find['name'] = 1;
-            find['_id'] = 0;
-            //Sets up the Field Dictionary
-            let field = {};
-            field[sStat] = {
-                $exists: true
-            };
-            //Sets up the Sort Dictionary in the correct order
-            let sort = {};
-            sort[sStat] = -1;
-            sort['name'] = 1;
-            const data = await Character.find(field, find).sort(sort).limit(3);
-            return data ? data : null;
+    client.getStatTopThree = async (stat) => {
+        const sStat = sanitize(stat);
+        //Sets up the Find Dictionary in the correct order
+        let find = {};
+        find[sStat] = 1;
+        find['name'] = 1;
+        find['_id'] = 0;
+        //Sets up the Field Dictionary
+        let field = {};
+        field[sStat] = {
+            $exists: true
         };
+        //Sets up the Sort Dictionary in the correct order
+        let sort = {};
+        sort[sStat] = -1;
+        sort['name'] = 1;
+        const data = await Character.find(field, find).sort(sort).limit(3);
+        return data ? data : null;
+    };
     /**
      * Gets the total sum of each stat.
      * @returns {?Array} The aggregation data if it exists, null if it doesn't.
