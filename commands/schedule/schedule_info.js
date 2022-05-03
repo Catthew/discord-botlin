@@ -22,13 +22,13 @@ async function getScheduleInfo(client, message) {
         embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
     } else {
         let details = '';
-        if (locationDetails.length > 0){
+        if (locationDetails.length > 0) {
             details = '\n |';
-            for(var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
+            for (var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
         }
-        
+
         embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} ${details}`).setColor('#00b300');
-        
+
         /* Turning off drink schedule for now
         const schedule = await client.getSchedule();
         const scheduleDict = {

@@ -17,19 +17,19 @@ async function setNewSchedule(args, client, message) {
 
     const command = cancelMapping[args[1]];
 
-    if (command === undefined){
+    if (command === undefined) {
         message.channel.send(responses.unknown_command).catch(console.error);
         return;
-    } 
+    }
 
-    if(command == session.isCancelled){
+    if (command == session.isCancelled) {
         message.channel.send(`The session is already ${args[1]}ed.`).catch(console.error);
         return;
     }
-    
+
     const updated = await client.setCancelled(command);
 
-    if(updated === null) {
+    if (updated === null) {
         message.channel.send(responses.schedule_not_updated).catch(console.error);
         return;
     }
