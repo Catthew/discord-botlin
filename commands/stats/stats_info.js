@@ -40,7 +40,7 @@ async function getStatsInfo(client, message) {
     /**
      * Gets the optional stat totals, if there is any.
      */
-    const optionalStatsDict = {};
+    let optionalStatsDict = {};
     const optionalStatsTotals = await client.getOptionalStatsTotals();
     if (optionalStatsTotals.length > 0) {
         for (var stat in optionalStatsTotals) {
@@ -48,7 +48,7 @@ async function getStatsInfo(client, message) {
             optionalStatsDict[key] = optional_stats[key];
         }
 
-        for(var oSDKey in optionalStatsDict){
+        for (var oSDKey in optionalStatsDict) {
             const optionalStat = optionalStatsDict[oSDKey][0];
             const emoji = optionalStatsDict[oSDKey][1];
             const optionalStatFormated = optionalStatsDict[oSDKey][2];
@@ -80,9 +80,8 @@ function arrayToString(arr, type, total, optional) {
     let str = '';
     arr.forEach(element => {
         const name = element.name;
-        if(optional) element = element.optionalStats;
-        let avg = (element[type] / total) * 100;
-        if (isNaN(avg)) avg = 0;
+        if (optional) element = element.optionalStats;
+        const avg = (total == 0) ? 0 : (element[type] / total) * 100;
         str += `${name}: ${element[type]} (${parseInt(avg)}%)\n`;
     });
     return str;
