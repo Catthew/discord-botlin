@@ -14,23 +14,22 @@ async function setNewSchedule(args, client, message) {
     };
 
     const session = await client.getSession();
-    const isCancelled = session.isCancelled;
 
-    const command = args[1];
+    const command = cancelMapping[args[1]];
 
-    if (cancelMapping[command] === undefined){
+    if (command === undefined) {
         message.channel.send(responses.unknown_command).catch(console.error);
         return;
-    } 
+    }
 
-    if(cancelMapping[command] == isCancelled){
-        message.channel.send(`The session is already ${command}ed.`).catch(console.error);
+    if (command == session.isCancelled) {
+        message.channel.send(`The session is already ${args[1]}ed.`).catch(console.error);
         return;
     }
-    
-    const updated = await client.setCancelled(cancelMapping[command]);
 
-    if(updated === null) {
+    const updated = await client.setCancelled(command);
+
+    if (updated === null) {
         message.channel.send(responses.schedule_not_updated).catch(console.error);
         return;
     }

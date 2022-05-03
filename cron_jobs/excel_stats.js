@@ -23,7 +23,7 @@ async function syncStats(spreadsheet, client, sync) {
                         if (stats[character] === undefined) stats[character] = {};
 
                         const rowValue = row.getCell(j).value;
-                        if (typeof rowValue == 'object'){
+                        if (typeof rowValue == 'object') {
                             client.channels.cache.get(process.env.CHANNELDEV).send(responses.stats_not_updated).catch(console.error);
                             throw new Error(`Row ${i} and Column ${j} contains a =. Please remove!`);
                         }

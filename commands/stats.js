@@ -11,7 +11,7 @@ const e = require('express');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = async (args, client, message) => {
-    switch(args[0]){
+    switch (args[0]) {
         case 'sync':
             if (common.isAdmin(message)) excelStats.syncStats(process.env.SPREADSHEET, client, true);
             break;

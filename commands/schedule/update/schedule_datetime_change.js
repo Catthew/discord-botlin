@@ -18,8 +18,8 @@ async function setScheduleDateTime(args, client, message) {
         message.channel.send(responses.no_date_time).catch(console.error);
         return;
     }
-    
-    if(time > 0) {
+
+    if (time > 0) {
         const hoursMinutes = args[time].split(":");
         sessionDateTime.setHours(hoursMinutes[0]);
         sessionDateTime.setMinutes(hoursMinutes[1]);
