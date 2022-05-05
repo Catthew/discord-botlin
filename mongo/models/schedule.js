@@ -8,10 +8,7 @@ const scheduleSchema = new mongoose.Schema({
     isOff: Boolean,
     location: String,
     locationDetails: Array,
-    name: String,
-    turn: Boolean,
-    turnCount: Number,
-    type: String,
+    type: String
 });
 
 module.exports = mongoose.model('Schedule', scheduleSchema);
