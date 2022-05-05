@@ -23,7 +23,7 @@ async function setNewSchedule(args, client, message) {
     }
 
     if (command == session.isOff) {
-        message.channel.send(`The session is already ${args[1]}ed.`).catch(console.error);
+        message.channel.send(`The session is already ${args[1]}!`).catch(console.error);
         return;
     }
 
