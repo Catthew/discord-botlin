@@ -17,10 +17,10 @@
 > Ex. gobo! schedule update off<br>
 Ex. gobo! schedule update on
 
-**schedule update date time** - ADMIN ONLY - Updates the date and/or time of the DND Session.
-> Ex. gobo! schedule update date 05/22/22 time 10:00<br>
-Ex. gobo! schedule update date 05/22/22<br>
-Ex. gobo! schedule update time 10:00
+**schedule update --date --time** - ADMIN ONLY - Updates the date and/or time of the DND Session.
+> Ex. gobo! schedule update --date 05/22/22 --time 10:00<br>
+Ex. gobo! schedule update --date 05/22/22<br>
+Ex. gobo! schedule update --time 10:00
 
 **stats** - Returns the Top Users of certain stats.
 > Ex. gobo! stats
