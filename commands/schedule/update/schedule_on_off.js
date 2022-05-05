@@ -13,29 +13,24 @@ async function setNewSchedule(args, client, message) {
         on: false
     };
 
-    const session = await client.getSession();
-
     const command = cancelMapping[args[1]];
-
     if (command === undefined) {
         message.channel.send(responses.unknown_command).catch(console.error);
         return;
     }
 
+    const session = await client.getSession();
     if (command == session.isOff) {
         message.channel.send(`The session is already ${args[1]}!`).catch(console.error);
         return;
     }
 
     const updated = await client.setCancelled(command);
-
-    if (updated === null) {
-        message.channel.send(responses.schedule_not_updated).catch(console.error);
-        return;
+    if (updated === null) message.channel.send(responses.schedule_not_updated).catch(console.error);
+    else {
+        message.channel.send(responses.schedule_updated).catch(console.error);
+        info.getScheduleInfo(client, message);
     }
-
-    message.channel.send(responses.schedule_updated).catch(console.error);
-    info.getScheduleInfo(client, message);
 }
 
 module.exports = {
