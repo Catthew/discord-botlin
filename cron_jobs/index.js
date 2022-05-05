@@ -14,9 +14,9 @@ module.exports = client => {
 
     /*
         Send the first schedule alert
-        Wednesday at 6:00 PM (+4 hours due to server)
+        Wednesday at 6:00 PM
     */
-    cron.schedule('0 22 * * 3', () => {
+    cron.schedule('0 18 * * 3', () => {
         console.log('Sending 1st schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
@@ -24,9 +24,9 @@ module.exports = client => {
 
     /*
         Send the second schedule alert
-        Friday at 12:00 PM (+4 hours due to server)
+        Friday at 12:00 PM
     */
-    cron.schedule('0 16 * * 5', () => {
+    cron.schedule('0 12 * * 5', () => {
         console.log('Sending 2nd schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
         console.log('Complete');
@@ -34,9 +34,9 @@ module.exports = client => {
 
     /*
         Update the DnD schedule
-        Saturday at 11:00 PM (+4 hours due to server)
+        Saturday at 11:00 PM
     */
-    cron.schedule('0 3 * * 6', () => {
+    cron.schedule('0 23 * * 6', () => {
         console.log('Updating the schedule');
         require('./schedule_update')(client);
         console.log('Complete');
@@ -44,9 +44,9 @@ module.exports = client => {
 
     /*
         Send the stats
-        Sunday at 00:00 AM (+4 hours due to server)
+        Sunday at 00:00 AM 
     */
-    cron.schedule('0 4 * * 7', () => {
+    cron.schedule('0 24 * * 7', () => {
         console.log('Updating the stats');
         require('./excel_stats').syncStats(process.env.SPREADSHEET, client, false);
         console.log('Complete');
