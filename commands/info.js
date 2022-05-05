@@ -103,12 +103,13 @@ function getCharacter(info) {
  */
 function getLocation(info, location) {
     let people = [];
+    location[1].forEach(l => {
+        people.push(l.fullname);
+    });
+
     let stores = [];
     location[0].forEach(l => {
         stores.push(l.name);
-    });
-    location[1].forEach(l => {
-        people.push(l.fullname);
     });
     const desc = splitMutlipleSentences(info.bio);
     return new MessageEmbed()

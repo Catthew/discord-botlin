@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 module.exports = {
     init: () => {
-
         const dbOptions = {
             autoIndex: false,
             connectTimeoutMS: 10000,
@@ -13,7 +12,7 @@ module.exports = {
         mongoose.Promise = global.Promise;
         mongoose.connection.on('connected', () => {
             console.log('Mongoose connection successfully opened!');
-        });  
+        });
         mongoose.connection.on('disconnected', () => {
             console.log('Mongoose connection disconnected');
         });

@@ -1,23 +1,8 @@
-[{
+{
     "_id": {
         "$oid": ""
     },
-    "name": "Wesley",
-    "type": "Ice",
-    "turn": true
-},{
-    "_id": {
-        "$oid": ""
-    },
-    "name": "Matt and Jiyoung",
-    "type": "Drinks",
-    "turn": true,
-    "turnCount": 1
-},{
-    "_id": {
-        "$oid": ""
-    },
-    "isCancelled": true,
+    "isOff": true,
     "location": "DM's Place",
     "locationDetails": [
         "AppleMaps",
@@ -29,4 +14,4 @@
         "$date": "2021-03-20T22:00:00.000Z"
 
     }
-}]
+}

@@ -20,17 +20,6 @@ module.exports = client => {
         return data ? data : null;
     };
     /**
-     * Gets the current scheduled people that are on drink duty.
-     * @returns {?String} The Schedule data if it exists, null if it doesn't.
-     */
-    client.getScheduleDrinks = async () => {
-        const data = await Schedule.findOne({
-            turn: true,
-            type: 'Drinks'
-        });
-        return data ? data : null;
-    };
-    /**
      * Gets the current session information.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
@@ -41,24 +30,8 @@ module.exports = client => {
         return data ? data : null;
     };
     /**
-     * Sets the new Drink Schedule.
-     * @param {Boolean} isNewTurn If the new turn is active or not.
-     * @param {String} turnCount The turn being updated.
-     * @returns {?String} The Schedule data if it exists, null if it doesn't.
-     */
-    client.setDrink = async (isNewTurn, turnCount) => {
-        const sIsNewTurn = sanitize(isNewTurn);
-        const sTurnCount = sanitize(turnCount);
-        const data = await Schedule.updateOne({
-            turnCount: sTurnCount
-        }, {
-            turn: sIsNewTurn
-        });
-        return data ? data : null;
-    };
-    /**
-     * Sets the new value of the field isCancelled.
-     * @param {Boolean} update The value to update isCancelled.
+     * Sets the new value of the field isOff.
+     * @param {Boolean} update The value to update isOff.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
     client.setCancelled = async (update) => {
@@ -66,7 +39,7 @@ module.exports = client => {
         const data = await Schedule.updateOne({
             type: 'Session'
         }, {
-            isCancelled: sUpdate
+            isOff: sUpdate
         });
         return data ? data : null;
     };
@@ -83,7 +56,7 @@ module.exports = client => {
         }, {
             $set: {
                 date: sNewDate,
-                isCancelled: false
+                isOff: false
             }
         });
         return data ? data : null;

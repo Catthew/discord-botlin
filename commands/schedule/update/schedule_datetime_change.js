@@ -9,8 +9,8 @@ const info = require('../schedule_info');
  */
 async function setScheduleDateTime(args, client, message) {
 
-    const date = args.indexOf('--date', 2) + 1;
-    const time = args.indexOf('--time', 2) + 1;
+    const date = args.indexOf('--date', 1) + 1;
+    const time = args.indexOf('--time', 1) + 1;
     const session = await client.getSession();
     let sessionDateTime = new Date(session.date.valueOf());
 
@@ -34,14 +34,11 @@ async function setScheduleDateTime(args, client, message) {
     }
 
     const setSession = await client.setSession(session._id, sessionDateTime);
-
-    if (setSession['nModified'] == 0) {
-        message.channel.send('Time was not updated.').catch(console.error);
-        return;
+    if (setSession['nModified'] == 0) message.channel.send('Time was not updated.').catch(console.error);
+    else {
+        message.channel.send(`${responses.schedule_updated}`).catch(console.error);
+        info.getScheduleInfo(client, message);
     }
-
-    message.channel.send(`${responses.schedule_updated}`).catch(console.error);
-    info.getScheduleInfo(client, message);
 }
 
 module.exports = {
