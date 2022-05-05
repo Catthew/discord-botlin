@@ -18,8 +18,8 @@ exports.run = async (args, client, message) => {
             case 'off':
                 if (common.isAdmin(message)) onOff.setNewSchedule(args, client, message);
                 break;
-            case 'date':
-            case 'time':
+            case '--date':
+            case '--time':
                 if (common.isAdmin(message)) datetimeChange.setScheduleDateTime(args, client, message);
                 break;
             default:
