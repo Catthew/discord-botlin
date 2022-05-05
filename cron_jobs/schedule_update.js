@@ -9,7 +9,7 @@ const {
 module.exports = async (client) => {
     const scheduleSession = await client.getSession();
     /*
-    if (!scheduleSession['isCancelled']) {
+    if (!scheduleSession['isOff']) {
         const scheduleDrinks = await client.getScheduleDrinks();
         const turnCount = scheduleDrinks['turnCount'];
         const oldTurn = await setDrinkTurn(client, false, turnCount);

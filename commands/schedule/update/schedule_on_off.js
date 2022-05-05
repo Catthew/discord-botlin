@@ -9,8 +9,8 @@ const info = require('../schedule_info');
  */
 async function setNewSchedule(args, client, message) {
     const cancelMapping = {
-        cancel: true,
-        uncancel: false
+        off: true,
+        on: false
     };
 
     const session = await client.getSession();
@@ -22,7 +22,7 @@ async function setNewSchedule(args, client, message) {
         return;
     }
 
-    if (command == session.isCancelled) {
+    if (command == session.isOff) {
         message.channel.send(`The session is already ${args[1]}ed.`).catch(console.error);
         return;
     }

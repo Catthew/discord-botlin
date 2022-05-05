@@ -14,11 +14,12 @@ exports.run = async (args, client, message) => {
     const command = args[0];
     if (command == 'update') {
         switch (args[1]) {
-            case 'cancel':
-            case 'uncancel':
+            case 'on':
+            case 'off':
                 if (common.isAdmin(message)) onOff.setNewSchedule(args, client, message);
                 break;
-            case 'session':
+            case 'date':
+            case 'time':
                 if (common.isAdmin(message)) datetimeChange.setScheduleDateTime(args, client, message);
                 break;
             default:

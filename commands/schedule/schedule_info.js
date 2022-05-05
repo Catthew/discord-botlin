@@ -12,13 +12,13 @@ const responses = require('../../constants/responses');
 async function getScheduleInfo(client, message) {
     const session = await client.getSession();
     const date = session.date;
-    const isCancelled = session.isCancelled;
+    const isOff = session.isOff;
     const location = session.location;
     const locationDetails = session.locationDetails;
     let embed = new MessageEmbed()
         .setTimestamp()
         .setTitle('Nat Up or Shut Up!');
-    if (isCancelled) {
+    if (isOff) {
         embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
     } else {
         let details = '';

@@ -57,8 +57,8 @@ module.exports = client => {
         return data ? data : null;
     };
     /**
-     * Sets the new value of the field isCancelled.
-     * @param {Boolean} update The value to update isCancelled.
+     * Sets the new value of the field isOff.
+     * @param {Boolean} update The value to update isOff.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
     client.setCancelled = async (update) => {
@@ -66,7 +66,7 @@ module.exports = client => {
         const data = await Schedule.updateOne({
             type: 'Session'
         }, {
-            isCancelled: sUpdate
+            isOff: sUpdate
         });
         return data ? data : null;
     };
@@ -83,7 +83,7 @@ module.exports = client => {
         }, {
             $set: {
                 date: sNewDate,
-                isCancelled: false
+                isOff: false
             }
         });
         return data ? data : null;
