@@ -1,7 +1,6 @@
 const {
     Schedule
 } = require('../models');
-
 const sanitize = require('mongo-sanitize');
 
 /**
