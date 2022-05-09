@@ -1,5 +1,6 @@
-const responses = require('../../../constants/responses');
+const common = require('../../../common_functions');
 const info = require('../schedule_info');
+const responses = require('../../../constants/responses');
 
 /**
  * Sends the command to Cancel or Uncancel a DnD Session.
@@ -8,28 +9,40 @@ const info = require('../schedule_info');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function setNewSchedule(args, client, message) {
-    const cancelMapping = {
-        off: true,
-        on: false
-    };
+    const filename = __filename.slice(__dirname.length + 1);
 
-    const command = cancelMapping[args[1]];
-    if (command === undefined) {
-        message.channel.send(responses.unknown_command).catch(console.error);
+    let session;
+    try {
+        session = await client.getScheduleSession();
+    } catch (error) {
+        common.logAndSendError(error, filename, message, responses.schedule_not_updated);
         return;
     }
 
-    const session = await client.getSession();
-    if (command == session.isOff) {
-        message.channel.send(`The session is already ${args[1]}!`).catch(console.error);
-        return;
-    }
-
-    const updated = await client.setCancelled(command);
-    if (updated === null) message.channel.send(responses.schedule_not_updated).catch(console.error);
+    if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_not_updated);
     else {
-        message.channel.send(responses.schedule_updated).catch(console.error);
-        info.getScheduleInfo(client, message);
+        const cancelMapping = {
+            off: true,
+            on: false
+        };
+
+        const command = cancelMapping[args[1]];
+
+        if (command == session.isOff) {
+            common.logAndSendError(`The session is already ${args[1]}!`, filename, message, `The session is already ${args[1]}!`);
+            return;
+        }
+        try {
+            const setSession = await client.setScheduleSessionOnOff(command);
+            if (setSession['modifiedCount'] == 0 || setSession === null) common.logAndSendError(responses.schedule_error[1], filename, message, responses.schedule_not_updated);
+            else {
+                message.channel.send(responses.schedule_updated).catch(console.error);
+                info.getScheduleInfo(client, message);
+            }
+        } catch (error) {
+            common.logAndSendError(error, filename, message, responses.schedule_not_updated);
+        }
+        
     }
 }
 

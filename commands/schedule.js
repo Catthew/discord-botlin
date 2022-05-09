@@ -11,6 +11,8 @@ const responses = require('../constants/responses');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = async (args, client, message) => {
+    const filename = __filename.slice(__dirname.length + 1);
+
     const command = args[0];
     if (command == 'update') {
         switch (args[1]) {
@@ -23,8 +25,8 @@ exports.run = async (args, client, message) => {
                 if (common.isAdmin(message)) datetimeChange.setScheduleDateTime(args, client, message);
                 break;
             default:
-                message.channel.send(responses.unknown_command).catch(console.error);
+                common.logAndSendError(responses.invalidCommandValue[0], filename, message, responses.invalidCommandValue[1]);
         }
     } else if (command === undefined) info.getScheduleInfo(client, message);
-    else message.channel.send(responses.unknown_command).catch(console.error);
+    else common.logAndSendError(responses.unknown_command, filename, message, responses.unknown_command);
 };
