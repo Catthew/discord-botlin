@@ -13,12 +13,19 @@ function isAdmin(message) {
     } else return true;
 }
 
-function sendAndLogError(error, filename, message, response){
+/**
+ * Logs then sends the error that has occurred. 
+ * @param {String} error The error that occurred.
+ * @param {String} filename The name of the file the error occurred.
+ * @param {Discord.Message} message The message object that triggered this method.
+ * @param {String} response What is sent to Discord.
+ */
+function logAndSendError(error, filename, message, response){
     console.log(filename + ': ' + error);
     message.channel.send(response).catch(console.error);
 }
 
 module.exports = {
     isAdmin,
-    sendAndLogError
+    logAndSendError
 };
