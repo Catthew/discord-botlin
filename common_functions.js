@@ -13,6 +13,12 @@ function isAdmin(message) {
     } else return true;
 }
 
+function sendAndLogError(error, filename, message, response){
+    console.log(filename + ': ' + error);
+    message.channel.send(response).catch(console.error);
+}
+
 module.exports = {
-    isAdmin
+    isAdmin,
+    sendAndLogError
 };
