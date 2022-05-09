@@ -34,6 +34,6 @@ module.exports = async (client) => {
             common.logAndSendError(error, filename, null, null);
             return;
         }
-        
+
     }
 };

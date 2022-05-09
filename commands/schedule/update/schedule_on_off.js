@@ -42,7 +42,7 @@ async function setNewSchedule(args, client, message) {
         } catch (error) {
             common.logAndSendError(error, filename, message, responses.schedule_not_updated);
         }
-        
+
     }
 }
 
