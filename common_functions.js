@@ -20,9 +20,9 @@ function isAdmin(message) {
  * @param {Discord.Message} message The message object that triggered this method.
  * @param {String} response What is sent to Discord.
  */
-function logAndSendError(error, filename, message, response){
+function logAndSendError(error, filename, message, response) {
     console.log(filename + ': ' + error);
-    message.channel.send(response).catch(console.error);
+    if (message !== null) message.channel.send(response).catch(console.error);
 }
 
 module.exports = {
