@@ -2,7 +2,6 @@ const common = require('../common_functions');
 const excelStats = require('../cron_jobs/excel_stats');
 const info = require('./stats/stats_info');
 const responses = require('../constants/responses');
-const e = require('express');
 
 /**
  * Checks which stats command was called.
@@ -11,6 +10,8 @@ const e = require('express');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = async (args, client, message) => {
+    const filename = __filename.slice(__dirname.length + 1);
+
     switch (args[0]) {
         case 'sync':
             if (common.isAdmin(message)) excelStats.syncStats(process.env.SPREADSHEET, client, true);
@@ -19,6 +20,6 @@ exports.run = async (args, client, message) => {
             info.getStatsInfo(client, message);
             break;
         default:
-            message.channel.send(responses.unknown_command).catch(console.error);
+            common.logAndSendError(responses.unknown_command, filename, message, responses.unknown_command);
     }
 };

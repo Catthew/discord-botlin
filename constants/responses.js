@@ -9,6 +9,7 @@ module.exports = {
     schedule_error: ['Schedule is null', 'Schedule not modified'],
     schedule_not_updated: 'Error: The schedule hasn\'t been updated.',
     schedule_updated: 'The schedule has been updated.',
+    stats_error: ['Stats is null', 'Stats not modified'],
     stats_not_updated: 'Error: The stats hasn\'t been updated.',
     unknown_command: 'I do not know this command.'
 };
