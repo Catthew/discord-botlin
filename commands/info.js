@@ -19,7 +19,7 @@ exports.run = async (args, client, message) => {
         common.logAndSendError(error, filename, message, responses.info_error[1]);
         return;
     }
-    if (info == null) common.logAndSendError(responses.info_error[0], filename, message, responses.info_error[1]);
+    if (info === null) common.logAndSendError(responses.info_error[0], filename, message, responses.info_error[1]);
     else {
         let infoEmbed;
         let location;
