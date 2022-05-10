@@ -1,7 +1,6 @@
 const {
     Npc
 } = require('../models');
-
 const sanitize = require('mongo-sanitize');
 
 /**

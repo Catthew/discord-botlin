@@ -1,7 +1,6 @@
 const {
     Schedule
 } = require('../models');
-
 const sanitize = require('mongo-sanitize');
 
 /**
@@ -10,20 +9,10 @@ const sanitize = require('mongo-sanitize');
  */
 module.exports = client => {
     /**
-     * Gets the current scheduled people.
-     * @returns {?String} The Schedule data if it exists, null if it doesn't.
-     */
-    client.getSchedule = async () => {
-        const data = await Schedule.find({
-            turn: true
-        });
-        return data ? data : null;
-    };
-    /**
      * Gets the current session information.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.getSession = async () => {
+    client.getScheduleSession = async () => {
         const data = await Schedule.findOne({
             type: 'Session'
         });
@@ -34,7 +23,7 @@ module.exports = client => {
      * @param {Boolean} update The value to update isOff.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setCancelled = async (update) => {
+    client.setScheduleSessionOnOff = async (update) => {
         const sUpdate = sanitize(update);
         const data = await Schedule.updateOne({
             type: 'Session'
@@ -48,7 +37,7 @@ module.exports = client => {
      * @param {String} newDate The DateTime of the next session.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setSession = async (id, newDate) => {
+    client.setScheduleSession = async (id, newDate) => {
         const sId = sanitize(id);
         const sNewDate = sanitize(newDate);
         const data = await Schedule.updateOne({

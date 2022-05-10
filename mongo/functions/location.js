@@ -3,7 +3,6 @@ const {
     Location,
     Npc
 } = require('../models');
-
 const sanitize = require('mongo-sanitize');
 
 /**

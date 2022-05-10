@@ -2,7 +2,7 @@ const common = require('../common_functions');
 const excelStats = require('../cron_jobs/excel_stats');
 const info = require('./stats/stats_info');
 const responses = require('../constants/responses');
-const e = require('express');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Checks which stats command was called.
@@ -19,6 +19,6 @@ exports.run = async (args, client, message) => {
             info.getStatsInfo(client, message);
             break;
         default:
-            message.channel.send(responses.unknown_command).catch(console.error);
+            common.logAndSendError(responses.unknown_command, filename, message, responses.unknown_command);
     }
 };

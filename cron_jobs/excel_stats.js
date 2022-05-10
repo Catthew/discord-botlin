@@ -1,6 +1,7 @@
 const Excel = require('exceljs');
+const common = require('../common_functions');
 const optional_stats = require('../constants/optional_stats');
-const responses = require('../constants/responses');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Reads the spreadsheet and updates the characters stats.
@@ -21,21 +22,15 @@ async function syncStats(spreadsheet, client, sync) {
                         if (row.getCell(j).value == null) continue;
                         const character = row.getCell(1);
                         if (stats[character] === undefined) stats[character] = {};
-
                         const rowValue = row.getCell(j).value;
-                        if (typeof rowValue == 'object') {
-                            client.channels.cache.get(process.env.CHANNELDEV).send(responses.stats_not_updated).catch(console.error);
-                            throw new Error(`Row ${i} and Column ${j} contains a =. Please remove!`);
-                        }
-
+                        if (typeof rowValue == 'object') throw new Error(`Row ${i} and Column ${j} contains a =. Please remove!`);
                         if (stats[character][header] === undefined) stats[character][header] = rowValue;
                         else stats[character][header] += rowValue;
                     }
                 }
             });
         })
-        .finally(async () => {
-
+        .then(async () => {
             for (let name in stats) {
                 const damageDealt = stats[name]['damageDealt'] === undefined ? 0 : stats[name]['damageDealt'];
                 const damageTaken = stats[name]['damageTaken'] === undefined ? 0 : stats[name]['damageTaken'];
@@ -55,13 +50,18 @@ async function syncStats(spreadsheet, client, sync) {
                         optionalStats[optionalStat] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
                     }
                 }
-
-                await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);
+                try {
+                    await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);
+                } catch (error) {
+                    common.logAndSendError(error, filename, null, null);
+                }
             }
 
             const prefix = process.env.PREFIX;
             if (sync) client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
             else client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
+        }).catch(error => {
+            common.logAndSendError(error, filename, null, null);
         });
 }
 

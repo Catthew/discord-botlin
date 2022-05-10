@@ -3,6 +3,7 @@ const datetimeChange = require('./schedule/update/schedule_datetime_change');
 const info = require('./schedule/schedule_info');
 const onOff = require('./schedule/update/schedule_on_off');
 const responses = require('../constants/responses');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Checks which schedule command was called.
@@ -23,8 +24,8 @@ exports.run = async (args, client, message) => {
                 if (common.isAdmin(message)) datetimeChange.setScheduleDateTime(args, client, message);
                 break;
             default:
-                message.channel.send(responses.unknown_command).catch(console.error);
+                common.logAndSendError(responses.invalidCommandValue[0], filename, message, responses.invalidCommandValue[1]);
         }
     } else if (command === undefined) info.getScheduleInfo(client, message);
-    else message.channel.send(responses.unknown_command).catch(console.error);
+    else common.logAndSendError(responses.unknown_command, filename, message, responses.unknown_command);
 };
