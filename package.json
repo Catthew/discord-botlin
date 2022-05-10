@@ -10,7 +10,7 @@
     "scripts": {
         "start": "node app.js",
         "test": "mocha test/**/*test.js",
-        "test-with-coverage": "nyc --reporter=text mocha"
+        "test-with-coverage": "nyc --reporter=text mocha test/**/*test.js"
     },
     "author": "Catthew",
     "license": "MIT",
