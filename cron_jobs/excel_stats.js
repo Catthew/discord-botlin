@@ -1,7 +1,7 @@
 const Excel = require('exceljs');
 const common = require('../common_functions');
 const optional_stats = require('../constants/optional_stats');
-const responses = require('../constants/responses');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Reads the spreadsheet and updates the characters stats.
@@ -10,8 +10,6 @@ const responses = require('../constants/responses');
  * @param {Boolean} sync If the command was run by the stats sync command.
  */
 async function syncStats(spreadsheet, client, sync) {
-    const filename = __filename.slice(__dirname.length + 1);
-
     const workbook = new Excel.Workbook();
     let stats = {};
     workbook.xlsx.readFile(spreadsheet)

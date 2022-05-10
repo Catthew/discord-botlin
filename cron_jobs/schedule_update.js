@@ -1,13 +1,12 @@
 const common = require('../common_functions');
 const responses = require('../constants/responses');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Updates the Schedule.
  * @param {Discord.Client} client The client instance of the bot.
  */
 module.exports = async (client) => {
-    const filename = __filename.slice(__dirname.length + 1);
-
     let session;
     try {
         session = await client.getScheduleSession();

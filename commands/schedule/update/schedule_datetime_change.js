@@ -1,6 +1,7 @@
 const common = require('../../../common_functions');
 const info = require('../schedule_info');
 const responses = require('../../../constants/responses');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Sends the command to Cancel or Uncancel a DnD Session.
@@ -9,19 +10,17 @@ const responses = require('../../../constants/responses');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function setScheduleDateTime(args, client, message) {
-    const filename = __filename.slice(__dirname.length + 1);
-
     const date = args.indexOf('--date', 1) + 1;
     const time = args.indexOf('--time', 1) + 1;
     let session;
     try {
         session = await client.getScheduleSession();
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.schedule_not_updated);
+        common.logAndSendError(error, filename, message, responses.schedule_error[2]);
         return;
     }
 
-    if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_not_updated);
+    if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
     else {
         let sessionDateTime = new Date(session.date.valueOf());
 
@@ -46,13 +45,13 @@ async function setScheduleDateTime(args, client, message) {
 
         try {
             const setSession = await client.setScheduleSession(session._id, sessionDateTime);
-            if (setSession['modifiedCount'] == 0 || setSession === null) common.logAndSendError(responses.schedule_error[1], filename, message, responses.schedule_not_updated);
+            if (setSession['modifiedCount'] == 0 || setSession === null) common.logAndSendError(responses.schedule_error[1], filename, message, responses.schedule_error[2]);
             else {
                 message.channel.send(`${responses.schedule_updated}`).catch(console.error);
                 info.getScheduleInfo(client, message);
             }
         } catch (error) {
-            common.logAndSendError(error, filename, message, responses.schedule_not_updated);
+            common.logAndSendError(error, filename, message, responses.schedule_error[2]);
             return;
         }
     }

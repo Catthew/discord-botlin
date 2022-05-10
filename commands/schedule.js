@@ -3,6 +3,7 @@ const datetimeChange = require('./schedule/update/schedule_datetime_change');
 const info = require('./schedule/schedule_info');
 const onOff = require('./schedule/update/schedule_on_off');
 const responses = require('../constants/responses');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Checks which schedule command was called.
@@ -11,8 +12,6 @@ const responses = require('../constants/responses');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 exports.run = async (args, client, message) => {
-    const filename = __filename.slice(__dirname.length + 1);
-
     const command = args[0];
     if (command == 'update') {
         switch (args[1]) {

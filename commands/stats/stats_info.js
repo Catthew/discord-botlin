@@ -4,6 +4,7 @@ const {
 const common = require('../../common_functions');
 const optional_stats = require('../../constants/optional_stats');
 const responses = require('../../constants/responses');
+const filename = __filename.slice(__dirname.length + 1);
 
 /**
  * Sends the current DND stats.
@@ -12,13 +13,11 @@ const responses = require('../../constants/responses');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function getStatsInfo(client, message) {
-    const filename = __filename.slice(__dirname.length + 1);
-
     let statsTotals;
     try {
         statsTotals = await client.getStatsTotals();
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.stats_not_updated);
+        common.logAndSendError(error, filename, message, responses.stats_error[2]);
         return;
     }
 

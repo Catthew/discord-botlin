@@ -3,7 +3,7 @@ const {
 } = require('discord.js');
 const common = require('../../common_functions');
 const responses = require('../../constants/responses');
-
+const filename = __filename.slice(__dirname.length + 1);
 /**
  * Sends the current DND schedule for the week.
  * @param {Array.<String>} args The message the user sent split into any array of words.
@@ -11,17 +11,15 @@ const responses = require('../../constants/responses');
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function getScheduleInfo(client, message) {
-    const filename = __filename.slice(__dirname.length + 1);
-
     let session;
     try {
         session = await client.getScheduleSession();
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.schedule_not_updated);
+        common.logAndSendError(error, filename, message, responses.schedule_error[2]);
         return;
     }
 
-    if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_not_updated);
+    if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
     else {
         const date = session.date;
         let embed = new MessageEmbed()
