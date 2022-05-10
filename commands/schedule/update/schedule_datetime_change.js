@@ -17,7 +17,7 @@ async function setScheduleDateTime(args, client, message) {
     try {
         session = await client.getScheduleSession();
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.schedule_error[0]);
+        common.logAndSendError(error, filename, message, responses.schedule_not_updated);
         return;
     }
 
