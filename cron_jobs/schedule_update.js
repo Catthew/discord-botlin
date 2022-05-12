@@ -21,8 +21,7 @@ module.exports = async (client) => {
             const time = session.defaultTime.split(":").map(function (item) {
                 return parseInt(item, 10);
             });
-
-            const isOnOff = session.isVacation;
+            
             const nextSession = new Date(today.getFullYear(), today.getMonth(), today.getDate() + days[session.defaultDay], time[0], time[1], 0, 0);
 
             const setSchedule = await schedule.setSchedule(client, [nextSession, !session.isVacation], 'nextSession');
