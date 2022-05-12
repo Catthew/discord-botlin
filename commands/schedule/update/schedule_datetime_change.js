@@ -39,7 +39,7 @@ async function setScheduleDateTime(args, client, message) {
                 sessionDateTime.setFullYear(newSessionDate.getFullYear());
             }
 
-            const setSchedule = await schedule.setSchedule(sessionDateTime, client, 'dateTime');
+            const setSchedule = await schedule.setSchedule(client, [sessionDateTime], 'dateTime');
             if (!setSchedule) common.logAndSendError(responses.schedule_error[1], filename, message, responses.schedule_error[2]);
             else {
                 message.channel.send(responses.schedule_updated).catch(console.error);

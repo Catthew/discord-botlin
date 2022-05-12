@@ -2,7 +2,7 @@
     "_id": {
         "$oid": ""
     },
-    "isOff": true,
+    "isOn": true,
     "isVacation": true,
     "location": "DM's Place",
     "locationDetails": [

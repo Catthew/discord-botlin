@@ -5,7 +5,7 @@ const scheduleSchema = new mongoose.Schema({
     date: Date,
     defaultDay: String,
     defaultTime: String,
-    isOff: Boolean,
+    isOn: Boolean,
     isVacation: Boolean,
     location: String,
     locationDetails: Array,

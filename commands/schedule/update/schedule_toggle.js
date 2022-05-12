@@ -41,15 +41,17 @@ async function toggleSschedule(client, message, toggleCommand, toggleType, toggl
         if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
         else {
             const cancelMapping = {
-                off: true,
-                on: false
+                on: true,
+                off: false
             };
             const command = cancelMapping[toggleCommand];
-            if ((command == session.isOff && toggleType == 'session') || (command == session.isVacation && toggleType == 'vacation')) {
+  
+            if ((command == session.isOn && toggleType == 'session') || (command == session.isVacation && toggleType == 'vacation')) {
                 common.logAndSendError(`${toggleTypeError} is already ${toggleCommand}!`, filename, message, `${toggleTypeError} is already ${toggleCommand}!`);
                 return;
             }
-            const setSchedule = await schedule.setSchedule(client, command, toggleType);
+            const setSchedule = await schedule.setSchedule(client, [command], toggleType);
+
             if (!setSchedule) common.logAndSendError(responses.schedule_error[1], filename, message, responses.schedule_error[2]);
             else {
                 message.channel.send(responses.schedule_updated).catch(console.error);

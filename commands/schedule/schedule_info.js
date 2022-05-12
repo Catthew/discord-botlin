@@ -23,7 +23,7 @@ async function getScheduleInfo(client, message) {
                 .setTimestamp()
                 .setTitle('Nat Up or Shut Up!');
 
-            if (session.isOff) embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
+            if (!session.isOn) embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
             else {
                 const location = session.location;
                 const locationDetails = session.locationDetails;
