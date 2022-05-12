@@ -9,7 +9,7 @@ const filename = __filename.slice(__dirname.length + 1);
  * @param {Discord.Client} client The client instance of the bot.
  * @param {Discord.Message} message The message object that triggered this method.
  */
-async function setNewSchedule(args, client, message) {
+async function setScheduleOnOff(args, client, message) {
     let session;
     try {
         session = await client.getScheduleSession();
@@ -46,5 +46,5 @@ async function setNewSchedule(args, client, message) {
 }
 
 module.exports = {
-    setNewSchedule
+    setScheduleOnOff
 };
