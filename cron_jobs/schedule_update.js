@@ -15,8 +15,8 @@ module.exports = async (client) => {
         else {
             const today = new Date();
             const days = {
-                'Friday': 6,
-                'Saturday': 7
+                'Friday': 4,
+                'Saturday': 5
             };
             const time = session.defaultTime.split(":").map(function (item) {
                 return parseInt(item, 10);
