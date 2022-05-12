@@ -13,6 +13,16 @@ module.exports = client => {
     let port = process.env.CRONPORT;
 
     /*
+        Update the DnD schedule
+        Monday at 12:00 PM
+    */
+    cron.schedule('0 12 * * 1', () => {
+        console.log('Updating the schedule');
+        require('./schedule_update')(client);
+        console.log('Complete');
+    });
+
+    /*
         Send the first schedule alert
         Wednesday at 6:00 PM
     */
@@ -29,16 +39,6 @@ module.exports = client => {
     cron.schedule('0 12 * * 5', () => {
         console.log('Sending 2nd schedule alert');
         client.channels.cache.get(channel).send(`${prefix} schedule`).catch(console.error);
-        console.log('Complete');
-    });
-
-    /*
-        Update the DnD schedule
-        Saturday at 11:00 PM
-    */
-    cron.schedule('0 23 * * 6', () => {
-        console.log('Updating the schedule');
-        require('./schedule_update')(client);
         console.log('Complete');
     });
 

@@ -19,34 +19,68 @@ module.exports = client => {
         return data ? data : null;
     };
     /**
-     * Sets the new value of the field isOff.
-     * @param {Boolean} update The value to update isOff.
-     * @returns {?String} The Schedule data if it exists, null if it doesn't.
-     */
-    client.setScheduleSessionOnOff = async (update) => {
-        const sUpdate = sanitize(update);
-        const data = await Schedule.updateOne({
-            type: 'Session'
-        }, {
-            isOff: sUpdate
-        });
-        return data ? data : null;
-    };
-    /**
      * Updates the date of the session.
      * @param {String} newDate The DateTime of the next session.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setScheduleSession = async (id, newDate) => {
-        const sId = sanitize(id);
+    client.setScheduleSessionDateTime = async (newDate) => {
         const sNewDate = sanitize(newDate);
         const data = await Schedule.updateOne({
-            _id: sId
+            type: 'Session'
         }, {
             $set: {
                 date: sNewDate,
-                isOff: false
+                isOn: true,
+                isVacation: false
             }
+        });
+        return data ? data : null;
+    };
+    /**
+     * Sets the next Session.
+     * @param {Boolean} isOn The value to update isOn.
+     * @param {String} newDate The DateTime of the next session.
+     * @returns {?String} The Schedule data if it exists, null if it doesn't.
+     */
+    client.setScheduleSessionNext = async (newDate, isOn) => {
+        const sIsOn = sanitize(isOn);
+        const sNewDate = sanitize(newDate);
+        const data = await Schedule.updateOne({
+            type: 'Session'
+        }, {
+            $set: {
+                date: sNewDate,
+                isOn: sIsOn
+            }
+        });
+        return data ? data : null;
+    };
+    /**
+     * Changes the value of the field isOn.
+     * @param {Boolean} isOn The value to update isOn.
+     * @returns {?String} The Schedule data if it exists, null if it doesn't.
+     */
+    client.setScheduleSessionOn = async (isOn) => {
+        const sIsOn = sanitize(isOn);
+        const data = await Schedule.updateOne({
+            type: 'Session'
+        }, {
+            isOn: sIsOn
+        });
+        return data ? data : null;
+    };
+    /**
+     * Changes the value of the field isVacation.
+     * @param {Boolean} vacation The value to update isVacation.
+     * @returns {?String} The Schedule data if it exists, null if it doesn't.
+     */
+    client.setScheduleSessionVacation = async (isVacation) => {
+        const sIsVacation = sanitize(isVacation);
+        const data = await Schedule.updateOne({
+            type: 'Session'
+        }, {
+            isVacation: sIsVacation,
+            isOn: !sIsVacation
         });
         return data ? data : null;
     };

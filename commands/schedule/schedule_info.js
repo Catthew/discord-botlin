@@ -3,7 +3,10 @@ const {
 } = require('discord.js');
 const common = require('../../common_functions');
 const responses = require('../../constants/responses');
+const schedule = require('./schedule');
+
 const filename = __filename.slice(__dirname.length + 1);
+
 /**
  * Sends the current DND schedule for the week.
  * @param {Array.<String>} args The message the user sent split into any array of words.
@@ -11,35 +14,33 @@ const filename = __filename.slice(__dirname.length + 1);
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function getScheduleInfo(client, message) {
-    let session;
     try {
-        session = await client.getScheduleSession();
+        const session = await schedule.getSchedule(client);
+        if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
+        else {
+            const date = session.date;
+            let embed = new MessageEmbed()
+                .setTimestamp()
+                .setTitle('Nat Up or Shut Up!');
+
+            if (!session.isOn) embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
+            else {
+                const location = session.location;
+                const locationDetails = session.locationDetails;
+                let details = '';
+                if (locationDetails.length > 0) {
+                    details = '\n |';
+                    for (var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
+                }
+                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} ${details}`).setColor('#00b300');
+            }
+            message.channel.send({
+                embeds: [embed]
+            }).catch(console.error);
+        }
     } catch (error) {
         common.logAndSendError(error, filename, message, responses.schedule_error[2]);
         return;
-    }
-
-    if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
-    else {
-        const date = session.date;
-        let embed = new MessageEmbed()
-            .setTimestamp()
-            .setTitle('Nat Up or Shut Up!');
-
-        if (session.isOff) embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
-        else {
-            const location = session.location;
-            const locationDetails = session.locationDetails;
-            let details = '';
-            if (locationDetails.length > 0) {
-                details = '\n |';
-                for (var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
-            }
-            embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} ${details}`).setColor('#00b300');
-        }
-        message.channel.send({
-            embeds: [embed]
-        }).catch(console.error);
     }
 }
 
