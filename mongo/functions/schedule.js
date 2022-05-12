@@ -19,16 +19,30 @@ module.exports = client => {
         return data ? data : null;
     };
     /**
-     * Sets the new value of the field isOff.
-     * @param {Boolean} update The value to update isOff.
+     * Changes the value of the field isOff.
+     * @param {Boolean} onOff The value to update isOff.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setScheduleSessionOnOff = async (update) => {
-        const sUpdate = sanitize(update);
+    client.setScheduleSessionOnOff = async (isOnOff) => {
+        const sIsOnOff = sanitize(isOnOff);
         const data = await Schedule.updateOne({
             type: 'Session'
         }, {
-            isOff: sUpdate
+            isOff: sIsOnOff
+        });
+        return data ? data : null;
+    };
+    /**
+     * Changes the value of the field isVacation.
+     * @param {Boolean} vacation The value to update isOff.
+     * @returns {?String} The Schedule data if it exists, null if it doesn't.
+     */
+     client.setScheduleSessionVacation = async (isVacation) => {
+        const sIsVacation = sanitize(isVacation);
+        const data = await Schedule.updateOne({
+            type: 'Session'
+        }, {
+            isVacation: sIsVacation
         });
         return data ? data : null;
     };
