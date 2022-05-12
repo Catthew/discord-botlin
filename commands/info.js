@@ -3,6 +3,7 @@ const {
 } = require('discord.js');
 const common = require('../common_functions');
 const responses = require('../constants/responses');
+
 const filename = __filename.slice(__dirname.length + 1);
 /**
  * Sends information about the thing that was asked.

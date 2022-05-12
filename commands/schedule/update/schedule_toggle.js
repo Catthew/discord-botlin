@@ -12,7 +12,7 @@ const filename = __filename.slice(__dirname.length + 1);
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function setScheduleSession(args, client, message) {
-    toggleSschedule(client, message, args[2], 'session', 'The session');
+    toggleSchedule(client, message, args[2], 'session', 'The session');
 }
 
 /**
@@ -22,12 +22,11 @@ async function setScheduleSession(args, client, message) {
  * @param {Discord.Message} message The message object that triggered this method.
  */
 async function setScheduleVacation(args, client, message) {
-    toggleSschedule(client, message, args[2], 'vacation', 'Vacation mode');
+    toggleSchedule(client, message, args[2], 'vacation', 'Vacation mode');
 }
 
 /**
- * 
-
+ * Sets the toggleable variables on and off.
  * @param {Discord.Client} client The client instance of the bot.
  * @param {Discord.Message} message The message object that triggered this method.
  * @param {String} toggleCommand The on off command.
@@ -35,7 +34,7 @@ async function setScheduleVacation(args, client, message) {
  * @param {String} toggleTypeError The correct start of an error for the type.
  * @returns 
  */
-async function toggleSschedule(client, message, toggleCommand, toggleType, toggleTypeError) {
+async function toggleSchedule(client, message, toggleCommand, toggleType, toggleTypeError) {
     try {
         const session = await schedule.getSchedule(client);
         if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
@@ -45,7 +44,7 @@ async function toggleSschedule(client, message, toggleCommand, toggleType, toggl
                 off: false
             };
             const command = cancelMapping[toggleCommand];
-  
+
             if ((command == session.isOn && toggleType == 'session') || (command == session.isVacation && toggleType == 'vacation')) {
                 common.logAndSendError(`${toggleTypeError} is already ${toggleCommand}!`, filename, message, `${toggleTypeError} is already ${toggleCommand}!`);
                 return;

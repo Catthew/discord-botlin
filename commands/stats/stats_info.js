@@ -4,6 +4,7 @@ const {
 const common = require('../../common_functions');
 const optional_stats = require('../../constants/optional_stats');
 const responses = require('../../constants/responses');
+
 const filename = __filename.slice(__dirname.length + 1);
 
 /**
@@ -37,7 +38,7 @@ async function getStatsInfo(client, message) {
             'knockedOut': ['knockedOut', '😴', 'Knocked Out'],
             'healing': ['healing', '🏨', 'Healing']
         };
-        
+
         for (var sDKey in statsDict) {
             const stat = statsDict[sDKey][0];
             const emoji = statsDict[sDKey][1];
