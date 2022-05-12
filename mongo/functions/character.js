@@ -1,7 +1,9 @@
 const {
     Character
 } = require('../models');
+const mongoose = require('mongoose');
 const sanitize = require('mongo-sanitize');
+
 
 /**
  * The Character Mongo calls.
@@ -159,27 +161,37 @@ module.exports = client => {
      * @returns {?String} The update response, null if it doesn't.
      */
     client.setStats = async (damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats) => {
-        const sName = sanitize(name);
-        const sKills = sanitize(kills);
-        const sDamageDealt = sanitize(damageDealt);
-        const sDamageTaken = sanitize(damageTaken);
-        const sNat1s = sanitize(nat1s);
-        const sNat20s = sanitize(nat20s);
-        const sOptionalStats = sanitize(optionalStats);
-        const sHealing = sanitize(healing);
-        const sKnockedOut = sanitize(knockedOut);
-        const data = await Character.updateOne({
-            name: sName
-        }, {
-            kills: sKills,
-            damageDealt: sDamageDealt,
-            damageTaken: sDamageTaken,
-            nat1s: sNat1s,
-            nat20s: sNat20s,
-            healing: sHealing,
-            knockedOut: sKnockedOut,
-            optionalStats: sOptionalStats
-        });
-        return data ? data : null;
+        const mongoSession = await mongoose.startSession();
+        mongoSession.startTransaction();
+        try {
+            const sName = sanitize(name);
+            const sKills = sanitize(kills);
+            const sDamageDealt = sanitize(damageDealt);
+            const sDamageTaken = sanitize(damageTaken);
+            const sNat1s = sanitize(nat1s);
+            const sNat20s = sanitize(nat20s);
+            const sOptionalStats = sanitize(optionalStats);
+            const sHealing = sanitize(healing);
+            const sKnockedOut = sanitize(knockedOut);
+            const data = await Character.updateOne({
+                name: sName
+            }, {
+                kills: sKills,
+                damageDealt: sDamageDealt,
+                damageTaken: sDamageTaken,
+                nat1s: sNat1s,
+                nat20s: sNat20s,
+                healing: sHealing,
+                knockedOut: sKnockedOut,
+                optionalStats: sOptionalStats
+            });
+            await mongoSession.commitTransaction();
+            return data ? data : null;
+        } catch (error) {
+            await mongoSession.abortTransaction();
+            return null;
+        } finally {
+            mongoSession.endSession();
+        }
     };
 };

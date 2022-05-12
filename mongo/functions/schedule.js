@@ -1,8 +1,8 @@
 const {
     Schedule
 } = require('../models');
-const sanitize = require('mongo-sanitize');
 const mongoose = require('mongoose');
+const sanitize = require('mongo-sanitize');
 
 /**
  * The Schedule Mongo calls.
