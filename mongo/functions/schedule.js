@@ -19,6 +19,24 @@ module.exports = client => {
         return data ? data : null;
     };
     /**
+     * Updates the date of the session.
+     * @param {String} newDate The DateTime of the next session.
+     * @returns {?String} The Schedule data if it exists, null if it doesn't.
+     */
+    client.setScheduleSessionDateTime = async (newDate) => {
+        const sNewDate = sanitize(newDate);
+        const data = await Schedule.updateOne({
+            type: 'Session'
+        }, {
+            $set: {
+                date: sNewDate,
+                isOff: false,
+                isVacation: false
+            }
+        });
+        return data ? data : null;
+    };
+    /**
      * Changes the value of the field isOff.
      * @param {Boolean} onOff The value to update isOff.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
@@ -37,30 +55,12 @@ module.exports = client => {
      * @param {Boolean} vacation The value to update isOff.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-     client.setScheduleSessionVacation = async (isVacation) => {
+    client.setScheduleSessionVacation = async (isVacation) => {
         const sIsVacation = sanitize(isVacation);
         const data = await Schedule.updateOne({
             type: 'Session'
         }, {
             isVacation: sIsVacation
-        });
-        return data ? data : null;
-    };
-    /**
-     * Updates the date of the session.
-     * @param {String} newDate The DateTime of the next session.
-     * @returns {?String} The Schedule data if it exists, null if it doesn't.
-     */
-    client.setScheduleSession = async (id, newDate) => {
-        const sId = sanitize(id);
-        const sNewDate = sanitize(newDate);
-        const data = await Schedule.updateOne({
-            _id: sId
-        }, {
-            $set: {
-                date: sNewDate,
-                isOff: false
-            }
         });
         return data ? data : null;
     };
