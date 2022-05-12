@@ -2,6 +2,7 @@ const {
     Schedule
 } = require('../models');
 const sanitize = require('mongo-sanitize');
+const mongoose = require('mongoose');
 
 /**
  * The Schedule Mongo calls.
@@ -24,17 +25,27 @@ module.exports = client => {
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
     client.setScheduleSessionDateTime = async (newDate) => {
-        const sNewDate = sanitize(newDate);
-        const data = await Schedule.updateOne({
-            type: 'Session'
-        }, {
-            $set: {
-                date: sNewDate,
-                isOn: true,
-                isVacation: false
-            }
-        });
-        return data ? data : null;
+        const mongoSession = await mongoose.startSession();
+        mongoSession.startTransaction();
+        try {
+            const sNewDate = sanitize(newDate);
+            const data = await Schedule.updateOne({
+                type: 'Session'
+            }, {
+                $set: {
+                    date: sNewDate,
+                    isOn: true,
+                    isVacation: false
+                }
+            });
+            await mongoSession.commitTransaction();
+            return data ? data : null;
+        } catch (error) {
+            await mongoSession.abortTransaction();
+            return null;
+        } finally {
+            mongoSession.endSession();
+        }
     };
     /**
      * Sets the next Session.
@@ -43,17 +54,27 @@ module.exports = client => {
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
     client.setScheduleSessionNext = async (newDate, isOn) => {
-        const sIsOn = sanitize(isOn);
-        const sNewDate = sanitize(newDate);
-        const data = await Schedule.updateOne({
-            type: 'Session'
-        }, {
-            $set: {
-                date: sNewDate,
-                isOn: sIsOn
-            }
-        });
-        return data ? data : null;
+        const mongoSession = await Schedule.startSession();
+        mongoSession.startTransaction();
+        try {
+            const sIsOn = sanitize(isOn);
+            const sNewDate = sanitize(newDate);
+            const data = await Schedule.updateOne({
+                type: 'Session'
+            }, {
+                $set: {
+                    date: sNewDate,
+                    isOn: sIsOn
+                }
+            });
+            await mongoSession.commitTransaction();
+            return data ? data : null;
+        } catch (error) {
+            await mongoSession.abortTransaction();
+            return null;
+        } finally {
+            mongoSession.endSession();
+        }
     };
     /**
      * Changes the value of the field isOn.
@@ -61,13 +82,23 @@ module.exports = client => {
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
     client.setScheduleSessionOn = async (isOn) => {
-        const sIsOn = sanitize(isOn);
-        const data = await Schedule.updateOne({
-            type: 'Session'
-        }, {
-            isOn: sIsOn
-        });
-        return data ? data : null;
+        const mongoSession = await Schedule.startSession();
+        mongoSession.startTransaction();
+        try {
+            const sIsOn = sanitize(isOn);
+            const data = await Schedule.updateOne({
+                type: 'Session'
+            }, {
+                isOn: sIsOn
+            });
+            await mongoSession.commitTransaction();
+            return data ? data : null;
+        } catch (error) {
+            await mongoSession.abortTransaction();
+            return null;
+        } finally {
+            mongoSession.endSession();
+        }
     };
     /**
      * Changes the value of the field isVacation.
@@ -75,13 +106,23 @@ module.exports = client => {
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
     client.setScheduleSessionVacation = async (isVacation) => {
-        const sIsVacation = sanitize(isVacation);
-        const data = await Schedule.updateOne({
-            type: 'Session'
-        }, {
-            isVacation: sIsVacation,
-            isOn: !sIsVacation
-        });
-        return data ? data : null;
+        const mongoSession = await Schedule.startSession();
+        mongoSession.startTransaction();
+        try {
+            const sIsVacation = sanitize(isVacation);
+            const data = await Schedule.updateOne({
+                type: 'Session'
+            }, {
+                isVacation: sIsVacation,
+                isOn: !sIsVacation
+            });
+            await mongoSession.commitTransaction();
+            return data ? data : null;
+        } catch (error) {
+            await mongoSession.abortTransaction();
+            return null;
+        } finally {
+            mongoSession.endSession();
+        }
     };
 };
