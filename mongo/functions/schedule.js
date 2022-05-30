@@ -81,7 +81,7 @@ module.exports = client => {
      * @param {Boolean} isOn The value to update isOn.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setScheduleSessionOn = async (isOn) => {
+    client.setScheduleSessionIsOn = async (isOn) => {
         const mongoSession = await Schedule.startSession();
         mongoSession.startTransaction();
         try {
@@ -101,20 +101,22 @@ module.exports = client => {
         }
     };
     /**
-     * Changes the value of the field isVacation.
+     * Changes the value of the field mode.
      * @param {Boolean} vacation The value to update isVacation.
+     * @param {Boolean} isOn The value to update isOn.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setScheduleSessionVacation = async (isVacation) => {
+    client.setScheduleSessionMode = async (mode, isOn) => {
         const mongoSession = await Schedule.startSession();
         mongoSession.startTransaction();
         try {
-            const sIsVacation = sanitize(isVacation);
+            const sIsOn = sanitize(isOn);
+            const sMode = sanitize(mode);
             const data = await Schedule.updateOne({
                 type: 'Session'
             }, {
-                isVacation: sIsVacation,
-                isOn: !sIsVacation
+                mode: sMode,
+                isOn: !sIsOn
             });
             await mongoSession.commitTransaction();
             return data ? data : null;
