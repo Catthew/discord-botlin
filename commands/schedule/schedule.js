@@ -26,7 +26,7 @@ async function setSchedule(client, command, setScheduleType) {
         if (setScheduleType == 'dateTime') setSession = await client.setScheduleSessionDateTime(command[0]);
         else if (setScheduleType == 'nextSession') setSession = await client.setScheduleSessionNext(command[0], command[1]);
         else if (setScheduleType == 'session') setSession = await client.setScheduleSessionIsOn(command[0]);
-        else if (setScheduleType == 'vacation') setSession = await client.setScheduleSessionVacation(command[0]);
+        else if (setScheduleType == 'vacation') setSession = await client.setScheduleSessionMode(command[0]);
         else throw new Error(responses.invalidCommandValue[0]);
 
         if (setSession['modifiedCount'] == 0 || setSession === null) return false;
