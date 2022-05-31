@@ -15,14 +15,14 @@ const filename = __filename.slice(__dirname.length + 1);
 async function getScheduleInfo(client, message) {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
+        if (session === null) common.logAndSendError(responses['schedule_error'][0], filename, message, responses['schedule_error'][2]);
         else {
             const date = session.date;
             let embed = new MessageEmbed()
                 .setTimestamp()
                 .setTitle('Nat Up or Shut Up!');
 
-            if (!session.isOn) embed.addField(`Cancelled for ${getDate(date)}`, responses.schedule_canceled).setColor('#ff0000');
+            if (!session.isOn) embed.addField(`Cancelled for ${getDate(date)}`, responses['schedule_canceled']).setColor('#ff0000');
             else {
                 const location = session.location;
                 const locationDetails = session.locationDetails;
@@ -38,7 +38,7 @@ async function getScheduleInfo(client, message) {
             }).catch(console.error);
         }
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.schedule_error[2]);
+        common.logAndSendError(error, filename, message, responses['schedule_error'][2]);
         return;
     }
 }

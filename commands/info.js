@@ -17,10 +17,10 @@ exports.run = async (args, client, message) => {
     try {
         info = await searchForInfo(client, message, response);
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.info_error[1]);
+        common.logAndSendError(error, filename, message, responses['info_error'][1]);
         return;
     }
-    if (info === null) common.logAndSendError(responses.info_error[0], filename, message, responses.info_error[1]);
+    if (info === null) common.logAndSendError(responses['info_error'][0], filename, message, responses['info_error'][1]);
     else {
         let infoEmbed;
         let location;
@@ -44,7 +44,7 @@ exports.run = async (args, client, message) => {
                     break;
             }
         } catch (error) {
-            common.logAndSendError(error, filename, message, responses.info_error[1]);
+            common.logAndSendError(error, filename, message, responses['info_error'][1]);
             return;
         }
         message.channel.send({

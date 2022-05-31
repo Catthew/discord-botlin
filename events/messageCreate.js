@@ -18,21 +18,21 @@ module.exports = (client, message) => {
         }
     }
 
-    if (message.content.includes(client.user.id)) message.reply(responses.bot_at).catch(console.error);
+    if (message.content.includes(client.user.id)) message.reply(responses['bot_at']).catch(console.error);
     if (message.content.indexOf(prefix) !== 0) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     if (command == '') {
-        message.reply(responses.no_command)
+        message.reply(responses['no_command'])
             .catch(console.error);
         return;
     }
 
     const cmd = client.commands.get(command);
     if (!cmd) {
-        message.reply(responses.unknown_command)
+        message.reply(responses['unknown_command'])
             .catch(console.error);
         return;
     }
