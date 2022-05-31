@@ -28,8 +28,7 @@ module.exports = async (client) => {
             else if (mode == 'skip') {
                 isOn = modes[mode];
                 mode = 'normal';
-            }
-            else {
+            } else {
                 isOn = true;
                 mode = 'normal';
             }
