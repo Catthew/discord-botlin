@@ -20,76 +20,26 @@ module.exports = client => {
         return data ? data : null;
     };
     /**
-     * Updates the date of the session.
-     * @param {String} newDate The DateTime of the next session.
-     * @returns {?String} The Schedule data if it exists, null if it doesn't.
-     */
-    client.setScheduleSessionDateTime = async (newDate) => {
-        const mongoSession = await mongoose.startSession();
-        mongoSession.startTransaction();
-        try {
-            const sNewDate = sanitize(newDate);
-            const data = await Schedule.updateOne({
-                type: 'Session'
-            }, {
-                $set: {
-                    date: sNewDate,
-                    isOn: true,
-                    isVacation: false
-                }
-            });
-            await mongoSession.commitTransaction();
-            return data ? data : null;
-        } catch (error) {
-            await mongoSession.abortTransaction();
-            return null;
-        } finally {
-            mongoSession.endSession();
-        }
-    };
-    /**
      * Sets the next Session.
      * @param {Boolean} isOn The value to update isOn.
      * @param {String} newDate The DateTime of the next session.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setScheduleSessionNext = async (newDate, isOn) => {
+    client.setScheduleSession = async (isOn, mode, newDate) => {
         const mongoSession = await Schedule.startSession();
         mongoSession.startTransaction();
         try {
             const sIsOn = sanitize(isOn);
+            const sMode = sanitize(mode);
             const sNewDate = sanitize(newDate);
             const data = await Schedule.updateOne({
                 type: 'Session'
             }, {
                 $set: {
                     date: sNewDate,
-                    isOn: sIsOn
+                    isOn: sIsOn,
+                    mode: sMode
                 }
-            });
-            await mongoSession.commitTransaction();
-            return data ? data : null;
-        } catch (error) {
-            await mongoSession.abortTransaction();
-            return null;
-        } finally {
-            mongoSession.endSession();
-        }
-    };
-    /**
-     * Changes the value of the field isOn.
-     * @param {Boolean} isOn The value to update isOn.
-     * @returns {?String} The Schedule data if it exists, null if it doesn't.
-     */
-    client.setScheduleSessionIsOn = async (isOn) => {
-        const mongoSession = await Schedule.startSession();
-        mongoSession.startTransaction();
-        try {
-            const sIsOn = sanitize(isOn);
-            const data = await Schedule.updateOne({
-                type: 'Session'
-            }, {
-                isOn: sIsOn
             });
             await mongoSession.commitTransaction();
             return data ? data : null;
@@ -106,7 +56,7 @@ module.exports = client => {
      * @param {Boolean} isOn The value to update isOn.
      * @returns {?String} The Schedule data if it exists, null if it doesn't.
      */
-    client.setScheduleSessionMode = async (mode, isOn) => {
+    client.setScheduleSessionMode = async (isOn, mode) => {
         const mongoSession = await Schedule.startSession();
         mongoSession.startTransaction();
         try {
@@ -116,7 +66,35 @@ module.exports = client => {
                 type: 'Session'
             }, {
                 mode: sMode,
-                isOn: !sIsOn
+                isOn: sIsOn
+            });
+            await mongoSession.commitTransaction();
+            return data ? data : null;
+        } catch (error) {
+            await mongoSession.abortTransaction();
+            return null;
+        } finally {
+            mongoSession.endSession();
+        }
+    };
+    /**
+     * Updates the date of the session.
+     * @param {String} newDate The DateTime of the next session.
+     * @returns {?String} The Schedule data if it exists, null if it doesn't.
+     */
+    client.setScheduleSessionModeTemp = async (newDate) => {
+        const mongoSession = await mongoose.startSession();
+        mongoSession.startTransaction();
+        try {
+            const sNewDate = sanitize(newDate);
+            const data = await Schedule.updateOne({
+                type: 'Session'
+            }, {
+                $set: {
+                    date: sNewDate,
+                    isOn: true,
+                    mode: 'temp'
+                }
             });
             await mongoSession.commitTransaction();
             return data ? data : null;

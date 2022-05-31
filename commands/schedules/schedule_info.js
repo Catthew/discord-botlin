@@ -3,7 +3,6 @@ const {
 } = require('discord.js');
 const common = require('../../common_functions');
 const responses = require('../../constants/responses');
-const schedule = require('./schedule');
 
 const filename = __filename.slice(__dirname.length + 1);
 
@@ -15,7 +14,7 @@ const filename = __filename.slice(__dirname.length + 1);
  */
 async function getScheduleInfo(client, message) {
     try {
-        const session = await schedule.getSchedule(client);
+        const session = await client.getScheduleSession();
         if (session === null) common.logAndSendError(responses.schedule_error[0], filename, message, responses.schedule_error[2]);
         else {
             const date = session.date;
