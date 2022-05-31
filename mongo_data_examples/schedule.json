@@ -3,7 +3,7 @@
         "$oid": ""
     },
     "isOn": true,
-    "isVacation": true,
+    "mode": "skip",
     "location": "DM's Place",
     "locationDetails": [
         "AppleMaps",

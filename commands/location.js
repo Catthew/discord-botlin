@@ -17,10 +17,10 @@ exports.run = async (args, client, message) => {
     try {
         currentLocation = await client.getCurrentLocation();
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.info_error[1]);
+        common.logAndSendError(error, filename, message, responses['info_error'][1]);
         return;
     }
-    if (currentLocation === null) message.channel.send(responses.info_error[1]).catch(console.error);
+    if (currentLocation === null) message.channel.send(responses['info_error'][1]).catch(console.error);
     else {
         const embed = new MessageEmbed()
             .setColor('#7289da')

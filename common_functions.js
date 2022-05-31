@@ -8,7 +8,7 @@ const responses = require('./constants/responses');
 function isAdmin(message) {
     const author = message.author.id;
     if (author !== process.env.BOTOWNER && author !== process.env.DM) {
-        message.channel.send(responses.access_denied).catch(console.error);
+        message.channel.send(responses['access_denied']).catch(console.error);
         return false;
     } else return true;
 }

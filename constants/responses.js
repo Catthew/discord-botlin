@@ -6,7 +6,7 @@ module.exports = {
     no_command: 'Please enter a command.',
     no_date_time: 'Please enter a date and/or time.',
     schedule_canceled: 'You are safe for another week...',
-    schedule_error: ['Schedule is null', 'Schedule not modified', 'Error: The schedule hasn\'t been updated.'],
+    schedule_error: ['Schedule is null', 'Schedule not modified', 'Error: The schedule hasn\'t been updated.', 'The session is already in', 'Invalid Mode.'],
     schedule_updated: 'The schedule has been updated.',
     stats_error: ['Stats is null', 'Stats not modified', 'Error: The stats hasn\'t been updated.'],
     unknown_command: 'I do not know this command.'

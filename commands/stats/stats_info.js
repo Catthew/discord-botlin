@@ -18,11 +18,11 @@ async function getStatsInfo(client, message) {
     try {
         statsTotals = await client.getStatsTotals();
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses.stats_error[2]);
+        common.logAndSendError(error, filename, message, responses['stats_error'][2]);
         return;
     }
 
-    if (statsTotals === null) common.logAndSendError(responses.stats_error[0], filename, message, responses.stats_not_updated);
+    if (statsTotals === null) common.logAndSendError(responses['stats_error'][0], filename, message, responses['stats_not_updated']);
     else {
         let embed = new MessageEmbed()
             .setColor('#7289da')
@@ -49,7 +49,7 @@ async function getStatsInfo(client, message) {
                 const formatted_top = arrayToString(top, stat, statsTotals[0][sDKey], false);
                 embed.addField(`${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, `${formatted_top}`);
             } catch (error) {
-                common.logAndSendError(error, filename, message, responses.stats_not_updated);
+                common.logAndSendError(error, filename, message, responses['stats_not_updated']);
                 return;
             }
         }
@@ -78,13 +78,13 @@ async function getStatsInfo(client, message) {
                         const formatted_top = arrayToString(optionalTop, optionalStat, optionalStatsTotals[0][oSDKey], true);
                         embed.addField(`${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, `${formatted_top}`);
                     } catch (error) {
-                        common.logAndSendError(error, filename, message, responses.stats_not_updated);
+                        common.logAndSendError(error, filename, message, responses['stats_not_updated']);
                         return;
                     }
                 }
             }
         } catch (error) {
-            common.logAndSendError(error, filename, message, responses.stats_not_updated);
+            common.logAndSendError(error, filename, message, responses['stats_not_updated']);
             return;
         }
 

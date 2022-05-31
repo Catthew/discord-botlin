@@ -20,6 +20,6 @@ exports.run = async (args, client, message) => {
             info.getStatsInfo(client, message);
             break;
         default:
-            common.logAndSendError(responses.unknown_command, filename, message, responses.unknown_command);
+            common.logAndSendError(responses['unknown_command'], filename, message, responses['unknown_command']);
     }
 };
