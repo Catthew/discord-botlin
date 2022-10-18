@@ -1,5 +1,5 @@
 const common = require('../common_functions');
-const excelStats = require('../cron_jobs/excel_stats');
+const excelStats = require('../cron_jobs/scripts/excel_stats');
 const info = require('./stats/stats_info');
 const responses = require('../constants/responses');
 

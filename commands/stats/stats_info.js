@@ -47,7 +47,7 @@ async function getStatsInfo(client, message) {
             try {
                 top = await client.getStatTopThree(stat);
                 const formatted_top = arrayToString(top, stat, statsTotals[0][sDKey], false);
-                embed.addField(`${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, `${formatted_top}`);
+                embed.addFields({ name: `${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, value: `${formatted_top}` });
             } catch (error) {
                 common.logAndSendError(error, filename, message, responses['stats_not_updated']);
                 return;
@@ -76,7 +76,7 @@ async function getStatsInfo(client, message) {
                     try {
                         optionalTop = await client.getOptionalStatTopThree(optionalStat);
                         const formatted_top = arrayToString(optionalTop, optionalStat, optionalStatsTotals[0][oSDKey], true);
-                        embed.addField(`${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, `${formatted_top}`);
+                        embed.addFields({ name: `${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, value: `${formatted_top}` });
                     } catch (error) {
                         common.logAndSendError(error, filename, message, responses['stats_not_updated']);
                         return;
