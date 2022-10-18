@@ -4,7 +4,7 @@ const {
 } = require('../../../commands/info');
 
 describe('info.getCharacter() Test', () => {
-    it('Should return the correct MessageEmbed Object for Boblin', () => {
+    it('Should return the correct EmbedBuilder Object for Boblin', () => {
         const testDict = {
             bio: 'The best goblin ever',
             fullname: 'Boblin',

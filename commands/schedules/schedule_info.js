@@ -1,5 +1,5 @@
 const {
-    MessageEmbed
+    EmbedBuilder
 } = require('discord.js');
 const common = require('../../common_functions');
 const responses = require('../../constants/responses');
@@ -18,11 +18,11 @@ async function getScheduleInfo(client, message) {
         if (session === null) common.logAndSendError(responses['schedule_error'][0], filename, message, responses['schedule_error'][2]);
         else {
             const date = session.date;
-            let embed = new MessageEmbed()
+            let embedBuilder = new EmbedBuilder()
                 .setTimestamp()
                 .setTitle('Nat Up or Shut Up!');
 
-            if (!session.isOn) embed.addFields({ name: `Cancelled for ${getDate(date)}`, value: responses['schedule_canceled'] }).setColor('#ff0000');
+            if (!session.isOn) embedBuilder.addFields({ name: `Cancelled for ${getDate(date)}`, value: responses['schedule_canceled'] }).setColor('#ff0000');
             else {
                 const location = session.location;
                 const locationDetails = session.locationDetails;
@@ -31,10 +31,10 @@ async function getScheduleInfo(client, message) {
                     details = '\n |';
                     for (var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
                 }
-                embed.addFields({ name: `On for ${getDate(date)} at ${getTime(date)}`, value: `${location} ${details}` }).setColor('#00b300');
+                embedBuilder.addFields({ name: `On for ${getDate(date)} at ${getTime(date)}`, value: `${location} ${details}` }).setColor('#00b300');
             }
             message.channel.send({
-                embeds: [embed]
+                embeds: [embedBuilder]
             }).catch(console.error);
         }
     } catch (error) {

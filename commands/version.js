@@ -1,5 +1,5 @@
 const {
-    MessageEmbed
+    EmbedBuilder
 } = require('discord.js');
 
 /**
@@ -10,7 +10,7 @@ const {
  */
 exports.run = (args, client, message) => {
     const dev = message.guild.members.cache.get(process.env.BOTOWNER).user;
-    let embed = new MessageEmbed()
+    let embedBuilder = new EmbedBuilder()
         .setAuthor(dev.tag, dev.avatarURL())
         .setColor('#7289da')
         .setDescription('A goblin forced into being a Discord bot.')
@@ -18,6 +18,6 @@ exports.run = (args, client, message) => {
         .setTimestamp()
         .setTitle('Botlin Version 1.3');
     message.channel.send({
-        embeds: [embed]
+        embeds: [embedBuilder]
     }).catch(console.error);
 };

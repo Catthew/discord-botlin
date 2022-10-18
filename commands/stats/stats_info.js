@@ -1,5 +1,5 @@
 const {
-    MessageEmbed
+    EmbedBuilder
 } = require('discord.js');
 const common = require('../../common_functions');
 const optional_stats = require('../../constants/optional_stats');
@@ -24,7 +24,7 @@ async function getStatsInfo(client, message) {
 
     if (statsTotals === null) common.logAndSendError(responses['stats_error'][0], filename, message, responses['stats_not_updated']);
     else {
-        let embed = new MessageEmbed()
+        let embedBuilder = new EmbedBuilder()
             .setColor('#7289da')
             .setTimestamp()
             .setTitle('Stats');
@@ -47,7 +47,7 @@ async function getStatsInfo(client, message) {
             try {
                 top = await client.getStatTopThree(stat);
                 const formatted_top = arrayToString(top, stat, statsTotals[0][sDKey], false);
-                embed.addFields({ name: `${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, value: `${formatted_top}` });
+                embedBuilder.addFields({ name: `${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, value: `${formatted_top}` });
             } catch (error) {
                 common.logAndSendError(error, filename, message, responses['stats_not_updated']);
                 return;
@@ -76,7 +76,7 @@ async function getStatsInfo(client, message) {
                     try {
                         optionalTop = await client.getOptionalStatTopThree(optionalStat);
                         const formatted_top = arrayToString(optionalTop, optionalStat, optionalStatsTotals[0][oSDKey], true);
-                        embed.addFields({ name: `${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, value: `${formatted_top}` });
+                        embedBuilder.addFields({ name: `${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, value: `${formatted_top}` });
                     } catch (error) {
                         common.logAndSendError(error, filename, message, responses['stats_not_updated']);
                         return;
@@ -89,7 +89,7 @@ async function getStatsInfo(client, message) {
         }
 
         message.channel.send({
-            embeds: [embed]
+            embeds: [embedBuilder]
         }).catch(console.error);
     }
 }

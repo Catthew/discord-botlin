@@ -1,5 +1,5 @@
 const {
-    MessageEmbed
+    EmbedBuilder
 } = require('discord.js');
 const common = require('../common_functions');
 const responses = require('../constants/responses');
@@ -80,12 +80,14 @@ function capitalize(str) {
 /**
  * Creates the embed for a Building.
  * @param {Building} info The collection of data from the database.
- * @returns {String} The MessageEmbed for buildings.
+ * @returns {String} The EmbedBuilder for buildings.
  */
 function getBuilding(info) {
-    return new MessageEmbed()
-        .addFields({ name: 'Location', value: `${info.location}` })
-        .addFields({ name: 'Owner', value: `${info.owner}` })
+    return new EmbedBuilder()
+        .addFields([
+            { name: 'Location', value: `${info.location}` },
+            { name: 'Owner', value: `${info.owner}` }
+        ])
         .setColor('#7289da')
         .setDescription(info.type)
         .setTitle(info.name);
@@ -94,14 +96,16 @@ function getBuilding(info) {
 /**
  * Creates the embed for a character.
  * @param {Character} info Character data from the database.
- * @returns {String} The MessageEmbed for characters.
+ * @returns {String} The EmbedBuilder for characters.
  */
 function getCharacter(info) {
     const stats = `Kills: ${info.kills}\nDamage Dealt: ${info.damageDealt}\nDamage Taken: ${info.damageTaken}\nNat 20: ${info.nat20}\nNat 1: ${info.nat1}`;
-    return new MessageEmbed()
-        .addFields({ name: 'Class', value: `${info.class}` })
-        .addFields({ name: 'Race', value: `${info.race}` })
-        .addFields({ name: 'Stats', value: `${stats}` })
+    return new EmbedBuilder()
+        .addFields([
+            { name: 'Class', value: `${info.class}` },
+            { name: 'Race', value: `${info.race}` },
+            { name: 'Stats', value: `${stats}` }
+        ])
         .setColor('#7289da')
         .setDescription(info.bio)
         .setTitle(info.fullname);
@@ -111,7 +115,7 @@ function getCharacter(info) {
  * Creates the embed for a location.
  * @param {Location} info The Location data from the database.
  * @param {Array.<Array.<Map<String, String>>>} location The array of places with the speific location.
- * @returns {String} The MessageEmbed for locations.
+ * @returns {String} The EmbedBuilder for locations.
  */
 function getLocation(info, location) {
     let people = [];
@@ -124,9 +128,11 @@ function getLocation(info, location) {
         stores.push(l.name);
     });
     const desc = splitMutlipleSentences(info.bio);
-    return new MessageEmbed()
-        .addFields({ name: 'Notable Citizens', value: `${arrayToString(people)}` })
-        .addFields({ name: 'Notable Stores', value: `${arrayToString(stores)}` })
+    return new EmbedBuilder()
+        .addFields([
+            { name: 'Notable Citizens', value: `${arrayToString(people)}` },
+            { name: 'Notable Stores', value: `${arrayToString(stores)}` }
+        ])
         .setColor('#7289da')
         .setDescription(desc)
         .setTitle(info.name);
@@ -135,14 +141,16 @@ function getLocation(info, location) {
 /**
  * Creates the embed for a NPC.
  * @param {Object} info The collection of data from the database.
- * @returns {String} The MessageEmbed for NPCs.
+ * @returns {String} The EmbedBuilder for NPCs.
  */
 function getNPC(info) {
     const desc = splitMutlipleSentences(info.bio);
-    return new MessageEmbed()
-        .addFields({ name: 'Location', value: `${info.location}` })
-        .addFields({ name: 'Race', value: `${info.race}` })
-        .addFields({ name: 'Status', value: `${info.status}` })
+    return new EmbedBuilder()
+        .addFields([
+            { name: 'Location', value: `${info.location}` },
+            { name: 'Race', value: `${info.race}` },
+            { name: 'Status', value: `${info.status}` }
+        ])
         .setColor('#7289da')
         .setDescription(desc)
         .setTitle(info.fullname);

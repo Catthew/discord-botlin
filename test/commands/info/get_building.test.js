@@ -4,7 +4,7 @@ const {
 } = require('../../../commands/info');
 
 describe('info.getBuilding() Test', () => {
-    it('Should return the correct MessageEmbed Object for the Stonehill Tavern', () => {
+    it('Should return the correct EmbedBuilder Object for the Stonehill Tavern', () => {
         const testDict = {
             location: 'Phandalin',
             name: 'Stonehill Tavern',
