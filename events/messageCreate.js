@@ -5,7 +5,6 @@ module.exports = (client, message) => {
 
     if (message.author.bot) {
         const commands = require('./message/bot_commands');
-
         let current_message = new String(message.content).trim();
 
         if (!current_message.includes(prefix)) return;
@@ -19,7 +18,7 @@ module.exports = (client, message) => {
     }
 
     if (message.content.includes(client.user.id)) message.reply(responses['bot_at']).catch(console.error);
-    if (message.content.indexOf(prefix) !== 0) return;
+    if (!message.content.startsWith(prefix)) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
