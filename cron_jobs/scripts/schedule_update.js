@@ -1,6 +1,6 @@
-const common = require('../common_functions');
-const modes = require('../constants/modes');
-const responses = require('../constants/responses');
+const common = require('../../common_functions');
+const modes = require('../../constants/modes');
+const responses = require('../../constants/responses');
 
 const filename = __filename.slice(__dirname.length + 1);
 
