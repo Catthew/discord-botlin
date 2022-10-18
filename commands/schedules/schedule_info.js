@@ -22,7 +22,7 @@ async function getScheduleInfo(client, message) {
                 .setTimestamp()
                 .setTitle('Nat Up or Shut Up!');
 
-            if (!session.isOn) embed.addField(`Cancelled for ${getDate(date)}`, responses['schedule_canceled']).setColor('#ff0000');
+            if (!session.isOn) embed.addFields({ name: `Cancelled for ${getDate(date)}`, value: responses['schedule_canceled'] }).setColor('#ff0000');
             else {
                 const location = session.location;
                 const locationDetails = session.locationDetails;
@@ -31,7 +31,7 @@ async function getScheduleInfo(client, message) {
                     details = '\n |';
                     for (var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
                 }
-                embed.addField(`On for ${getDate(date)} at ${getTime(date)}`, `${location} ${details}`).setColor('#00b300');
+                embed.addFields({ name: `On for ${getDate(date)} at ${getTime(date)}`, value: `${location} ${details}` }).setColor('#00b300');
             }
             message.channel.send({
                 embeds: [embed]
