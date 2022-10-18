@@ -23,7 +23,7 @@ async function syncStats(spreadsheet, client, sync) {
                         const character = row.getCell(1);
                         if (stats[character] === undefined) stats[character] = {};
                         const rowValue = row.getCell(j).value;
-                        if (typeof rowValue !== 'number') throw new Error(`Row ${i} and Column ${j} contains an invalid character. Please remove!`);
+                        if (typeof rowValue !== 'number') throw new Error(`Sheet [${worksheet.name}] and cell [${worksheet.getRow(i).getCell(j)._address}] contains an invalid character. Please remove!`);
                         if (stats[character][header] === undefined) stats[character][header] = rowValue;
                         else stats[character][header] += rowValue;
                     }
