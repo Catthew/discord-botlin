@@ -1,5 +1,5 @@
 const {
-    MessageEmbed
+    EmbedBuilder
 } = require('discord.js');
 const common = require('../common_functions');
 const responses = require('../constants/responses');
@@ -22,13 +22,13 @@ exports.run = async (args, client, message) => {
     }
     if (currentLocation === null) message.channel.send(responses['info_error'][1]).catch(console.error);
     else {
-        const embed = new MessageEmbed()
+        const embedBuilder = new EmbedBuilder()
             .setColor('#7289da')
             .setDescription(currentLocation['name'])
             .setTimestamp()
             .setTitle(`The Current Location of ${process.env.TEAMNAME}: `);
         message.channel.send({
-            embeds: [embed]
+            embeds: [embedBuilder]
         }).catch(console.error);
     }
 };

@@ -4,7 +4,7 @@ const {
 } = require('../../../commands/info');
 
 describe('info.getBuilding() Test', () => {
-    it('Should return the correct MessageEmbed Object for Phandolin', () => {
+    it('Should return the correct EmbedBuilder Object for Phandolin', () => {
         const testDict = {
             name: 'Phandalin',
             bio: 'Saved',

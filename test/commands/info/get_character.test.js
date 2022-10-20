@@ -4,7 +4,7 @@ const {
 } = require('../../../commands/info');
 
 describe('info.getCharacter() Test', () => {
-    it('Should return the correct MessageEmbed Object for Stoth', () => {
+    it('Should return the correct EmbedBuilder Object for Stoth', () => {
         const testDict = {
             bio: 'From Thundertree',
             class: 'Fighter',

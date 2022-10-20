@@ -17,7 +17,6 @@ async function setScheduleMode(args, client, message) {
         if (session === null) common.logAndSendError(responses['schedule_error'][0], filename, message, responses['schedule_error'][2]);
         else {
             const mode = args[1];
-            console.log(mode);
             const isOn = modes[mode];
             if (isOn === undefined) {
                 common.logAndSendError(responses['schedule_error'][4], filename, message, responses['schedule_error'][4]);
