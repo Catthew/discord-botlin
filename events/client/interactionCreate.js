@@ -4,7 +4,7 @@ module.exports = (client, message) => {
     const prefix = process.env.PREFIX;
 
     if (message.author.bot) {
-        const commands = require('./message/bot_commands');
+        const commands = require('./interaction_functions/bot_commands');
         let current_message = new String(message.content).trim();
 
         if (!current_message.includes(prefix)) return;
