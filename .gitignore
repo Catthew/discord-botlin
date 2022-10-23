@@ -3,3 +3,4 @@ node_modules/
 .DS_Store
 *.xlsx
 .nyc_output
+server_env_files/
