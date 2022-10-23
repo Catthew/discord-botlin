@@ -1,7 +1,7 @@
-const common = require('../common_functions');
+const common = require('../utils/common_functions');
 const excelStats = require('../cron_jobs/scripts/excel_stats');
 const info = require('./stats/stats_info');
-const responses = require('../constants/responses');
+const responses = require('../utils/constants/responses');
 
 const filename = __filename.slice(__dirname.length + 1);
 

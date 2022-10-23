@@ -1,9 +1,9 @@
 const {
     EmbedBuilder
 } = require('discord.js');
-const common = require('../../common_functions');
-const optional_stats = require('../../constants/optional_stats');
-const responses = require('../../constants/responses');
+const common = require('../../utils/common_functions');
+const optional_stats = require('../../utils/constants/optional_stats');
+const responses = require('../../utils/constants/responses');
 
 const filename = __filename.slice(__dirname.length + 1);
 
