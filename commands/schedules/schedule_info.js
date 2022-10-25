@@ -1,8 +1,8 @@
 const {
     EmbedBuilder
 } = require('discord.js');
-const common = require('../../common_functions');
-const responses = require('../../constants/responses');
+const common = require('../../utils/common_functions');
+const responses = require('../../utils/constants/responses');
 
 const filename = __filename.slice(__dirname.length + 1);
 
@@ -43,12 +43,6 @@ async function getScheduleInfo(client, message) {
     }
 }
 
-module.exports = {
-    getScheduleInfo,
-    getDate,
-    getTime
-};
-
 /**
  * Gets the Month and day.
  * @param {Date} date The DateTime object of the next DnD session.
@@ -75,3 +69,9 @@ function getTime(date) {
         timeZone: 'America/New_York'
     });
 }
+
+module.exports = {
+    getScheduleInfo,
+    getDate,
+    getTime
+};

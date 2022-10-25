@@ -94,11 +94,6 @@ async function getStatsInfo(client, message) {
     }
 }
 
-module.exports = {
-    arrayToString,
-    getStatsInfo
-};
-
 /**
  * Formats the data array into a formatted string.
  * @param {Array.<String>} arr The array that contains the data to be turned into a String.
@@ -107,7 +102,7 @@ module.exports = {
  * @param {Boolean} optional If the stat being used is an optional stat.
  * @returns {String} A formatted string with the data from the array.
  */
-function arrayToString(arr, type, total, optional) {
+ function arrayToString(arr, type, total, optional) {
     let str = '';
     arr.forEach(element => {
         const name = element.name;
@@ -117,3 +112,8 @@ function arrayToString(arr, type, total, optional) {
     });
     return str;
 }
+
+module.exports = {
+    arrayToString,
+    getStatsInfo
+};
