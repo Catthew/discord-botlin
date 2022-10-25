@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const scheduleSchema = new mongoose.Schema({
-    _id: mongoose.Schema.ObjectId,
+const scheduleSchema = new Schema({
+    _id: Schema.ObjectId,
     date: Date,
     defaultDay: Number,
     defaultTime: String,
@@ -12,4 +12,4 @@ const scheduleSchema = new mongoose.Schema({
     type: String
 });
 
-module.exports = mongoose.model('Schedule', scheduleSchema);
+module.exports = model('Schedule', scheduleSchema, 'schedules');

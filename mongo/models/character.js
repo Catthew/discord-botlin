@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const characterSchema = new mongoose.Schema({
-    _id: mongoose.Schema.ObjectId,
+const characterSchema = new Schema({
+    _id: Schema.ObjectId,
     alias: Array,
     bio: String,
     class: String,
@@ -19,4 +19,4 @@ const characterSchema = new mongoose.Schema({
     type: String
 });
 
-module.exports = mongoose.model('Character', characterSchema);
+module.exports = model('Character', characterSchema, 'characters');

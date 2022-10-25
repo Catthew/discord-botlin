@@ -4,6 +4,7 @@ const {
   Collection,
   GatewayIntentBits
 } = require('discord.js');
+const { connect } = require('mongoose');
 const fs = require('fs');
 
 const client = new Client({
@@ -11,7 +12,6 @@ const client = new Client({
 });
 
 client.commands = new Collection();
-client.schedule = require('./cron_jobs')(client);
 
 const handlerFiles = fs
   .readdirSync('./handlers')
@@ -19,12 +19,14 @@ const handlerFiles = fs
 for (const file of handlerFiles)
   require(`./handlers/${file}`)(client);
 
-// TODO follow up below
-
-require('./mongo/functions')(client);
-client.mongoose = require('./mongo');
-client.mongoose.init();
-
 client.handleCommands();
 client.handleEvents();
+client.handleMongo();
+
+client.schedule = require('./cron_jobs')(client);
+
 client.login(process.env.ACCESSTOKEN);
+
+(async () => {
+  await connect(process.env.MONGOTOKEN).catch(console.error)
+})();
