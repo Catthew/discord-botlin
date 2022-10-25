@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const locationSchema = new mongoose.Schema({
-    _id: mongoose.Schema.ObjectId,
+const locationSchema = new Schema({
+    _id: Schema.ObjectId,
     bio: String,
     currentLocation: Boolean,
     name: String,
-    
 });
 
-module.exports = mongoose.model('Location', locationSchema);
+module.exports = model('Location', locationSchema, 'locations');

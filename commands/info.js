@@ -1,56 +1,64 @@
 const {
-    EmbedBuilder
+    EmbedBuilder,
+    SlashCommandBuilder
 } = require('discord.js');
-const common = require('../common_functions');
-const responses = require('../constants/responses');
+const common = require('../utils/common_functions');
+const responses = require('../utils/constants/responses');
 
 const filename = __filename.slice(__dirname.length + 1);
-/**
- * Sends information about the thing that was asked.
- * @param {Array.<String>} args The message the user sent split into any array of words.
- * @param {Discord.Client} client The client instance of the bot.
- * @param {Discord.Message} message The message object that triggered this method.
- */
-exports.run = async (args, client, message) => {
-    const response = capitalize(args.join(' '));
-    let info;
-    try {
-        info = await searchForInfo(client, message, response);
-    } catch (error) {
-        common.logAndSendError(error, filename, message, responses['info_error'][1]);
-        return;
-    }
-    if (info === null) common.logAndSendError(responses['info_error'][0], filename, message, responses['info_error'][1]);
-    else {
-        let infoEmbed;
-        let location;
-        try {
-            switch (info[1]) {
-                case "Building":
-                    infoEmbed = getBuilding(info[0]);
-                    break;
-                case "Character":
-                    infoEmbed = getCharacter(info[0]);
-                    break;
-                case "Location":
-                    location = await client.getLocationDetails(response);
-                    infoEmbed = getLocation(info[0], location);
-                    break;
-                case "NPC":
-                    infoEmbed = getNPC(info[0]);
-                    break;
-                default:
-                    infoEmbed = 'Don\' rush me!';
-                    break;
-            }
-        } catch (error) {
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('info')
+        .setDescription('Sends information about the thing that was asked.'),
+    async execute(args, client, message) {
+        const response = capitalize(args.join(' '));
+        let info;
+        try { info = await searchForInfo(client, response); }
+        catch (error) {
             common.logAndSendError(error, filename, message, responses['info_error'][1]);
             return;
         }
-        message.channel.send({
-            embeds: [infoEmbed]
-        }).catch(console.error);
-    }
+        if (info === null) common.logAndSendError(responses['info_error'][0], filename, message, responses['info_error'][1]);
+        else {
+            let infoEmbed;
+            let location;
+            try {
+                switch (info[1]) {
+                    case "Building":
+                        infoEmbed = getBuilding(info[0]);
+                        break;
+                    case "Character":
+                        infoEmbed = getCharacter(info[0]);
+                        break;
+                    case "Location":
+                        location = await client.getLocationDetails(response);
+                        infoEmbed = getLocation(info[0], location);
+                        break;
+                    case "NPC":
+                        infoEmbed = getNPC(info[0]);
+                        break;
+                    default:
+                        infoEmbed = 'Don\' rush me!';
+                        break;
+                }
+            } catch (error) {
+                common.logAndSendError(error, filename, message, responses['info_error'][1]);
+                return;
+            }
+            message.channel.send({
+                embeds: [infoEmbed]
+            }).catch(console.error);
+        }
+    },
+    arrayToString,
+    capitalize,
+    getBuilding,
+    getCharacter,
+    getLocation,
+    getNPC,
+    searchForInfo,
+    splitMutlipleSentences
 };
 
 /**
@@ -159,11 +167,10 @@ function getNPC(info) {
 /**
  * Tries to retrieve the search term from the database.
  * @param {Discord.Client} client The client instance of the bot.
- * @param {Discord.Message} message The message object that triggered this method.
  * @param {String} term The term the user is searching for.
  * @returns {?String} null if not found, or an array of the found object and a string denoting the kind of object.
  */
-async function searchForInfo(client, message, term) {
+async function searchForInfo(client, term) {
     try {
         const building = await client.getBuilding(term);
         if (building != null) return [building, 'Building'];
@@ -187,14 +194,3 @@ async function searchForInfo(client, message, term) {
 function splitMutlipleSentences(info) {
     return info.split('.').join('.\n');
 }
-
-exports.tests = {
-    arrayToString,
-    capitalize,
-    getBuilding,
-    getCharacter,
-    getLocation,
-    getNPC,
-    searchForInfo,
-    splitMutlipleSentences
-};

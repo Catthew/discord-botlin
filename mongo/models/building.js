@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const buildingSchema = new mongoose.Schema({
-    _id: mongoose.Schema.ObjectId,
+const buildingSchema = new Schema({
+    _id: Schema.ObjectId,
     location: String,
     name: String,
     owner: String,
     type: String
 });
 
-module.exports = mongoose.model('Building', buildingSchema);
+module.exports = model('Building', buildingSchema, 'buildings');

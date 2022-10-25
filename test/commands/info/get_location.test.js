@@ -1,7 +1,5 @@
 const expect = require('chai').expect;
-const {
-    tests
-} = require('../../../commands/info');
+const info = require('../../../commands/info');
 
 describe('info.getBuilding() Test', () => {
     it('Should return the correct EmbedBuilder Object for Phandolin', () => {
@@ -20,19 +18,17 @@ describe('info.getBuilding() Test', () => {
                 fullname: 'Tablin Stonehill'
             }]
         ];
-        const result = tests.getLocation(testDict, testArray);
+        const result = info.getLocation(testDict, testArray).data;
         expect(result).to.include({
             description: 'Saved'
         });
         expect(result).to.deep.include({
             fields: [{
                 name: 'Notable Citizens',
-                value: 'Tablin Stonehill',
-                inline: false
+                value: 'Tablin Stonehill'
             }, {
                 name: 'Notable Stores',
-                value: 'Barthin\'s Provisions\nStonehill Tavern',
-                inline: false
+                value: 'Barthin\'s Provisions\nStonehill Tavern'
             }]
         });
         expect(result).to.include({

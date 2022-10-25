@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const npcSchema = new mongoose.Schema({
-    _id: mongoose.Schema.ObjectId,
+const npcSchema = new Schema({
+    _id: Schema.ObjectId,
     bio: String,
     fullname: String,
     location: String,
@@ -10,4 +10,4 @@ const npcSchema = new mongoose.Schema({
     status: String
 });
 
-module.exports = mongoose.model('Npc', npcSchema);
+module.exports = model('Npc', npcSchema, 'npcs');

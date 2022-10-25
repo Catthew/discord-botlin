@@ -1,7 +1,7 @@
-const common = require('../../common_functions');
+const common = require('../../utils/common_functions');
 const info = require('./schedule_info');
-const modes = require('../../constants/modes');
-const responses = require('../../constants/responses');
+const modes = require('../../utils/constants/modes');
+const responses = require('../../utils/constants/responses');
 
 const filename = __filename.slice(__dirname.length + 1);
 

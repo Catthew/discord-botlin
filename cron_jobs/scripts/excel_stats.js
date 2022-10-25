@@ -1,6 +1,6 @@
 const Excel = require('exceljs');
-const common = require('../../common_functions');
-const optional_stats = require('../../constants/optional_stats');
+const common = require('../../utils/common_functions');
+const optional_stats = require('../../utils/constants/optional_stats');
 const filename = __filename.slice(__dirname.length + 1);
 
 /**

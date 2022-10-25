@@ -1,39 +1,32 @@
+require('dotenv-flow').config();
 const {
   Client,
   Collection,
   GatewayIntentBits
 } = require('discord.js');
+const { connect } = require('mongoose');
+const fs = require('fs');
+
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
-const fs = require('fs');
-
-require('dotenv-flow').config();
-require('./mongo/functions')(client);
 
 client.commands = new Collection();
-client.mongoose = require('./mongo');
+
+const handlerFiles = fs
+  .readdirSync('./handlers')
+  .filter((file) => file.endsWith('.js'));
+for (const file of handlerFiles)
+  require(`./handlers/${file}`)(client);
+
+client.handleCommands();
+client.handleEvents();
+client.handleMongo();
+
 client.schedule = require('./cron_jobs')(client);
 
-fs.readdir('./commands/', async (err, files) => {
-  if (err) return console.error;
-  files.forEach(file => {
-    if (!file.endsWith('.js')) return;
-    const props = require(`./commands/${file}`);
-    const cmdName = file.split('.')[0];
-    client.commands.set(cmdName, props);
-  });
-});
-
-fs.readdir('./events/', async (err, files) => {
-  if (err) return console.error;
-  files.forEach(file => {
-    if (!file.endsWith('.js')) return;
-    const evt = require(`./events/${file}`);
-    const evtName = file.split('.')[0];
-    client.on(evtName, evt.bind(null, client));
-  });
-});
-
-client.mongoose.init();
 client.login(process.env.ACCESSTOKEN);
+
+(async () => {
+  await connect(process.env.MONGOTOKEN).catch(console.error)
+})();

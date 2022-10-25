@@ -1,7 +1,5 @@
 const expect = require('chai').expect;
-const {
-    tests
-} = require('../../../commands/info');
+const info = require('../../../commands/info');
 
 describe('info.getCharacter() Test', () => {
     it('Should return the correct EmbedBuilder Object for Boblin', () => {
@@ -12,23 +10,20 @@ describe('info.getCharacter() Test', () => {
             race: 'Goblin',
             status: 'Alive'
         };
-        const result = tests.getNPC(testDict);
+        const result = info.getNPC(testDict).data;
         expect(result).to.include({
             description: 'The best goblin ever'
         });
         expect(result).to.deep.include({
             fields: [{
                 name: 'Location',
-                value: 'With Party',
-                inline: false
+                value: 'With Party'
             }, {
                 name: 'Race',
-                value: 'Goblin',
-                inline: false
+                value: 'Goblin'
             }, {
                 name: 'Status',
-                value: 'Alive',
-                inline: false
+                value: 'Alive'
             }]
         });
         expect(result).to.include({

@@ -1,7 +1,5 @@
 const expect = require('chai').expect;
-const {
-    tests
-} = require('../../../commands/info');
+const info = require('../../../commands/info');
 
 describe('info.getBuilding() Test', () => {
     it('Should return the correct EmbedBuilder Object for the Stonehill Tavern', () => {
@@ -11,19 +9,17 @@ describe('info.getBuilding() Test', () => {
             owner: 'Tablin Stonehill',
             type: 'Tavern'
         };
-        const result = tests.getBuilding(testDict);
+        const result = info.getBuilding(testDict).data;
         expect(result).to.include({
             description: 'Tavern'
         });
         expect(result).to.deep.include({
             fields: [{
                 name: 'Location',
-                value: 'Phandalin',
-                inline: false
+                value: 'Phandalin'
             }, {
                 name: 'Owner',
-                value: 'Tablin Stonehill',
-                inline: false
+                value: 'Tablin Stonehill'
             }]
         });
         expect(result).to.include({
