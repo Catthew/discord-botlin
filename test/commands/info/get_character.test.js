@@ -1,7 +1,5 @@
 const expect = require('chai').expect;
-const {
-    tests
-} = require('../../../commands/info');
+const info = require('../../../commands/info');
 
 describe('info.getCharacter() Test', () => {
     it('Should return the correct EmbedBuilder Object for Stoth', () => {
@@ -17,23 +15,20 @@ describe('info.getCharacter() Test', () => {
             race: 'Human',
             type: 'Character'
         };
-        const result = tests.getCharacter(testDict);
+        const result = info.getCharacter(testDict).data;
         expect(result).to.include({
             description: 'From Thundertree'
         });
         expect(result).to.deep.include({
             fields: [{
                 name: 'Class',
-                value: 'Fighter',
-                inline: false
+                value: 'Fighter'
             }, {
                 name: 'Race',
-                value: 'Human',
-                inline: false
+                value: 'Human'
             }, {
                 name: 'Stats',
-                value: 'Kills: 7\nDamage Dealt: 200\nDamage Taken: 200\nNat 20: 5\nNat 1: 1',
-                inline: false
+                value: 'Kills: 7\nDamage Dealt: 200\nDamage Taken: 200\nNat 20: 5\nNat 1: 1'
             }]
         });
         expect(result).to.include({

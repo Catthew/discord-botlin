@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const tests = require('../../../../commands/schedule/schedule_info');
+const tests = require('../../../../commands/schedules/schedule_info');
 
 describe('schedule_info.getTime() Test', () => {
     it('Should return 6:00 PM', () => {
