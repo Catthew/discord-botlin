@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const tests = require('../../../commands/stats/stats_info');
+const stats_info = require('../../../commands/stats/stats_info');
 
 describe('stats.topArrayToString() Test', () => {
     it('should equal damageTaken: 80 (80%)\n', () => {
@@ -7,7 +7,7 @@ describe('stats.topArrayToString() Test', () => {
             name: 'damageTaken',
             damageTaken: '80'
         }];
-        const result = tests.arrayToString(testArray, 'damageTaken', 100, false);
+        const result = stats_info.arrayToString(testArray, 'damageTaken', 100, false);
         expect(result).to.equal('damageTaken: 80 (80%)\n');
     });
 
@@ -18,7 +18,7 @@ describe('stats.topArrayToString() Test', () => {
                 redCoins: 3
             }
         }];
-        const result = tests.arrayToString(testArray, 'redCoins', 100, true);
+        const result = stats_info.arrayToString(testArray, 'redCoins', 100, true);
         expect(result).to.equal('redCoins: 3 (3%)\n');
     });
 });
