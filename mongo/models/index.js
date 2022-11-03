@@ -1,7 +1,7 @@
 module.exports = {
-    Building: require('./building.js'),
-    Character: require('./character.js'),
-    Location: require('./location.js'),
-    Npc: require('./npc.js'),
-    Schedule: require('./schedule.js')
+    Building: require('./building'),
+    Character: require('./character'),
+    Location: require('./location'),
+    Npc: require('./npc'),
+    Schedule: require('./schedule')
 };
