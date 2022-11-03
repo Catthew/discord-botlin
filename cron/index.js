@@ -16,7 +16,7 @@ module.exports = client => {
         Update the DnD schedule
         Monday at 12:00 AM
     */
-    cron.schedule('0 0 * * 1', () => {
+    cron.schedule('* * * * *', () => {
         console.log('Updating the schedule');
         require('./scripts/schedule_update')(client);
         console.log('Complete');

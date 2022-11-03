@@ -13,15 +13,14 @@ module.exports = async (client) => {
         const session = await client.getScheduleSession();
         if (session === null) common.logAndSendError(responses['schedule_error'][0], filename, null, null);
         else {
-
-            const today = new Date();
-
             const time = session.defaultTime.split(":").map(function (item) {
                 return parseInt(item, 10);
             });
 
+            const today = new Date();
             const nextSession = new Date(today.getFullYear(), today.getMonth(), today.getDate() + session.defaultDay, time[0], time[1], 0, 0);
 
+            console.log(nextSession);
             let mode = session.mode;
             let isOn;
             if (mode == 'vacation') isOn = modes[mode];
