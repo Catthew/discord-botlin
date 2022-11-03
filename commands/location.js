@@ -3,7 +3,7 @@ const {
     SlashCommandBuilder
 } = require('discord.js');
 const common = require('../utils/common_functions');
-const responses = require('../utils/constants/responses');
+const { Responses } = require('../utils/constants');
 
 const filename = __filename.slice(__dirname.length + 1);
 
@@ -15,10 +15,10 @@ module.exports = {
         let currentLocation;
         try { currentLocation = await client.getCurrentLocation(); }
         catch (error) {
-            common.logAndSendError(error, filename, message, responses['info_error'][1]);
+            common.logAndSendError(error, filename, message, Responses['info_error'][1]);
             return;
         }
-        if (currentLocation === null) message.channel.send(responses['info_error'][1]).catch(console.error);
+        if (currentLocation === null) message.channel.send(Responses['info_error'][1]).catch(console.error);
         else {
             const embedBuilder = new EmbedBuilder()
                 .setColor('#7289da')

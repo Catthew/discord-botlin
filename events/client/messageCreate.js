@@ -1,4 +1,4 @@
-const responses = require('../../utils/constants/responses');
+const { Responses } = require('../../utils/constants');
 
 module.exports = {
     name: "messageCreate",
@@ -11,7 +11,7 @@ module.exports = {
         const command = args.shift().toLowerCase();
 
         if (command == '') {
-            message.reply(responses['no_command'])
+            message.reply(Responses['no_command'])
                 .catch(console.error);
             return;
         }
@@ -24,12 +24,12 @@ module.exports = {
             }
         }
 
-        if (message.content.includes(client.user.id)) message.reply(responses['bot_at']).catch(console.error);
+        if (message.content.includes(client.user.id)) message.reply(Responses['bot_at']).catch(console.error);
 
         const cmd = client.commands.get(command);
         if (cmd) cmd.execute(args, client, message);
         else {
-            message.reply(responses['unknown_command'])
+            message.reply(Responses['unknown_command'])
                 .catch(console.error);
             return;
         }

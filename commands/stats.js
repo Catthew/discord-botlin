@@ -2,9 +2,9 @@ const {
     SlashCommandBuilder
 } = require('discord.js');
 const common = require('../utils/common_functions');
-const excelStats = require('../cron/scripts/excel_stats');
+const excelStats = require('../cron/modules/excel_stats');
 const info = require('./stats/stats_info');
-const responses = require('../utils/constants/responses');
+const { Responses } = require('../utils/constants');
 
 const filename = __filename.slice(__dirname.length + 1);
 
@@ -21,7 +21,7 @@ module.exports = {
                 info.getStatsInfo(client, message);
                 break;
             default:
-                common.logAndSendError(responses['unknown_command'], filename, message, responses['unknown_command']);
+                common.logAndSendError(Responses['unknown_command'], filename, message, Responses['unknown_command']);
         }
     }
 };

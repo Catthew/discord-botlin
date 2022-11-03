@@ -3,7 +3,7 @@ const {
     SlashCommandBuilder
 } = require('discord.js');
 const common = require('../utils/common_functions');
-const responses = require('../utils/constants/responses');
+const { Responses } = require('../utils/constants');
 
 const filename = __filename.slice(__dirname.length + 1);
 
@@ -16,10 +16,10 @@ module.exports = {
         let info;
         try { info = await searchForInfo(client, response); }
         catch (error) {
-            common.logAndSendError(error, filename, message, responses['info_error'][1]);
+            common.logAndSendError(error, filename, message, Responses['info_error'][1]);
             return;
         }
-        if (info === null) common.logAndSendError(responses['info_error'][0], filename, message, responses['info_error'][1]);
+        if (info === null) common.logAndSendError(Responses['info_error'][0], filename, message, Responses['info_error'][1]);
         else {
             let infoEmbed;
             let location;
@@ -43,7 +43,7 @@ module.exports = {
                         break;
                 }
             } catch (error) {
-                common.logAndSendError(error, filename, message, responses['info_error'][1]);
+                common.logAndSendError(error, filename, message, Responses['info_error'][1]);
                 return;
             }
             message.channel.send({
