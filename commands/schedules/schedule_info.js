@@ -2,7 +2,7 @@ const {
     EmbedBuilder
 } = require('discord.js');
 const common = require('../../utils/common_functions');
-const responses = require('../../utils/constants/responses');
+const { Responses } = require('../../utils/constants');
 
 const filename = __filename.slice(__dirname.length + 1);
 
@@ -15,14 +15,14 @@ const filename = __filename.slice(__dirname.length + 1);
 async function getScheduleInfo(client, message) {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) common.logAndSendError(responses['schedule_error'][0], filename, message, responses['schedule_error'][2]);
+        if (session === null) common.logAndSendError(Responses['schedule_error'][0], filename, message, Responses['schedule_error'][2]);
         else {
             const date = session.date;
             let embedBuilder = new EmbedBuilder()
                 .setTimestamp()
                 .setTitle('Nat Up or Shut Up!');
 
-            if (!session.isOn) embedBuilder.addFields({ name: `Cancelled for ${getDate(date)}`, value: responses['schedule_canceled'] }).setColor('#ff0000');
+            if (!session.isOn) embedBuilder.addFields({ name: `Cancelled for ${getDate(date)}`, value: Responses['schedule_canceled'] }).setColor('#ff0000');
             else {
                 const location = session.location;
                 const locationDetails = session.locationDetails;
@@ -38,7 +38,7 @@ async function getScheduleInfo(client, message) {
             }).catch(console.error);
         }
     } catch (error) {
-        common.logAndSendError(error, filename, message, responses['schedule_error'][2]);
+        common.logAndSendError(error, filename, message, Responses['schedule_error'][2]);
         return;
     }
 }

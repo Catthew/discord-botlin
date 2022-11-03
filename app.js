@@ -23,7 +23,7 @@ client.handleCommands();
 client.handleEvents();
 client.handleMongo();
 
-client.schedule = require('./cron_jobs')(client);
+client.schedule = require('./cron')(client);
 
 client.login(process.env.ACCESSTOKEN);
 

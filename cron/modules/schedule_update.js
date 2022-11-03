@@ -1,6 +1,5 @@
-const common = require('../../common_functions');
-const modes = require('../../constants/modes');
-const responses = require('../../constants/responses');
+const common = require('../../utils/common_functions');
+const { Modes, Responses } = require('../../utils/constants');
 
 const filename = __filename.slice(__dirname.length + 1);
 
@@ -11,22 +10,20 @@ const filename = __filename.slice(__dirname.length + 1);
 module.exports = async (client) => {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) common.logAndSendError(responses['schedule_error'][0], filename, null, null);
+        if (session === null) common.logAndSendError(Responses['schedule_error'][0], filename, null, null);
         else {
-
-            const today = new Date();
-
             const time = session.defaultTime.split(":").map(function (item) {
                 return parseInt(item, 10);
             });
 
+            const today = new Date();
             const nextSession = new Date(today.getFullYear(), today.getMonth(), today.getDate() + session.defaultDay, time[0], time[1], 0, 0);
 
             let mode = session.mode;
             let isOn;
-            if (mode == 'vacation') isOn = modes[mode];
+            if (mode == 'vacation') isOn = Modes[mode];
             else if (mode == 'skip') {
-                isOn = modes[mode];
+                isOn = Modes[mode];
                 mode = 'normal';
             } else {
                 isOn = true;
@@ -35,7 +32,7 @@ module.exports = async (client) => {
 
             const setScheduleSession = client.setScheduleSession(isOn, mode, nextSession);
 
-            if (setScheduleSession['modifiedCount'] == 0 || setScheduleSession === null) common.logAndSendError(responses['schedule_error'][1], filename, null, null);
+            if (setScheduleSession['modifiedCount'] == 0 || setScheduleSession === null) common.logAndSendError(Responses['schedule_error'][1], filename, null, null);
         }
     } catch (error) {
         common.logAndSendError(error, filename, null, null);
