@@ -1,6 +1,7 @@
 const Excel = require('exceljs');
 const common = require('../../utils/common_functions');
-const optional_stats = require('../../utils/constants/optional_stats');
+const { OptionalStats } = require('../../utils/constants');
+
 const filename = __filename.slice(__dirname.length + 1);
 
 /**
@@ -41,7 +42,7 @@ async function syncStats(spreadsheet, client, sync) {
                 const nat20s = stats[name]['nat20s'] === undefined ? 0 : stats[name]['nat20s'];
 
                 let optionalStats = null;
-                const oSKeys = Object.keys(optional_stats);
+                const oSKeys = Object.keys(OptionalStats);
                 for (let stat in oSKeys) {
                     const optionalStat = oSKeys[stat];
                     const excelOSName = '[OS] ' + optionalStat;
