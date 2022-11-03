@@ -2,7 +2,7 @@ const {
     SlashCommandBuilder
 } = require('discord.js');
 const common = require('../utils/common_functions');
-const excelStats = require('../cron_jobs/scripts/excel_stats');
+const excelStats = require('../cron/scripts/excel_stats');
 const info = require('./stats/stats_info');
 const responses = require('../utils/constants/responses');
 
