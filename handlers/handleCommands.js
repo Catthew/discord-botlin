@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports = (client) => {
+module.exports = client => {
     client.handleCommands = async () => {
         const commandFiles = fs
             .readdirSync('./commands')
