@@ -18,7 +18,7 @@ module.exports = client => {
     */
     cron.schedule('0 0 * * 1', () => {
         console.log('Updating the schedule');
-        require('./modules/schedule_update')(client);
+        require('../commands/schedules/schedule_update').scheduleUpdate(client);
         console.log('Complete');
     });
 
@@ -48,7 +48,7 @@ module.exports = client => {
     */
     cron.schedule('0 0 * * 7', () => {
         console.log('Updating the stats');
-        require('./modules/excel_stats').syncStats(process.env.SPREADSHEET, client, false);
+        require('../commands/stats/stats_set').syncStats(process.env.SPREADSHEET, client, false);
         console.log('Complete');
     });
 
