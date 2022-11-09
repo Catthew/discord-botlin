@@ -48,7 +48,7 @@ module.exports = client => {
     */
     cron.schedule('0 0 * * 7', () => {
         console.log('Updating the stats');
-        require('../commands/stats/stats_set').syncStats(process.env.SPREADSHEET, client, false);
+        require('../commands/stats/stats_sync').syncStats(process.env.SPREADSHEET, client, false);
         console.log('Complete');
     });
 

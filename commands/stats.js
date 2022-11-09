@@ -1,7 +1,7 @@
 const {
     SlashCommandBuilder
 } = require('discord.js');
-const excelStats = require('./stats/stats_set');
+const excelStats = require('./stats/stats_sync');
 const info = require('./stats/stats_info');
 const common = require('../utils/common_modules');
 
