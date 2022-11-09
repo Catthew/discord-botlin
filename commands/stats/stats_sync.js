@@ -41,18 +41,18 @@ async function syncStats(spreadsheet, client, sync) {
                 const nat1s = stats[name]['nat1s'] === undefined ? 0 : stats[name]['nat1s'];
                 const nat20s = stats[name]['nat20s'] === undefined ? 0 : stats[name]['nat20s'];
 
-                let optionalStats = null;
+                let tempOptionalStats = null;
                 const oSKeys = Object.keys(optionalStats);
                 for (let stat in oSKeys) {
-                    const optionalStat = oSKeys[stat];
-                    const excelOSName = '[OS] ' + optionalStat;
+                    const tempOptionalStats = oSKeys[stat];
+                    const excelOSName = '[OS] ' + tempOptionalStats;
                     if (excelOSName in stats[name]) {
-                        if (optionalStats === null) optionalStats = {};
-                        optionalStats[optionalStat] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
+                        if (tempOptionalStats === null) tempOptionalStats = {};
+                        tempOptionalStats[tempOptionalStats] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
                     }
                 }
                 try {
-                    await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);
+                    await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, tempOptionalStats);
                 } catch (error) {
                     common.logAndSendError(error, FILENAME, null, null);
                 }
