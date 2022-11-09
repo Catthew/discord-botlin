@@ -1,7 +1,7 @@
 const {
     SlashCommandBuilder
 } = require('discord.js');
-const common = require('../utils/common.responses[');
+const common = require('../utils/common_modules');
 const scheduleInfo = require('./schedules/schedule_info');
 const scheduleMode = require('./schedules/schedule_mode');
 

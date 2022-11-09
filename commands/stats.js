@@ -3,7 +3,7 @@ const {
 } = require('discord.js');
 const excelStats = require('./stats/stats_set');
 const info = require('./stats/stats_info');
-const common = require('../utils/common.responses[');
+const common = require('../utils/common_modules');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
 

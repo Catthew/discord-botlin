@@ -1,4 +1,4 @@
-const common = require('../../utils/common.responses[');
+const common = require('../../utils/common_modules');
 
 
 async function execute(client, message) {
