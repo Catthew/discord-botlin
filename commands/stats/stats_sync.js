@@ -44,11 +44,11 @@ async function syncStats(spreadsheet, client, sync) {
                 let tempOptionalStats = null;
                 const oSKeys = Object.keys(optionalStats);
                 for (let stat in oSKeys) {
-                    const tempOptionalStats = oSKeys[stat];
-                    const excelOSName = '[OS] ' + tempOptionalStats;
+                    const oStat = oSKeys[stat];
+                    const excelOSName = '[OS] ' + oStat ;
                     if (excelOSName in stats[name]) {
                         if (tempOptionalStats === null) tempOptionalStats = {};
-                        tempOptionalStats[tempOptionalStats] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
+                        tempOptionalStats[oStat] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
                     }
                 }
                 try {
