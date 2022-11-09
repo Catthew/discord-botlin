@@ -1,7 +1,7 @@
 const { connection } = require('mongoose');
 const fs = require('fs');
 
-module.exports = (client) => {
+module.exports = client => {
     client.handleEvents = async () => {
         const eventFolders = fs.readdirSync('./events');
         for (const folder of eventFolders) {

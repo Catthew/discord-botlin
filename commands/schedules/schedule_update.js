@@ -1,16 +1,16 @@
-const common = require('../../utils/common_functions');
-const { Modes, Responses } = require('../../utils/constants');
+const modes = require('./utils/modes')
+const common = require('../../utils/common_modules');
 
-const filename = __filename.slice(__dirname.length + 1);
+const FILENAME = __filename.slice(__dirname.length + 1);
 
 /**
  * Updates the Schedule.
  * @param {Discord.Client} client The client instance of the bot.
  */
-module.exports = async (client) => {
+async function scheduleUpdate(client) {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) common.logAndSendError(Responses['schedule_error'][0], filename, null, null);
+        if (session === null) common.logAndSendError(common.responses['schedule_error'][0], FILENAME, null, null);
         else {
             const time = session.defaultTime.split(":").map(function (item) {
                 return parseInt(item, 10);
@@ -21,9 +21,9 @@ module.exports = async (client) => {
 
             let mode = session.mode;
             let isOn;
-            if (mode == 'vacation') isOn = Modes[mode];
+            if (mode == 'vacation') isOn = modes[mode];
             else if (mode == 'skip') {
-                isOn = Modes[mode];
+                isOn = modes[mode];
                 mode = 'normal';
             } else {
                 isOn = true;
@@ -32,10 +32,14 @@ module.exports = async (client) => {
 
             const setScheduleSession = client.setScheduleSession(isOn, mode, nextSession);
 
-            if (setScheduleSession['modifiedCount'] == 0 || setScheduleSession === null) common.logAndSendError(Responses['schedule_error'][1], filename, null, null);
+            if (setScheduleSession['modifiedCount'] == 0 || setScheduleSession === null) common.logAndSendError(common.responses['schedule_error'][1], FILENAME, null, null);
         }
     } catch (error) {
-        common.logAndSendError(error, filename, null, null);
+        common.logAndSendError(error, FILENAME, null, null);
         return;
     }
+}
+
+module.exports = {
+    scheduleUpdate
 };

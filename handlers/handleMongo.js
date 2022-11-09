@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports = (client) => {
+module.exports = client => {
     client.handleMongo = async () => {
         const commandFiles = fs
             .readdirSync('./mongo/modules')

@@ -1,27 +1,29 @@
 const {
     SlashCommandBuilder
 } = require('discord.js');
-const common = require('../utils/common_functions');
-const excelStats = require('../cron/modules/excel_stats');
+const excelStats = require('./stats/stats_sync');
 const info = require('./stats/stats_info');
-const { Responses } = require('../utils/constants');
+const common = require('../utils/common_modules');
 
-const filename = __filename.slice(__dirname.length + 1);
+const FILENAME = __filename.slice(__dirname.length + 1);
+
+
+async function execute(args, client, message) {
+    switch (args[0]) {
+        case 'sync':
+            if (common.isAdmin(message)) excelStats.syncStats(process.env.SPREADSHEET, client, true);
+            break;
+        case undefined:
+            info.getStatsInfo(client, message);
+            break;
+        default:
+            common.logAndSendError(common.responses['unknown_command'], FILENAME, message, common.responses['unknown_command']);
+    }
+}
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('stats')
         .setDescription('Checks which stats command was called.'),
-    async execute(args, client, message) {
-        switch (args[0]) {
-            case 'sync':
-                if (common.isAdmin(message)) excelStats.syncStats(process.env.SPREADSHEET, client, true);
-                break;
-            case undefined:
-                info.getStatsInfo(client, message);
-                break;
-            default:
-                common.logAndSendError(Responses['unknown_command'], filename, message, Responses['unknown_command']);
-        }
-    }
+    execute
 };

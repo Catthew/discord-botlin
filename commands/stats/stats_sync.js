@@ -1,8 +1,8 @@
 const Excel = require('exceljs');
-const common = require('../../utils/common_functions');
-const { OptionalStats } = require('../../utils/constants');
+const common = require('../../utils/common_modules');
+const optionalStats = require('./utils/optional_stats');
 
-const filename = __filename.slice(__dirname.length + 1);
+const FILENAME = __filename.slice(__dirname.length + 1);
 
 /**
  * Reads the spreadsheet and updates the characters stats.
@@ -41,20 +41,20 @@ async function syncStats(spreadsheet, client, sync) {
                 const nat1s = stats[name]['nat1s'] === undefined ? 0 : stats[name]['nat1s'];
                 const nat20s = stats[name]['nat20s'] === undefined ? 0 : stats[name]['nat20s'];
 
-                let optionalStats = null;
-                const oSKeys = Object.keys(OptionalStats);
+                let tempOptionalStats = null;
+                const oSKeys = Object.keys(optionalStats);
                 for (let stat in oSKeys) {
-                    const optionalStat = oSKeys[stat];
-                    const excelOSName = '[OS] ' + optionalStat;
+                    const tempOptionalStats = oSKeys[stat];
+                    const excelOSName = '[OS] ' + tempOptionalStats;
                     if (excelOSName in stats[name]) {
-                        if (optionalStats === null) optionalStats = {};
-                        optionalStats[optionalStat] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
+                        if (tempOptionalStats === null) tempOptionalStats = {};
+                        tempOptionalStats[tempOptionalStats] = stats[name][excelOSName] === undefined ? 0 : stats[name][excelOSName];
                     }
                 }
                 try {
-                    await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);
+                    await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, tempOptionalStats);
                 } catch (error) {
-                    common.logAndSendError(error, filename, null, null);
+                    common.logAndSendError(error, FILENAME, null, null);
                 }
             }
 
@@ -62,7 +62,7 @@ async function syncStats(spreadsheet, client, sync) {
             if (sync) client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
             else client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
         }).catch(error => {
-            common.logAndSendError(error, filename, null, null);
+            common.logAndSendError(error, FILENAME, null, null);
         });
 }
 
