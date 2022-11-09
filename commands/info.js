@@ -2,64 +2,51 @@ const {
     EmbedBuilder,
     SlashCommandBuilder
 } = require('discord.js');
-const common = require('../utils/common_functions');
-const { Responses } = require('../utils/constants');
+const { Common, Responses } = require('../utils');
 
-const filename = __filename.slice(__dirname.length + 1);
+const FILENAME = __filename.slice(__dirname.length + 1);
 
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('info')
-        .setDescription('Sends information about the thing that was asked.'),
-    async execute(args, client, message) {
-        const response = capitalize(args.join(' '));
-        let info;
-        try { info = await searchForInfo(client, response); }
-        catch (error) {
-            common.logAndSendError(error, filename, message, Responses['info_error'][1]);
+
+async function execute(args, client, message) {
+    const response = capitalize(args.join(' '));
+    let info;
+    try { info = await searchForInfo(client, response); }
+    catch (error) {
+        Common.logAndSendError(error, FILENAME, message, Responses['info_error'][1]);
+        return;
+    }
+    if (info === null) Common.logAndSendError(Responses['info_error'][0], FILENAME, message, Responses['info_error'][1]);
+    else {
+        let infoEmbed;
+        let location;
+        try {
+            switch (info[1]) {
+                case "Building":
+                    infoEmbed = getBuilding(info[0]);
+                    break;
+                case "Character":
+                    infoEmbed = getCharacter(info[0]);
+                    break;
+                case "Location":
+                    location = await client.getLocationDetails(response);
+                    infoEmbed = getLocation(info[0], location);
+                    break;
+                case "NPC":
+                    infoEmbed = getNPC(info[0]);
+                    break;
+                default:
+                    infoEmbed = 'Don\' rush me!';
+                    break;
+            }
+        } catch (error) {
+            Common.logAndSendError(error, FILENAME, message, Responses['info_error'][1]);
             return;
         }
-        if (info === null) common.logAndSendError(Responses['info_error'][0], filename, message, Responses['info_error'][1]);
-        else {
-            let infoEmbed;
-            let location;
-            try {
-                switch (info[1]) {
-                    case "Building":
-                        infoEmbed = getBuilding(info[0]);
-                        break;
-                    case "Character":
-                        infoEmbed = getCharacter(info[0]);
-                        break;
-                    case "Location":
-                        location = await client.getLocationDetails(response);
-                        infoEmbed = getLocation(info[0], location);
-                        break;
-                    case "NPC":
-                        infoEmbed = getNPC(info[0]);
-                        break;
-                    default:
-                        infoEmbed = 'Don\' rush me!';
-                        break;
-                }
-            } catch (error) {
-                common.logAndSendError(error, filename, message, Responses['info_error'][1]);
-                return;
-            }
-            message.channel.send({
-                embeds: [infoEmbed]
-            }).catch(console.error);
-        }
-    },
-    arrayToString,
-    capitalize,
-    getBuilding,
-    getCharacter,
-    getLocation,
-    getNPC,
-    searchForInfo,
-    splitMutlipleSentences
-};
+        message.channel.send({
+            embeds: [infoEmbed]
+        }).catch(console.error);
+    }
+}
 
 /**
  * Converts an array to a formatted String for the embed.
@@ -194,3 +181,18 @@ async function searchForInfo(client, term) {
 function splitMutlipleSentences(info) {
     return info.split('.').join('.\n');
 }
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('info')
+        .setDescription('Sends information about the thing that was asked.'),
+    arrayToString,
+    capitalize,
+    execute,
+    getBuilding,
+    getCharacter,
+    getLocation,
+    getNPC,
+    searchForInfo,
+    splitMutlipleSentences
+};

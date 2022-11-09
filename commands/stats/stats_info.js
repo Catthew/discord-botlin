@@ -1,10 +1,10 @@
 const {
     EmbedBuilder
 } = require('discord.js');
-const common = require('../../utils/common_functions');
-const { OptionalStats, Responses }= require('../../utils/constants');
+const { Common, Responses } = require('../../utils');
+const optionalStats = require('./utils/optional_stats')
 
-const filename = __filename.slice(__dirname.length + 1);
+const FILENAME = __filename.slice(__dirname.length + 1);
 
 /**
  * Sends the current DND stats.
@@ -17,11 +17,11 @@ async function getStatsInfo(client, message) {
     try {
         statsTotals = await client.getStatsTotals();
     } catch (error) {
-        common.logAndSendError(error, filename, message, Responses['stats_error'][2]);
+        Common.logAndSendError(error, FILENAME, message, Responses['stats_error'][2]);
         return;
     }
 
-    if (statsTotals === null) common.logAndSendError(Responses['stats_error'][0], filename, message, Responses['stats_not_updated']);
+    if (statsTotals === null) Common.logAndSendError(Responses['stats_error'][0], FILENAME, message, Responses['stats_not_updated']);
     else {
         let embedBuilder = new EmbedBuilder()
             .setColor('#7289da')
@@ -48,7 +48,7 @@ async function getStatsInfo(client, message) {
                 const formatted_top = arrayToString(top, stat, statsTotals[0][sDKey], false);
                 embedBuilder.addFields({ name: `${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, value: `${formatted_top}` });
             } catch (error) {
-                common.logAndSendError(error, filename, message, Responses['stats_not_updated']);
+                Common.logAndSendError(error, FILENAME, message, Responses['stats_not_updated']);
                 return;
             }
         }
@@ -63,7 +63,7 @@ async function getStatsInfo(client, message) {
             if (optionalStatsTotals.length > 0) {
                 for (var stat in optionalStatsTotals) {
                     const key = Object.keys(optionalStatsTotals[stat])[0];
-                    optionalStatsDict[key] = OptionalStats[key];
+                    optionalStatsDict[key] = optionalStats[key];
                 }
 
                 for (var oSDKey in optionalStatsDict) {
@@ -77,13 +77,13 @@ async function getStatsInfo(client, message) {
                         const formatted_top = arrayToString(optionalTop, optionalStat, optionalStatsTotals[0][oSDKey], true);
                         embedBuilder.addFields({ name: `${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, value: `${formatted_top}` });
                     } catch (error) {
-                        common.logAndSendError(error, filename, message, Responses['stats_not_updated']);
+                        Common.logAndSendError(error, FILENAME, message, Responses['stats_not_updated']);
                         return;
                     }
                 }
             }
         } catch (error) {
-            common.logAndSendError(error, filename, message, Responses['stats_not_updated']);
+            Common.logAndSendError(error, FILENAME, message, Responses['stats_not_updated']);
             return;
         }
 

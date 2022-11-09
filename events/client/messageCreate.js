@@ -1,4 +1,4 @@
-const { Responses } = require('../../utils/constants');
+const { Responses } = require('../../utils');
 
 module.exports = {
     name: "messageCreate",

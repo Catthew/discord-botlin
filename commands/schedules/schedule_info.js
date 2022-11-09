@@ -1,10 +1,10 @@
 const {
     EmbedBuilder
 } = require('discord.js');
+const { Responses } = require('../../utils');
 const common = require('../../utils/common_functions');
-const { Responses } = require('../../utils/constants');
 
-const filename = __filename.slice(__dirname.length + 1);
+const FILENAME = __filename.slice(__dirname.length + 1);
 
 /**
  * Sends the current DND schedule for the week.
@@ -15,7 +15,7 @@ const filename = __filename.slice(__dirname.length + 1);
 async function getScheduleInfo(client, message) {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) common.logAndSendError(Responses['schedule_error'][0], filename, message, Responses['schedule_error'][2]);
+        if (session === null) common.logAndSendError(Responses['schedule_error'][0], FILENAME, message, Responses['schedule_error'][2]);
         else {
             const date = session.date;
             let embedBuilder = new EmbedBuilder()
@@ -38,7 +38,7 @@ async function getScheduleInfo(client, message) {
             }).catch(console.error);
         }
     } catch (error) {
-        common.logAndSendError(error, filename, message, Responses['schedule_error'][2]);
+        common.logAndSendError(error, FILENAME, message, Responses['schedule_error'][2]);
         return;
     }
 }

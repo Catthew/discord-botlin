@@ -1,8 +1,8 @@
-const common = require('../../utils/common_functions');
 const info = require('./schedule_info');
-const { Modes, Responses } = require('../../utils/constants');
+const modes = require('./utils/modes');
+const { Common, Responses } = require('../../utils');
 
-const filename = __filename.slice(__dirname.length + 1);
+const FILENAME = __filename.slice(__dirname.length + 1);
 
 /**
  * Sends the command to change the mode of the DnD Session.
@@ -13,17 +13,17 @@ const filename = __filename.slice(__dirname.length + 1);
 async function setScheduleMode(args, client, message) {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) common.logAndSendError(Responses['schedule_error'][0], filename, message, Responses['schedule_error'][2]);
+        if (session === null) Common.logAndSendError(Responses['schedule_error'][0], FILENAME, message, Responses['schedule_error'][2]);
         else {
             const mode = args[1];
-            const isOn = Modes[mode];
+            const isOn = modes[mode];
             if (isOn === undefined) {
-                common.logAndSendError(Responses['schedule_error'][4], filename, message, Responses['schedule_error'][4]);
+                Common.logAndSendError(Responses['schedule_error'][4], FILENAME, message, Responses['schedule_error'][4]);
                 return;
             }
 
             if (session.mode == mode) {
-                common.logAndSendError(`${Responses['schedule_error'][3]} ${mode} mode!`, filename, message, `${Responses['schedule_error'][3]} ${mode} mode!`);
+                Common.logAndSendError(`${Responses['schedule_error'][3]} ${mode} mode!`, FILENAME, message, `${Responses['schedule_error'][3]} ${mode} mode!`);
                 return;
             }
 
@@ -55,14 +55,14 @@ async function setScheduleMode(args, client, message) {
                 setSchedule = await client.setScheduleSessionModeTemp(sessionDateTime);
             }
 
-            if (setSchedule['modifiedCount'] == 0 || setSchedule === null) common.logAndSendError(Responses['schedule_error'][1], filename, message, Responses['schedule_error'][2]);
+            if (setSchedule['modifiedCount'] == 0 || setSchedule === null) Common.logAndSendError(Responses['schedule_error'][1], FILENAME, message, Responses['schedule_error'][2]);
             else {
                 message.channel.send(Responses['schedule_updated']).catch(console.error);
                 if (mode == 'cancel' || mode == 'normal' || mode == 'temp') info.getScheduleInfo(client, message);
             }
         }
     } catch (error) {
-        common.logAndSendError(error, filename, message, Responses['schedule_error'][2]);
+        Common.logAndSendError(error, FILENAME, message, Responses['schedule_error'][2]);
         return;
     }
 }
