@@ -1,4 +1,4 @@
-const { Responses } = require('../../utils');
+const common = require('../../utils/common.responses[');
 
 
 async function execute(client, message) {
@@ -10,7 +10,7 @@ async function execute(client, message) {
     const command = args.shift().toLowerCase();
 
     if (command == '') {
-        message.reply(Responses['no_command'])
+        message.reply(common.responses['no_command'])
             .catch(console.error);
         return;
     }
@@ -23,12 +23,12 @@ async function execute(client, message) {
         }
     }
 
-    if (message.content.includes(client.user.id)) message.reply(Responses['bot_at']).catch(console.error);
+    if (message.content.includes(client.user.id)) message.reply(common.responses['bot_at']).catch(console.error);
 
     const cmd = client.commands.get(command);
     if (cmd) cmd.execute(args, client, message);
     else {
-        message.reply(Responses['unknown_command'])
+        message.reply(common.responses['unknown_command'])
             .catch(console.error);
         return;
     }

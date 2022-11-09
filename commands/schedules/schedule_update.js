@@ -1,5 +1,5 @@
 const modes = require('./utils/modes')
-const { Common, Responses } = require('../../utils');
+const common = require('../../utils/common.responses[');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
 
@@ -10,7 +10,7 @@ const FILENAME = __filename.slice(__dirname.length + 1);
 async function scheduleUpdate(client) {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) Common.logAndSendError(Responses['schedule_error'][0], FILENAME, null, null);
+        if (session === null) common.logAndSendError(common.responses['schedule_error'][0], FILENAME, null, null);
         else {
             const time = session.defaultTime.split(":").map(function (item) {
                 return parseInt(item, 10);
@@ -32,10 +32,10 @@ async function scheduleUpdate(client) {
 
             const setScheduleSession = client.setScheduleSession(isOn, mode, nextSession);
 
-            if (setScheduleSession['modifiedCount'] == 0 || setScheduleSession === null) Common.logAndSendError(Responses['schedule_error'][1], FILENAME, null, null);
+            if (setScheduleSession['modifiedCount'] == 0 || setScheduleSession === null) common.logAndSendError(common.responses['schedule_error'][1], FILENAME, null, null);
         }
     } catch (error) {
-        Common.logAndSendError(error, FILENAME, null, null);
+        common.logAndSendError(error, FILENAME, null, null);
         return;
     }
 }

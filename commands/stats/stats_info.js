@@ -1,7 +1,7 @@
 const {
     EmbedBuilder
 } = require('discord.js');
-const { Common, Responses } = require('../../utils');
+const common = require('../../utils/common.responses[');
 const optionalStats = require('./utils/optional_stats')
 
 const FILENAME = __filename.slice(__dirname.length + 1);
@@ -17,11 +17,11 @@ async function getStatsInfo(client, message) {
     try {
         statsTotals = await client.getStatsTotals();
     } catch (error) {
-        Common.logAndSendError(error, FILENAME, message, Responses['stats_error'][2]);
+        common.logAndSendError(error, FILENAME, message, common.responses['stats_error'][2]);
         return;
     }
 
-    if (statsTotals === null) Common.logAndSendError(Responses['stats_error'][0], FILENAME, message, Responses['stats_not_updated']);
+    if (statsTotals === null) common.logAndSendError(common.responses['stats_error'][0], FILENAME, message, common.responses['stats_not_updated']);
     else {
         let embedBuilder = new EmbedBuilder()
             .setColor('#7289da')
@@ -48,7 +48,7 @@ async function getStatsInfo(client, message) {
                 const formatted_top = arrayToString(top, stat, statsTotals[0][sDKey], false);
                 embedBuilder.addFields({ name: `${emoji} ${statFormated}: ${statsTotals[0][sDKey]} ${emoji}`, value: `${formatted_top}` });
             } catch (error) {
-                Common.logAndSendError(error, FILENAME, message, Responses['stats_not_updated']);
+                common.logAndSendError(error, FILENAME, message, common.responses['stats_not_updated']);
                 return;
             }
         }
@@ -77,13 +77,13 @@ async function getStatsInfo(client, message) {
                         const formatted_top = arrayToString(optionalTop, optionalStat, optionalStatsTotals[0][oSDKey], true);
                         embedBuilder.addFields({ name: `${emoji} ${optionalStatFormated}: ${optionalStatsTotals[0][oSDKey]} ${emoji}`, value: `${formatted_top}` });
                     } catch (error) {
-                        Common.logAndSendError(error, FILENAME, message, Responses['stats_not_updated']);
+                        common.logAndSendError(error, FILENAME, message, common.responses['stats_not_updated']);
                         return;
                     }
                 }
             }
         } catch (error) {
-            Common.logAndSendError(error, FILENAME, message, Responses['stats_not_updated']);
+            common.logAndSendError(error, FILENAME, message, common.responses['stats_not_updated']);
             return;
         }
 

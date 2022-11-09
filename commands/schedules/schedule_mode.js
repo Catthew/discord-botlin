@@ -1,6 +1,6 @@
 const info = require('./schedule_info');
 const modes = require('./utils/modes');
-const { Common, Responses } = require('../../utils');
+const common = require('../../utils/common.responses[');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
 
@@ -13,17 +13,17 @@ const FILENAME = __filename.slice(__dirname.length + 1);
 async function setScheduleMode(args, client, message) {
     try {
         const session = await client.getScheduleSession();
-        if (session === null) Common.logAndSendError(Responses['schedule_error'][0], FILENAME, message, Responses['schedule_error'][2]);
+        if (session === null) common.logAndSendError(common.responses['schedule_error'][0], FILENAME, message, common.responses['schedule_error'][2]);
         else {
             const mode = args[1];
             const isOn = modes[mode];
             if (isOn === undefined) {
-                Common.logAndSendError(Responses['schedule_error'][4], FILENAME, message, Responses['schedule_error'][4]);
+                common.logAndSendError(common.responses['schedule_error'][4], FILENAME, message, common.responses['schedule_error'][4]);
                 return;
             }
 
             if (session.mode == mode) {
-                Common.logAndSendError(`${Responses['schedule_error'][3]} ${mode} mode!`, FILENAME, message, `${Responses['schedule_error'][3]} ${mode} mode!`);
+                common.logAndSendError(`${common.responses['schedule_error'][3]} ${mode} mode!`, FILENAME, message, `${common.responses['schedule_error'][3]} ${mode} mode!`);
                 return;
             }
 
@@ -35,7 +35,7 @@ async function setScheduleMode(args, client, message) {
                 let sessionDateTime = new Date(session.date.valueOf());
 
                 if (time == 0 && date == 0) {
-                    message.channel.send(Responses['no_date_time']).catch(console.error);
+                    message.channel.send(common.responses['no_date_time']).catch(console.error);
                     return;
                 }
 
@@ -55,14 +55,14 @@ async function setScheduleMode(args, client, message) {
                 setSchedule = await client.setScheduleSessionModeTemp(sessionDateTime);
             }
 
-            if (setSchedule['modifiedCount'] == 0 || setSchedule === null) Common.logAndSendError(Responses['schedule_error'][1], FILENAME, message, Responses['schedule_error'][2]);
+            if (setSchedule['modifiedCount'] == 0 || setSchedule === null) common.logAndSendError(common.responses['schedule_error'][1], FILENAME, message, common.responses['schedule_error'][2]);
             else {
-                message.channel.send(Responses['schedule_updated']).catch(console.error);
+                message.channel.send(common.responses['schedule_updated']).catch(console.error);
                 if (mode == 'cancel' || mode == 'normal' || mode == 'temp') info.getScheduleInfo(client, message);
             }
         }
     } catch (error) {
-        Common.logAndSendError(error, FILENAME, message, Responses['schedule_error'][2]);
+        common.logAndSendError(error, FILENAME, message, common.responses['schedule_error'][2]);
         return;
     }
 }

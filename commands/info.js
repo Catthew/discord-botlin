@@ -2,7 +2,7 @@ const {
     EmbedBuilder,
     SlashCommandBuilder
 } = require('discord.js');
-const { Common, Responses } = require('../utils');
+const common = require('../utils/common.responses[');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
 
@@ -12,10 +12,10 @@ async function execute(args, client, message) {
     let info;
     try { info = await searchForInfo(client, response); }
     catch (error) {
-        Common.logAndSendError(error, FILENAME, message, Responses['info_error'][1]);
+        common.logAndSendError(error, FILENAME, message, common.responses['info_error'][1]);
         return;
     }
-    if (info === null) Common.logAndSendError(Responses['info_error'][0], FILENAME, message, Responses['info_error'][1]);
+    if (info === null) common.logAndSendError(common.responses['info_error'][0], FILENAME, message, common.responses['info_error'][1]);
     else {
         let infoEmbed;
         let location;
@@ -39,7 +39,7 @@ async function execute(args, client, message) {
                     break;
             }
         } catch (error) {
-            Common.logAndSendError(error, FILENAME, message, Responses['info_error'][1]);
+            common.logAndSendError(error, FILENAME, message, common.responses['info_error'][1]);
             return;
         }
         message.channel.send({

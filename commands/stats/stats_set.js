@@ -1,5 +1,5 @@
 const Excel = require('exceljs');
-const { Common } = require('../../utils');
+const common = require('../../utils/common.responses[');
 const optionalStats = require('./utils/optional_stats');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
@@ -54,7 +54,7 @@ async function syncStats(spreadsheet, client, sync) {
                 try {
                     await client.setStats(damageDealt, damageTaken, healing, kills, knockedOut, name, nat1s, nat20s, optionalStats);
                 } catch (error) {
-                    Common.logAndSendError(error, FILENAME, null, null);
+                    common.logAndSendError(error, FILENAME, null, null);
                 }
             }
 
@@ -62,7 +62,7 @@ async function syncStats(spreadsheet, client, sync) {
             if (sync) client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
             else client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
         }).catch(error => {
-            Common.logAndSendError(error, FILENAME, null, null);
+            common.logAndSendError(error, FILENAME, null, null);
         });
 }
 
