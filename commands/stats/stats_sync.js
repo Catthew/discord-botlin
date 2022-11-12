@@ -18,13 +18,15 @@ async function syncStats(spreadsheet, client, sync) {
             workbook.eachSheet((worksheet) => {
                 for (let i = 2; i < 10; i++) {
                     const row = worksheet.getRow(i);
+                    const character = row.getCell(1);
+                    if (stats[character] === undefined) stats[character] = {};
                     for (let j = 2; j < 10; j++) {
-                        const header = worksheet.getRow(1).getCell(j);
                         if (row.getCell(j).value == null) continue;
-                        const character = row.getCell(1);
-                        if (stats[character] === undefined) stats[character] = {};
+                        
                         const rowValue = row.getCell(j).value;
                         if (typeof rowValue !== 'number') throw new Error(`Sheet [${worksheet.name}] and cell [${worksheet.getRow(i).getCell(j)._address}] contains an invalid character. Please remove!`);
+                        
+                        const header = worksheet.getRow(1).getCell(j);
                         if (stats[character][header] === undefined) stats[character][header] = rowValue;
                         else stats[character][header] += rowValue;
                     }
@@ -57,10 +59,9 @@ async function syncStats(spreadsheet, client, sync) {
                     common.logAndSendError(error, FILENAME, null, null);
                 }
             }
-
+            const channel = (sync) ? process.env.CHANNELDEV : process.env.CHANNELGENERAL;
             const prefix = process.env.PREFIX;
-            if (sync) client.channels.cache.get(process.env.CHANNELDEV).send(`${prefix} stats`).catch(console.error);
-            else client.channels.cache.get(process.env.CHANNELGENERAL).send(`${prefix} stats`).catch(console.error);
+            client.channels.cache.get(channel).send(`${prefix} stats`).catch(console.error);
         }).catch(error => {
             common.logAndSendError(error, FILENAME, null, null);
         });
