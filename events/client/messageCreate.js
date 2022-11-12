@@ -10,8 +10,7 @@ async function execute(client, message) {
     const command = args.shift().toLowerCase();
 
     if (command == '') {
-        message.reply(common.responses['no_command'])
-            .catch(console.error);
+        message.reply(common.responses['no_command']).catch(console.error);
         return;
     }
 
@@ -28,8 +27,7 @@ async function execute(client, message) {
     const cmd = client.commands.get(command);
     if (cmd) cmd.execute(args, client, message);
     else {
-        message.reply(common.responses['unknown_command'])
-            .catch(console.error);
+        message.reply(common.responses['unknown_command']).catch(console.error);
         return;
     }
 }
