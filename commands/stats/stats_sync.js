@@ -1,8 +1,9 @@
-const Excel = require('exceljs');
 const common = require('../../utils/common_modules');
+const Excel = require('exceljs');
 const optionalStats = require('./utils/optional_stats');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
+
 
 /**
  * Reads the spreadsheet and updates the characters stats.

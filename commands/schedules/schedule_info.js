@@ -5,6 +5,7 @@ const common = require('../../utils/common_modules');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
 
+
 /**
  * Sends the current DND schedule for the week.
  * @param {Array.<String>} args The message the user sent split into any array of words.

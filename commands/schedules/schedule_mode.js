@@ -1,8 +1,9 @@
+const common = require('../../utils/common_modules');
 const info = require('./schedule_info');
 const modes = require('./utils/modes');
-const common = require('../../utils/common_modules');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
+
 
 /**
  * Sends the command to change the mode of the DnD Session.

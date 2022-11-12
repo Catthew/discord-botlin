@@ -1,7 +1,8 @@
-const modes = require('./utils/modes')
+const modes = require('./utils/modes');
 const common = require('../../utils/common_modules');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
+
 
 /**
  * Updates the Schedule.

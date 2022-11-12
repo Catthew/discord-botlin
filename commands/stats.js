@@ -1,9 +1,10 @@
 const {
     SlashCommandBuilder
 } = require('discord.js');
+const common = require('../utils/common_modules');
 const excelStats = require('./stats/stats_sync');
 const info = require('./stats/stats_info');
-const common = require('../utils/common_modules');
+
 
 const FILENAME = __filename.slice(__dirname.length + 1);
 
