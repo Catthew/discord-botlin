@@ -1,6 +1,11 @@
 const common = require('../../utils/common_modules');
 
 
+/**
+ * Reads the message sent by the user and maps it to the correct response.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 async function execute(client, message) {
     const prefix = process.env.PREFIX;
 

@@ -3,6 +3,12 @@ const {
 } = require('discord.js');
 
 
+/**
+ * Sends a bot request to the bot creator.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 async function execute(args, client, message) {
     if (args.length === 0) message.channel.send('Please actually type a request...').catch(console.error);
     else {

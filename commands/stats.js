@@ -5,10 +5,15 @@ const common = require('../utils/common_modules');
 const excelStats = require('./stats/stats_sync');
 const info = require('./stats/stats_info');
 
-
 const FILENAME = __filename.slice(__dirname.length + 1);
 
 
+/**
+ * Get/Set stats information 
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 async function execute(args, client, message) {
     switch (args[0]) {
         case 'sync':

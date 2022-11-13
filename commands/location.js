@@ -7,6 +7,12 @@ const common = require('../utils/common_modules');
 const FILENAME = __filename.slice(__dirname.length + 1);
 
 
+/**
+ * Sends the current location the DND group is in.
+ * @param {Array.<String>} args The message the user sent split into any array of words.
+ * @param {Discord.Client} client The client instance of the bot.
+ * @param {Discord.Message} message The message object that triggered this method.
+ */
 async function execute(args, client, message) {
     let currentLocation;
     try { currentLocation = await client.getCurrentLocation(); }
