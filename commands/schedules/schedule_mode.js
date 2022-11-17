@@ -28,7 +28,7 @@ async function setScheduleMode(args, client, message) {
             }
 
             let setSchedule;
-            if (mode != 'temp') setSchedule = await client.setScheduleSessionMode(isOn, mode);
+            if (mode != 'temp' | mode === 'tentative') setSchedule = await client.setScheduleSessionMode(isOn, mode);
             else {
                 const date = args.indexOf('-date', 1) + 1;
                 const time = args.indexOf('-time', 1) + 1;
@@ -58,7 +58,7 @@ async function setScheduleMode(args, client, message) {
             if (setSchedule['modifiedCount'] == 0 || setSchedule === null) common.logAndSendError(common.responses['schedule_error'][1], FILENAME, message, common.responses['schedule_error'][2]);
             else {
                 message.channel.send(common.responses['schedule_updated']).catch(console.error);
-                if (mode == 'cancel' || mode == 'normal' || mode == 'temp') info.getScheduleInfo(client, message);
+                if (mode === 'cancel' || mode === 'normal' || mode === 'temp' || mode === 'tentative') info.getScheduleInfo(client, message);
             }
         }
     } catch (error) {
