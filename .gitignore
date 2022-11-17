@@ -1,6 +1,16 @@
-*.env
+# Node Files
 node_modules/
+
+# Mac system files
 .DS_Store
-*.xlsx
+
+# Test output
 .nyc_output
-server_env_files/
+
+# General file types
+*.env
+*.sh
+*.xlsx
+
+# Backup of files on the server
+server_files/
