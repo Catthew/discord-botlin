@@ -3,5 +3,6 @@ module.exports = {
     normal: true,
     skip: false,
     temp: true,
+    tentative: true,
     vacation: false
 };

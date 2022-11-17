@@ -31,7 +31,8 @@ async function getScheduleInfo(client, message) {
                     details = '\n |';
                     for (var i in locationDetails) details += ' ' + locationDetails[i] + ' |';
                 }
-                embedBuilder.addFields({ name: `On for ${getDate(date)} at ${getTime(date)}`, value: `${location} ${details}` }).setColor('#00b300');
+                if (session.mode === 'tentative') embedBuilder.addFields({ name: `Tentative for ${getDate(date)} at ${getTime(date)}`, value: `${location} ${details}` }).setColor('#FFFF00');
+                else embedBuilder.addFields({ name: `On for ${getDate(date)} at ${getTime(date)}`, value: `${location} ${details}` }).setColor('#00b300');
             }
             message.channel.send({
                 embeds: [embedBuilder]
