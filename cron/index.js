@@ -52,6 +52,17 @@ module.exports = client => {
         console.log('Complete');
     });
 
+    /*
+        Send the unavailability thread
+        Last Monday of the month (Except on the 31st)
+        0 18 24-30 * MON
+    */
+    cron.schedule('* * * * *', () => {
+        console.log('Creating the unavailability thread.');
+        require('../commands/schedules/schedule_thread').newThread(client);
+        console.log('Complete');
+    });
+
     app.listen(port);
     console.log(`Started Cron on port ${port}`);
 };
