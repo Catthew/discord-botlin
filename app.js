@@ -16,8 +16,7 @@ client.commands = new Collection();
 const handlerFiles = fs
   .readdirSync('./handlers')
   .filter((file) => file.endsWith('.js'));
-for (const file of handlerFiles)
-  require(`./handlers/${file}`)(client);
+for (const file of handlerFiles) require(`./handlers/${file}`)(client);
 
 client.handleCommands();
 client.handleEvents();
@@ -28,5 +27,5 @@ client.schedule = require('./cron')(client);
 client.login(process.env.ACCESSTOKEN);
 
 (async () => {
-  await connect(process.env.MONGOTOKEN).catch(console.error)
+  await connect(process.env.MONGOTOKEN).catch(console.error);
 })();
