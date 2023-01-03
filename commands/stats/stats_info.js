@@ -2,7 +2,7 @@ const {
     EmbedBuilder
 } = require('discord.js');
 const common = require('../../utils/common_modules');
-const optionalStats = require('./utils/optional_stats')
+const optionalStats = require('./utils/optional_stats');
 
 const FILENAME = __filename.slice(__dirname.length + 1);
 
